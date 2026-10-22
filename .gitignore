@@ -1,0 +1,24 @@
+# Python environments and caches
+.venv*/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Temporary uploads are never kept
+uploads/*
+!uploads/.gitkeep
+
+# Datasets are obtained separately (see docs/DATASET.md)
+data/
+datasets/
+
+# Large binary model weights (>100 MB) are kept out of git; see README "Model artifacts"
+*.h5
+models/**/*.joblib
+models/**/*.pt
+artifacts/features/
+
+# OS / editor
+.DS_Store
+node_modules/
