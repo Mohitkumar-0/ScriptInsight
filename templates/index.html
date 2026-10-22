@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Handwriting Personality Detector</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>ScriptInsight · Handwriting Personality Detector</title>
+    <link rel="stylesheet" href="{{ asset_url('css/style.css') }}" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">AI handwriting analysis</p>
+          <p class="eyebrow">ScriptInsight · AI handwriting analysis</p>
           <h1>Personality Detector</h1>
         </div>
         <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
@@ -18,65 +18,137 @@
         </button>
       </header>
 
+      <nav class="tabs" role="tablist" aria-label="Sections">
+        <button type="button" role="tab" data-tab="analyze" aria-controls="panel-analyze" id="tab-analyze">Analyze</button>
+        <button type="button" role="tab" data-tab="dashboard" aria-controls="panel-dashboard" id="tab-dashboard">Dashboard</button>
+        <button type="button" role="tab" data-tab="evaluation" aria-controls="panel-evaluation" id="tab-evaluation">Evaluation</button>
+        <button type="button" role="tab" data-tab="history" aria-controls="panel-history" id="tab-history">History</button>
+      </nav>
+
+      <p class="disclaimer" role="note"><strong>Please note:</strong> {{ disclaimer }}</p>
+
       <main class="container">
-        <section class="hero card">
-          <div class="hero-copy">
-            <h2>Upload a handwriting sample</h2>
-            <p>
-              Our model analyzes a handwriting image and predicts the dominant personality trait
-              from the Big Five personality model.
-            </p>
-          </div>
+        <!-- Analyze -->
+        <div id="panel-analyze" data-panel="analyze" role="tabpanel" aria-labelledby="tab-analyze" class="panel">
+          <section class="hero card">
+            <div class="hero-copy">
+              <h2>Upload a handwriting sample</h2>
+              <p>
+                The server runs every trained model on the image and shows their outputs side by side.
+                Scores describe what the models output, not a validated assessment of the writer.
+              </p>
+            </div>
 
-          <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
-            <label for="fileInput" class="upload-box" id="uploadBox" tabindex="0">
-              <input id="fileInput" name="file" type="file" accept=".png,.jpg,.jpeg,.gif,.bmp,.tif,.tiff,image/png,image/jpeg,image/gif,image/bmp,image/tiff" />
-              <div class="upload-content">
-                <div class="upload-icon">✍️</div>
-                <div>
-                  <strong id="selectedFileLabel">Choose a handwriting image</strong>
-                  <span>PNG, JPG, JPEG, GIF, BMP, TIFF</span>
+            <form id="uploadForm" class="upload-form" enctype="multipart/form-data" novalidate>
+              <label for="fileInput" class="upload-box" id="uploadBox" tabindex="0">
+                <input id="fileInput" name="file" type="file"
+                       accept=".jpg,.jpeg,.png,.webp,.bmp,.tif,.tiff,.gif,image/jpeg,image/png,image/webp,image/bmp,image/tiff,image/gif" />
+                <div class="upload-content">
+                  <div class="upload-icon">✍️</div>
+                  <div>
+                    <strong id="selectedFileLabel">Choose or drop a handwriting image</strong>
+                    <span>JPG, PNG, WEBP (also BMP, TIFF, GIF) · min 128×128 px · max 16MB</span>
+                  </div>
                 </div>
+              </label>
+
+              <div id="selectedPreviewWrap" class="preview-wrap hidden">
+                <img id="selectedPreview" alt="Selected handwriting preview" />
               </div>
-            </label>
+              <p id="fileMeta" class="file-meta hidden"></p>
 
-            <div id="selectedPreviewWrap" class="preview-wrap hidden">
-              <img id="selectedPreview" alt="Selected handwriting preview" />
+              <div id="fileMessage" class="file-message" aria-live="polite"></div>
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn" id="analyzeBtn">Analyze handwriting</button>
+                <button type="button" class="secondary-btn hidden" id="replaceBtn">Replace image</button>
+              </div>
+            </form>
+          </section>
+
+          <section id="resultPanel" class="results card hidden" aria-live="polite">
+            <div class="result-header">
+              <div>
+                <p class="eyebrow" id="resultModel">Prediction</p>
+                <h3 id="predictedTrait">-</h3>
+              </div>
+              <div class="confidence-badge" id="confidenceBadge">
+                <span id="confidenceLabel">Model score</span>
+                <strong id="confidenceValue">0%</strong>
+              </div>
             </div>
-
-            <div id="fileMessage" class="file-message" aria-live="polite"></div>
-
-            <div class="form-actions">
-              <button type="submit" class="primary-btn" id="analyzeBtn">Analyze handwriting</button>
+            <div id="resultNotes" class="notes"></div>
+            <div class="probability-grid" id="probabilityGrid"></div>
+            <div class="result-actions">
+              <button type="button" class="secondary-btn" id="exportBtn">Download report</button>
             </div>
-          </form>
-        </section>
+          </section>
 
-        <section id="resultPanel" class="results card hidden">
-          <div class="result-header">
-            <div>
-              <p class="eyebrow">Prediction</p>
-              <h3 id="predictedTrait">-</h3>
+          <section id="comparisonPanel" class="card hidden">
+            <div class="section-header">
+              <p class="eyebrow">Model comparison</p>
+              <h3>All models on this image</h3>
+              <p class="muted">Scores for the uploaded image only. Accuracy figures are on the Evaluation tab.</p>
             </div>
-            <div class="confidence-badge">
-              <span>Confidence</span>
-              <strong id="confidenceValue">0%</strong>
+            <div class="table-wrap"><table class="data-table" id="comparisonTable"></table></div>
+          </section>
+
+          <section id="traitDetails" class="trait-details card hidden">
+            <div class="section-header">
+              <p class="eyebrow">About this trait</p>
+              <h3>What the Big Five model says about this trait</h3>
+              <p class="muted">General descriptions from the Big Five model. They describe the trait, not you.</p>
             </div>
-          </div>
+            <div id="traitDetailsContent"></div>
+          </section>
+        </div>
 
-          <div class="probability-grid" id="probabilityGrid"></div>
-        </section>
+        <!-- Dashboard -->
+        <div id="panel-dashboard" data-panel="dashboard" role="tabpanel" aria-labelledby="tab-dashboard" class="panel hidden">
+          <section class="card">
+            <div class="section-header">
+              <p class="eyebrow">Dashboard</p>
+              <h3>Models, data and training status</h3>
+              <p class="muted">Only verified or explicitly recorded values are shown; anything else is marked unavailable.</p>
+            </div>
+            <div id="dashboardContent" class="dashboard-grid"><p class="muted">Loading…</p></div>
+          </section>
+        </div>
 
-        <section id="traitDetails" class="trait-details card hidden">
-          <div class="section-header">
-            <p class="eyebrow">Trait details</p>
-            <h3>Personality trait overview</h3>
-          </div>
-          <div id="traitDetailsContent"></div>
-        </section>
+        <!-- Evaluation -->
+        <div id="panel-evaluation" data-panel="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" class="panel hidden">
+          <section class="card">
+            <div class="section-header">
+              <p class="eyebrow">Evaluation</p>
+              <h3>Held-out test results and training history</h3>
+            </div>
+            <div id="evaluationContent"><p class="muted">Loading…</p></div>
+          </section>
+        </div>
+
+        <!-- History -->
+        <div id="panel-history" data-panel="history" role="tabpanel" aria-labelledby="tab-history" class="panel hidden">
+          <section class="card">
+            <div class="section-header">
+              <p class="eyebrow">History</p>
+              <h3>Results from this browser tab</h3>
+              <p class="muted">
+                Stored only in this tab's session storage and cleared when the tab closes. Images are never stored.
+              </p>
+            </div>
+            <div class="history-controls">
+              <label class="switch"><input type="checkbox" id="historyToggle" checked /> Keep results in this tab's history</label>
+              <button type="button" class="secondary-btn" id="clearHistoryBtn">Clear history</button>
+            </div>
+            <div id="historyList"></div>
+          </section>
+        </div>
       </main>
+      <footer class="footer muted">ScriptInsight v{{ app_version }}</footer>
     </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ asset_url('js/common.js') }}"></script>
+    <script src="{{ asset_url('js/script.js') }}"></script>
+    <script src="{{ asset_url('js/dashboard.js') }}"></script>
   </body>
 </html>

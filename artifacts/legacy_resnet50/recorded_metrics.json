@@ -1,0 +1,573 @@
+{
+  "provenance": "Copied from the saved outputs of personality_prediction_resnet.ipynb (TensorFlow 2.20 / Keras 3, CPU). Not re-computed: the training dataset is not available.",
+  "model": "Legacy Keras ResNet50 + dense head (best_model.h5), single-label 5-category softmax",
+  "dataset_recorded": {
+    "source": "Local folder named 'archive' with 'augmented train' / 'augmented test' subfolders (not in the repository; origin and label provenance undocumented).",
+    "train_folder_counts": {
+      "Agreeableness": 720,
+      "Conscientiousness": 648,
+      "Extraversion": 576,
+      "Neuroticism": 864,
+      "Openness": 608
+    },
+    "test_folder_counts": {
+      "Agreeableness": 137,
+      "Conscientiousness": 131,
+      "Extraversion": 112,
+      "Neuroticism": 136,
+      "Openness": 144
+    },
+    "split": "train folder split 80/20 into train/validation (random, stratified); separate test folder",
+    "sizes": {
+      "train": 2732,
+      "validation": 684,
+      "test": 660
+    }
+  },
+  "test_metrics_recorded": {
+    "accuracy": 0.303,
+    "weighted_precision": 0.3217,
+    "weighted_recall": 0.303,
+    "weighted_f1": 0.2922,
+    "per_class": {
+      "Agreeableness": {
+        "precision": 0.48,
+        "recall": 0.23,
+        "f1": 0.31,
+        "support": 137
+      },
+      "Conscientiousness": {
+        "precision": 0.27,
+        "recall": 0.51,
+        "f1": 0.35,
+        "support": 131
+      },
+      "Extraversion": {
+        "precision": 0.29,
+        "recall": 0.18,
+        "f1": 0.22,
+        "support": 112
+      },
+      "Neuroticism": {
+        "precision": 0.23,
+        "recall": 0.17,
+        "f1": 0.19,
+        "support": 136
+      },
+      "Openness": {
+        "precision": 0.33,
+        "recall": 0.4,
+        "f1": 0.36,
+        "support": 144
+      }
+    },
+    "label_order": [
+      "Agreeableness",
+      "Conscientiousness",
+      "Extraversion",
+      "Neuroticism",
+      "Openness"
+    ],
+    "confusion_matrix": null,
+    "note": "The notebook only plotted the confusion matrix as an image; numeric values were not saved."
+  },
+  "best_validation_accuracy_recorded": 0.4561,
+  "history": [
+    {
+      "phase": "frozen_backbone",
+      "epoch": 1,
+      "partial_epoch": false,
+      "train_loss": 1.9744,
+      "train_accuracy": 0.2856,
+      "val_loss": 1.5818,
+      "val_accuracy": 0.2485,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 2,
+      "partial_epoch": true,
+      "train_loss": 2.0342,
+      "train_accuracy": 0.3125,
+      "val_loss": 1.5834,
+      "val_accuracy": 0.25,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 3,
+      "partial_epoch": false,
+      "train_loss": 1.7284,
+      "train_accuracy": 0.307,
+      "val_loss": 1.5924,
+      "val_accuracy": 0.2602,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 4,
+      "partial_epoch": true,
+      "train_loss": 1.7882,
+      "train_accuracy": 0.3438,
+      "val_loss": 1.59,
+      "val_accuracy": 0.2617,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 5,
+      "partial_epoch": false,
+      "train_loss": 1.638,
+      "train_accuracy": 0.3311,
+      "val_loss": 1.5827,
+      "val_accuracy": 0.2588,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 6,
+      "partial_epoch": true,
+      "train_loss": 1.4757,
+      "train_accuracy": 0.3125,
+      "val_loss": 1.5827,
+      "val_accuracy": 0.2573,
+      "learning_rate": 0.001
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 7,
+      "partial_epoch": false,
+      "train_loss": 1.5898,
+      "train_accuracy": 0.3126,
+      "val_loss": 1.4942,
+      "val_accuracy": 0.2778,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 8,
+      "partial_epoch": true,
+      "train_loss": 1.3831,
+      "train_accuracy": 0.4375,
+      "val_loss": 1.4937,
+      "val_accuracy": 0.269,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 9,
+      "partial_epoch": false,
+      "train_loss": 1.5585,
+      "train_accuracy": 0.3393,
+      "val_loss": 1.4861,
+      "val_accuracy": 0.3406,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 10,
+      "partial_epoch": true,
+      "train_loss": 1.5374,
+      "train_accuracy": 0.3125,
+      "val_loss": 1.4904,
+      "val_accuracy": 0.3377,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 11,
+      "partial_epoch": false,
+      "train_loss": 1.5427,
+      "train_accuracy": 0.3341,
+      "val_loss": 1.3693,
+      "val_accuracy": 0.3962,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 12,
+      "partial_epoch": true,
+      "train_loss": 1.3586,
+      "train_accuracy": 0.375,
+      "val_loss": 1.3678,
+      "val_accuracy": 0.3918,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 13,
+      "partial_epoch": false,
+      "train_loss": 1.5034,
+      "train_accuracy": 0.3448,
+      "val_loss": 1.335,
+      "val_accuracy": 0.3904,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 14,
+      "partial_epoch": true,
+      "train_loss": 1.3603,
+      "train_accuracy": 0.25,
+      "val_loss": 1.3364,
+      "val_accuracy": 0.3977,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 15,
+      "partial_epoch": false,
+      "train_loss": 1.4697,
+      "train_accuracy": 0.357,
+      "val_loss": 1.3315,
+      "val_accuracy": 0.3845,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 16,
+      "partial_epoch": true,
+      "train_loss": 1.7336,
+      "train_accuracy": 0.2812,
+      "val_loss": 1.3313,
+      "val_accuracy": 0.383,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 17,
+      "partial_epoch": false,
+      "train_loss": 1.4697,
+      "train_accuracy": 0.3578,
+      "val_loss": 1.3579,
+      "val_accuracy": 0.3874,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 18,
+      "partial_epoch": true,
+      "train_loss": 1.2629,
+      "train_accuracy": 0.4688,
+      "val_loss": 1.3618,
+      "val_accuracy": 0.3816,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 19,
+      "partial_epoch": false,
+      "train_loss": 1.4534,
+      "train_accuracy": 0.3541,
+      "val_loss": 1.3364,
+      "val_accuracy": 0.3874,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 20,
+      "partial_epoch": true,
+      "train_loss": 1.4534,
+      "train_accuracy": 0.2812,
+      "val_loss": 1.3359,
+      "val_accuracy": 0.3889,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 21,
+      "partial_epoch": false,
+      "train_loss": 1.4425,
+      "train_accuracy": 0.3752,
+      "val_loss": 1.6229,
+      "val_accuracy": 0.3012,
+      "learning_rate": 0.0005
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 22,
+      "partial_epoch": true,
+      "train_loss": 1.1856,
+      "train_accuracy": 0.5312,
+      "val_loss": 1.617,
+      "val_accuracy": 0.3041,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 23,
+      "partial_epoch": false,
+      "train_loss": 1.4238,
+      "train_accuracy": 0.3678,
+      "val_loss": 1.4672,
+      "val_accuracy": 0.3333,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 24,
+      "partial_epoch": true,
+      "train_loss": 1.4121,
+      "train_accuracy": 0.375,
+      "val_loss": 1.472,
+      "val_accuracy": 0.3348,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 25,
+      "partial_epoch": false,
+      "train_loss": 1.4204,
+      "train_accuracy": 0.3878,
+      "val_loss": 1.2855,
+      "val_accuracy": 0.4225,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 26,
+      "partial_epoch": true,
+      "train_loss": 1.5097,
+      "train_accuracy": 0.3438,
+      "val_loss": 1.286,
+      "val_accuracy": 0.4254,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 27,
+      "partial_epoch": false,
+      "train_loss": 1.4146,
+      "train_accuracy": 0.3926,
+      "val_loss": 1.363,
+      "val_accuracy": 0.3567,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 28,
+      "partial_epoch": true,
+      "train_loss": 1.1479,
+      "train_accuracy": 0.4688,
+      "val_loss": 1.3634,
+      "val_accuracy": 0.3611,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 29,
+      "partial_epoch": false,
+      "train_loss": 1.4003,
+      "train_accuracy": 0.3856,
+      "val_loss": 1.2677,
+      "val_accuracy": 0.4561,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 30,
+      "partial_epoch": true,
+      "train_loss": 1.2441,
+      "train_accuracy": 0.4375,
+      "val_loss": 1.2695,
+      "val_accuracy": 0.4532,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 31,
+      "partial_epoch": false,
+      "train_loss": 1.4043,
+      "train_accuracy": 0.3615,
+      "val_loss": 1.3188,
+      "val_accuracy": 0.4401,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 32,
+      "partial_epoch": true,
+      "train_loss": 1.4541,
+      "train_accuracy": 0.3438,
+      "val_loss": 1.3156,
+      "val_accuracy": 0.4444,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 33,
+      "partial_epoch": false,
+      "train_loss": 1.407,
+      "train_accuracy": 0.3767,
+      "val_loss": 1.4012,
+      "val_accuracy": 0.3757,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 34,
+      "partial_epoch": true,
+      "train_loss": 1.2591,
+      "train_accuracy": 0.4375,
+      "val_loss": 1.4034,
+      "val_accuracy": 0.3743,
+      "learning_rate": 0.00025
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 35,
+      "partial_epoch": false,
+      "train_loss": 1.4006,
+      "train_accuracy": 0.3748,
+      "val_loss": 1.3074,
+      "val_accuracy": 0.4298,
+      "learning_rate": 0.000125
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 36,
+      "partial_epoch": true,
+      "train_loss": 1.4248,
+      "train_accuracy": 0.3125,
+      "val_loss": 1.305,
+      "val_accuracy": 0.4357,
+      "learning_rate": 0.000125
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 37,
+      "partial_epoch": false,
+      "train_loss": 1.3944,
+      "train_accuracy": 0.3889,
+      "val_loss": 1.2776,
+      "val_accuracy": 0.4503,
+      "learning_rate": 0.000125
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 38,
+      "partial_epoch": true,
+      "train_loss": 1.4616,
+      "train_accuracy": 0.4688,
+      "val_loss": 1.2787,
+      "val_accuracy": 0.4474,
+      "learning_rate": 0.000125
+    },
+    {
+      "phase": "frozen_backbone",
+      "epoch": 39,
+      "partial_epoch": false,
+      "train_loss": 1.3709,
+      "train_accuracy": 0.4037,
+      "val_loss": 1.3506,
+      "val_accuracy": 0.3728,
+      "learning_rate": 0.000125
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 1,
+      "partial_epoch": false,
+      "train_loss": 1.5145,
+      "train_accuracy": 0.3387,
+      "val_loss": 1.9363,
+      "val_accuracy": 0.2763,
+      "learning_rate": 1e-05
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 2,
+      "partial_epoch": true,
+      "train_loss": 1.8431,
+      "train_accuracy": 0.25,
+      "val_loss": 1.9382,
+      "val_accuracy": 0.2763,
+      "learning_rate": 1e-05
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 3,
+      "partial_epoch": false,
+      "train_loss": 1.4556,
+      "train_accuracy": 0.3601,
+      "val_loss": 1.4436,
+      "val_accuracy": 0.3494,
+      "learning_rate": 1e-05
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 4,
+      "partial_epoch": true,
+      "train_loss": 1.4775,
+      "train_accuracy": 0.3125,
+      "val_loss": 1.4421,
+      "val_accuracy": 0.3509,
+      "learning_rate": 1e-05
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 5,
+      "partial_epoch": false,
+      "train_loss": 1.4473,
+      "train_accuracy": 0.3704,
+      "val_loss": 1.3411,
+      "val_accuracy": 0.3977,
+      "learning_rate": 1e-05
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 6,
+      "partial_epoch": true,
+      "train_loss": 1.3431,
+      "train_accuracy": 0.4375,
+      "val_loss": 1.3421,
+      "val_accuracy": 0.3933,
+      "learning_rate": 5e-06
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 7,
+      "partial_epoch": false,
+      "train_loss": 1.4383,
+      "train_accuracy": 0.3767,
+      "val_loss": 1.3236,
+      "val_accuracy": 0.4269,
+      "learning_rate": 5e-06
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 8,
+      "partial_epoch": true,
+      "train_loss": 1.647,
+      "train_accuracy": 0.375,
+      "val_loss": 1.3228,
+      "val_accuracy": 0.4254,
+      "learning_rate": 5e-06
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 9,
+      "partial_epoch": false,
+      "train_loss": 1.4032,
+      "train_accuracy": 0.3796,
+      "val_loss": 1.3196,
+      "val_accuracy": 0.4167,
+      "learning_rate": 5e-06
+    },
+    {
+      "phase": "fine_tune",
+      "epoch": 10,
+      "partial_epoch": true,
+      "train_loss": 1.2923,
+      "train_accuracy": 0.375,
+      "val_loss": 1.3187,
+      "val_accuracy": 0.4152,
+      "learning_rate": 5e-06
+    }
+  ],
+  "history_note": "Epochs with partial_epoch=true ran only 1 training batch because the data generator ran out (steps_per_epoch mismatch); Keras still printed a full progress bar.",
+  "known_issues": [
+    "Each training-class count is a multiple of 8, suggesting 8 augmented copies per original image; the random 80/20 split can place copies of one image in both train and validation (leakage risk).",
+    "The saved checkpoint comes from the frozen-backbone phase; fine-tuning never improved validation accuracy, so it was not saved.",
+    "Horizontal flips were used as augmentation, which mirrors handwriting."
+  ]
+}

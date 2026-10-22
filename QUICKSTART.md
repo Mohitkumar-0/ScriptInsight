@@ -1,148 +1,51 @@
-# Quick Start Guide
+# Quick start
 
-## Step 1: Install Dependencies
+```bash
+# 1. Install (Python 3.10)
+python3.10 -m venv .venv
+source .venv/bin/activate              # Windows: .venv\Scripts\activate
+pip install -r requirements-dev.txt
 
-Open PowerShell and navigate to the project directory:
+# 2. Check that the legacy model weights are present (about 104 MB, not stored in git)
+ls best_model.h5
 
-```powershell
-cd "c:\Users\iquan\OneDrive\Desktop\Aditya Mishra"
-pip install -r requirements.txt
-```
-
-## Step 2: Verify Model File
-
-Make sure `best_model.h5` exists in the project directory. This file is created during the Jupyter notebook training.
-
-## Step 3: Run the Application
-
-```powershell
+# 3. Run
 python app.py
 ```
 
-You should see:
-```
- * Running on http://0.0.0.0:5000
- * Debug mode: on
- * WARNING in app.run()
-```
+Open **http://127.0.0.1:5001**. Startup log, when no new models are trained yet:
 
-## Step 4: Access the Web Interface
-
-Open your web browser and go to:
-```
-http://localhost:5000
+```text
+WARNING ...: Model resnet18 unavailable: Model artifact not found: resnet18_best.pt. Train it first (see README).
+WARNING ...: Model svm unavailable: ...
+WARNING ...: Model random_forest unavailable: ...
+INFO ...: Loaded model legacy_resnet50
+ * Running on http://127.0.0.1:5001
 ```
 
-## Step 5: Upload a Handwriting Image
-
-1. Drag and drop an image of handwriting onto the upload area
-2. Or click "Browse Files" to select an image
-3. Wait for the model to analyze the image
-4. View the personality prediction results
-
-## Supported Image Formats
-
-- PNG
-- JPG / JPEG
-- GIF
-- BMP
-- TIFF
-
-## Stopping the Server
-
-Press `Ctrl+C` in the terminal to stop the Flask server.
-
-## Troubleshooting Quick Reference
-
-| Issue | Solution |
-|-------|----------|
-| `ModuleNotFoundError: No module named 'flask'` | Run `pip install -r requirements.txt` |
-| `OSError: [Errno 48] Address already in use` | Port 5000 is in use. Edit port in `app.py` |
-| `Model not loaded` error | Ensure `best_model.h5` is in the project directory |
-| Image upload fails | Check file size (max 16MB) and format |
-| Slow predictions | Normal on CPU. Inference takes ~10-30 seconds |
-
-## File Structure Created
-
-```
-Aditya Mishra/
-├── app.py                    ✓ Backend Flask server
-├── requirements.txt          ✓ Python dependencies
-├── README.md                 ✓ Full documentation
-├── QUICKSTART.md            ✓ This file
-├── best_model.h5            ✓ Trained model (from notebook)
-├── templates/
-│   └── index.html           ✓ Web frontendss
-├── static/
-│   ├── css/
-│   │   └── style.css       ✓ Styling
-│   └── js/
-│       └── script.js       ✓ Frontend logic
-└── uploads/                 (Created automatically)
-```
-
-## Key Features
-
-✅ Drag-and-drop image upload
-✅ Real-time prediction with confidence scores
-✅ Beautiful modern UI with responsive design
-✅ Support for multiple image formats
-✅ REST API endpoints for integration
-
-## API Usage Example
-
-You can also test the API using curl or any HTTP client:
+## Check it works
 
 ```bash
-# Upload and predict
-curl -X POST -F "file=@handwriting.jpg" http://localhost:5000/api/predict
-
-# Get app info
-curl http://localhost:5000/api/info
+curl -F file=@1.1.jpg http://127.0.0.1:5001/api/predict
+curl http://127.0.0.1:5001/api/health
+python -m pytest -q
 ```
 
-Expected response:
-```json
-{
-  "success": true,
-  "prediction": {
-    "predicted_personality": "Conscientiousness",
-    "confidence": 0.5115,
-    "probabilities": {
-      "Agreeableness": 0.0915,
-      "Conscientiousness": 0.4250,
-      "Extraversion": 0.1425,
-      "Neuroticism": 0.3135,
-      "Openness": 0.0275
-    }
-  }
-}
-```
+## Using the web page
 
-## Performance Tips
+- **Analyze:** choose or drop a JPG, PNG or WEBP image (at least 128×128 px, at most 16MB), then click
+  *Analyze handwriting*. You get the primary model's output, a comparison of all models, and *Download report*.
+- **Dashboard:** model status, recorded legacy results (labelled as recorded), dataset status, and the 85% target.
+- **Evaluation:** test metrics, confusion matrices and loss curves once models are trained, plus the legacy
+  notebook's recorded history.
+- **History:** results from this browser tab only.
 
-1. Use clear, high-contrast handwriting images
-2. Ensure the entire handwriting sample is visible
-3. Avoid rotated or severely skewed images
-4. Image should be at least 200×200 pixels
+To train the SVM, Random Forest and ResNet18 models you need a labelled dataset; see `docs/DATASET.md`
+and the "Train and evaluate" section of `README.md`.
 
-## Development Server
-
-The application runs in debug mode, which means:
-- Automatic reload on code changes
-- Detailed error messages
-- Development server only (not for production)
-
-For production deployment, consider using:
-- Gunicorn
-- Waitress
-- uWSGI
-
-## Next Steps
-
-1. Try uploading different handwriting samples
-2. Experiment with different image qualities
-3. Check the probability distributions for insights
-4. Review the `personality_prediction_resnet.ipynb` to understand the model training
-
-Enjoy using the Handwriting Personality Detector! 🖊️
+| Problem | Fix |
+|---|---|
+| `ModuleNotFoundError` | Activate the virtualenv and run `pip install -r requirements.txt` |
+| Port 5001 busy | `SCRIPTINSIGHT_PORT=5050 python app.py` |
+| `ImportError ... _spropack ... __thread_bss` on macOS | `pip install scipy==1.14.1` |
+| Old page behaviour after an update | Hard-refresh (Cmd/Ctrl+Shift+R). Assets are versioned, so this should be rare |

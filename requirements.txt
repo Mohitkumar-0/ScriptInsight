@@ -1,6 +1,26 @@
+# ScriptInsight runtime + training dependencies.
+# Python 3.10 (TensorFlow 2.13 supports 3.8-3.11; tested with 3.10.22 on macOS / Apple M4).
+# CPU-only by default. See README "GPU acceleration" for optional CUDA builds of PyTorch.
+
 Flask==3.0.0
+Werkzeug==3.1.9
 numpy==1.24.3
 opencv-python-headless==4.10.0.84
-tensorflow-macos==2.13.1
-tensorflow-metal==1.0.0
-Werkzeug==3.1.9
+Pillow==10.4.0
+h5py==3.16.0
+joblib==1.6.0
+# scipy 1.15.3's macOS arm64 wheel fails to load on recent macOS (dyld "__thread_bss" error); 1.14.1 works.
+scipy==1.14.1
+scikit-learn==1.3.2
+scikit-image==0.22.0
+torch==2.2.2
+torchvision==0.17.2
+matplotlib==3.8.4
+
+# Legacy Keras ResNet50 demo model (best_model.h5).
+# tensorflow-metal is intentionally NOT installed: on Apple GPUs it corrupted this model's outputs.
+tensorflow-macos==2.13.1; sys_platform == "darwin" and platform_machine == "arm64"
+tensorflow==2.13.1; sys_platform != "darwin" or platform_machine != "arm64"
+# TF 2.13 declares typing-extensions<4.6, but torch 2.2 needs >=4.8. The newer version works with
+# TF 2.13 at runtime (verified by the test suite); pip will print a resolver warning about it.
+typing_extensions>=4.8

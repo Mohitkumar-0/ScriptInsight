@@ -1,205 +1,170 @@
-import os
-import uuid
-import numpy as np
-import cv2
-from flask import Flask, render_template, request, jsonify
+"""ScriptInsight Flask application.
+
+Run:  python app.py            (serves http://127.0.0.1:5001 by default; see config.py)
+"""
+import logging
+import platform
+import time
+from importlib.metadata import version as package_version
+from pathlib import Path
+
+from flask import Flask, abort, jsonify, render_template, request, send_from_directory, url_for
 from werkzeug.exceptions import HTTPException
-from werkzeug.utils import secure_filename
-import warnings
-warnings.filterwarnings('ignore')
 
-app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
-app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Always revalidate static JS/CSS so fixes are not hidden by stale caches
+import config
+from src.errors import ModelUnavailableError
+from src.preprocessing.image_processor import ImageValidationError, decode_image
+from src.services.prediction_service import PredictionService, load_json
 
-# Create uploads folder if it doesn't exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-# Personality classes
-PERSONALITY_CLASSES = ['Agreeableness', 'Conscientiousness', 'Extraversion', 'Neuroticism', 'Openness']
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tif', 'tiff'}
-MODEL_PATH = 'best_model.h5'
-
-model = None
+log = logging.getLogger('scriptinsight')
 
 
-def build_resnet_model(keras):
-    """Rebuild the notebook's ResNet50 + dense head architecture (same layer names as the saved model)."""
-    base_model = keras.applications.ResNet50(weights=None, include_top=False, input_shape=(224, 224, 3))
-    return keras.Sequential([
-        keras.layers.Input(shape=(224, 224, 3)),
-        base_model,
-        keras.layers.GlobalAveragePooling2D(name='global_average_pooling2d'),
-        keras.layers.Dense(512, activation='relu', name='dense_1'),
-        keras.layers.BatchNormalization(name='batch_normalization'),
-        keras.layers.Dropout(0.5, name='dropout'),
-        keras.layers.Dense(256, activation='relu', name='dense_2'),
-        keras.layers.BatchNormalization(name='batch_normalization_1'),
-        keras.layers.Dropout(0.4, name='dropout_1'),
-        keras.layers.Dense(128, activation='relu', name='dense_3'),
-        keras.layers.BatchNormalization(name='batch_normalization_2'),
-        keras.layers.Dropout(0.3, name='dropout_2'),
-        keras.layers.Dense(len(PERSONALITY_CLASSES), activation='softmax', name='output')
-    ])
+def error(message, status, code):
+    return jsonify({'success': False, 'error': message, 'code': code}), status
 
 
-def load_keras3_h5_weights(target_model, path):
-    """Load weights from an H5 file saved by Keras 3, which TF 2.13's load_model cannot deserialize."""
-    import h5py
-
-    def collect(group):
-        weights = {}
-        group.visititems(lambda name, obj: weights.__setitem__(name.split('/')[-1], obj[()])
-                         if isinstance(obj, h5py.Dataset) else None)
-        return weights
-
-    with h5py.File(path, 'r') as f:
-        saved = f['model_weights']
-        base_model = target_model.get_layer('resnet50')
-        layers = [(layer, saved[layer.name]) for layer in target_model.layers
-                  if layer.weights and layer.name != 'resnet50']
-        layers += [(layer, saved['resnet50'][layer.name]) for layer in base_model.layers if layer.weights]
-        for layer, group in layers:
-            stored = collect(group)
-            layer.set_weights([stored[w.name.split('/')[-1].split(':')[0]] for w in layer.weights])
+def _round_scores(entry):
+    entry = dict(entry)
+    if 'scores' in entry:
+        entry['scores'] = {k: round(v, 4) for k, v in entry['scores'].items()}
+    if 'confidence' in entry:
+        entry['confidence'] = round(entry['confidence'], 4)
+    return entry
 
 
-try:
-    import tensorflow as tf
-    from tensorflow import keras
-    # tensorflow-metal returns corrupted (saturated) outputs from model.predict for this model on the
-    # Apple GPU; CPU inference is correct and fast enough for single images.
-    tf.config.set_visible_devices([], 'GPU')
-    try:
-        model = keras.models.load_model(MODEL_PATH, compile=False)
-        print('✓ Model loaded successfully!')
-    except Exception as e:
-        print(f'⚠ load_model failed ({e.__class__.__name__}); rebuilding architecture and loading weights...')
+def prediction_payload(primary):
+    """Primary-model result. Multiclass keeps the original response keys for backward compatibility."""
+    base = {'model': primary['model'], 'display_name': primary['display_name'], 'task': primary['task'],
+            'score_type': primary['score_type']}
+    if primary['task'] == 'multiclass':
+        return {**base, 'predicted_personality': primary['predicted_label'],
+                'confidence': round(primary['confidence'], 4),
+                'probabilities': {k: round(v, 4) for k, v in primary['scores'].items()}}
+    return {**base, 'traits': {t: {'probability': round(primary['scores'][t], 4), 'level': primary['levels'][t]}
+                               for t in config.TRAITS if t in primary['scores']}}
+
+
+def create_app(service=None):
+    app = Flask(__name__)
+    # Room for multipart overhead on top of the image limit; decode_image enforces the exact limit.
+    app.config['MAX_CONTENT_LENGTH'] = config.MAX_UPLOAD_BYTES + 64 * 1024
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+    app.extensions['prediction_service'] = service if service is not None else PredictionService()
+    started_at = time.time()
+
+    def svc():
+        return app.extensions['prediction_service']
+
+    @app.context_processor
+    def asset_helpers():
+        def asset_url(filename):
+            # Version stamp from the file's mtime so browsers never run a stale script or stylesheet.
+            path = Path(app.static_folder) / filename
+            version = int(path.stat().st_mtime) if path.exists() else 0
+            return url_for('static', filename=filename, v=version)
+        return {'asset_url': asset_url, 'disclaimer': config.DISCLAIMER, 'app_version': config.APP_VERSION}
+
+    @app.route('/')
+    def home():
+        return render_template('index.html')
+
+    @app.route('/api/predict', methods=['POST'])
+    @app.route('/predict', methods=['POST'])
+    def api_predict():
+        upload = request.files.get('file')
+        if upload is None:
+            return error('No file provided. Send the image as multipart/form-data field "file".', 400, 'no_file')
+        if not upload.filename:
+            return error('No file selected.', 400, 'no_file')
         try:
-            model = build_resnet_model(keras)
-            load_keras3_h5_weights(model, MODEL_PATH)
-            print('✓ Trained weights loaded into rebuilt ResNet50 model!')
-        except Exception as e:
-            print(f'✗ Could not load trained model weights: {e}')
-            model = None
-except Exception as e:
-    print(f'✗ TensorFlow import failed: {e}')
+            # The image is decoded in memory and never written to disk.
+            decoded = decode_image(upload.read(config.MAX_UPLOAD_BYTES + 1), upload.filename)
+            primary, results, warnings = svc().predict(decoded.gray)
+        except ImageValidationError as exc:
+            return error(exc.message, exc.http_status, exc.code)
+        except ModelUnavailableError:
+            return error('No prediction model is available on the server. Check /api/health.', 503, 'model_unavailable')
+        except Exception:
+            log.exception('Prediction failed')
+            return error('The image could not be analysed because of a server error.', 500, 'server_error')
 
+        return jsonify({
+            'success': True,
+            'prediction': prediction_payload(primary),
+            'model_predictions': [_round_scores(r) for r in results],
+            'image': {'width': decoded.width, 'height': decoded.height, 'format': decoded.format},
+            'model_metadata': {'primary_model': primary['model'], 'trait_order': config.TRAITS,
+                               'app_version': config.APP_VERSION},
+            'warnings': warnings,
+            'disclaimer': config.DISCLAIMER,
+        }), 200
 
-def preprocess_image(image_path):
-    """Preprocess image exactly like the training notebook: grayscale, 224x224, /255, stacked to 3 channels."""
-    try:
-        img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-        if img is None:
-            # OpenCV's imread has no GIF decoder; read the first frame via VideoCapture instead.
-            capture = cv2.VideoCapture(image_path)
-            ok, frame = capture.read()
-            capture.release()
-            if ok and frame is not None:
-                img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        if img is None:
-            return None, 'Could not read the image. The file may be corrupted or in an unsupported format.'
+    @app.route('/api/info', methods=['GET'])
+    def api_info():
+        return jsonify({
+            'app_name': config.APP_NAME,
+            'app_version': config.APP_VERSION,
+            'traits': config.TRAITS,
+            'primary_model': svc().primary,
+            'models': svc().model_info(),
+            'upload': {'max_bytes': config.MAX_UPLOAD_BYTES, 'min_side_px': config.MIN_IMAGE_SIDE,
+                       'extensions': sorted(config.ALLOWED_EXTENSIONS), 'field': 'file'},
+            'disclaimer': config.DISCLAIMER,
+        }), 200
 
-        img = cv2.resize(img, (224, 224))
-        img = img.astype('float32') / 255.0
-        img = np.stack([img] * 3, axis=-1)
-        img_batch = np.expand_dims(img, axis=0)
-        return img_batch, None
-    except Exception as e:
-        return None, str(e)
+    @app.route('/api/health', methods=['GET'])
+    def api_health():
+        available = [name for name, s in svc().status.items() if s.get('available')]
+        healthy = bool(available)
+        return jsonify({
+            'status': 'ok' if healthy else 'degraded',
+            'models_available': available,
+            'models_unavailable': {n: s.get('state') for n, s in svc().status.items() if not s.get('available')},
+            'uptime_seconds': round(time.time() - started_at, 1),
+            'versions': {'python': platform.python_version(), 'flask': package_version('flask'), 'app': config.APP_VERSION},
+        }), 200 if healthy else 503
 
+    @app.route('/api/metrics', methods=['GET'])
+    def api_metrics():
+        evaluation = load_json(config.EVALUATION_DIR / 'latest.json')
+        legacy = load_json(config.LEGACY_RECORDS_PATH)
+        resnet18_history = load_json(config.RESNET18_HISTORY_PATH)
+        return jsonify({
+            'evaluation_available': evaluation is not None,
+            'evaluation': evaluation,
+            'plots': [url_for('evaluation_artifact', filename=p) for p in (evaluation or {}).get('plots', [])],
+            'dataset_split': load_json(config.SPLITS_DIR / 'split_meta.json'),
+            'training_history': {'resnet18': resnet18_history,
+                                 'legacy_resnet50': {'epochs': legacy['history'], 'note': legacy['history_note'],
+                                                     'provenance': legacy['provenance']} if legacy else None},
+            'legacy_recorded': {k: v for k, v in legacy.items() if k != 'history'} if legacy else None,
+            'accuracy_target': {'target': config.ACCURACY_TARGET, 'traits': config.ACCURACY_TARGET_TRAITS},
+        }), 200
 
-def predict_personality(image_path):
-    """Predict personality from handwriting image."""
-    img_batch, error = preprocess_image(image_path)
-    if error:
-        return None, error
-    if img_batch is None:
-        return None, 'Failed to preprocess image'
+    @app.route('/artifacts/evaluation/<path:filename>')
+    def evaluation_artifact(filename):
+        if Path(filename).suffix.lower() not in {'.png', '.json'}:
+            abort(404)
+        return send_from_directory(config.EVALUATION_DIR, filename)
 
-    try:
-        prediction = model.predict(img_batch, verbose=0)[0]
-        predicted_class_idx = int(np.argmax(prediction))
-        predicted_class = PERSONALITY_CLASSES[predicted_class_idx]
-        confidence = float(prediction[predicted_class_idx])
-        result = {
-            'predicted_personality': predicted_class,
-            'confidence': round(confidence, 4),
-            'probabilities': {
-                PERSONALITY_CLASSES[i]: round(float(prediction[i]), 4)
-                for i in range(len(PERSONALITY_CLASSES))
-            }
-        }
-        return result, None
-    except Exception as e:
-        print(f'⚠ Prediction failed: {e}')
-        return None, f'Model prediction failed: {e}'
+    @app.errorhandler(413)
+    def too_large(_error):
+        return error(f'Image is too large. The limit is {config.MAX_UPLOAD_BYTES // (1024 * 1024)}MB.', 413, 'too_large')
 
+    @app.errorhandler(HTTPException)
+    def http_error(exc):
+        if request.path.startswith(('/api/', '/predict')):
+            return error(exc.description or exc.name, exc.code, exc.name.lower().replace(' ', '_'))
+        return exc
 
-@app.route('/')
-def home():
-    """Render home page"""
-    return render_template('index.html')
+    @app.errorhandler(Exception)
+    def unhandled(exc):
+        log.exception('Unhandled error')
+        return error('Internal server error.', 500, 'server_error')
 
-
-@app.route('/api/predict', methods=['POST'])
-def api_predict():
-    """API endpoint for personality prediction"""
-    try:
-        if model is None:
-            return jsonify({'error': 'The personality model is not loaded on the server. Check the server logs.'}), 503
-
-        # Check if file is in request
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file provided'}), 400
-
-        file = request.files['file']
-        if file.filename == '':
-            return jsonify({'error': 'No file selected'}), 400
-
-        # Check file extension
-        extension = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else ''
-        if extension not in ALLOWED_EXTENSIONS:
-            return jsonify({'error': 'Invalid file type. Allowed: PNG, JPG, JPEG, GIF, BMP, TIFF'}), 400
-
-        # Save file temporarily under a unique, sanitized name
-        filename = f'{uuid.uuid4().hex}_{secure_filename(file.filename) or "upload." + extension}'
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-
-        try:
-            # Make prediction
-            result, error = predict_personality(filepath)
-            if error:
-                return jsonify({'error': error}), 422
-            return jsonify({'success': True, 'prediction': result}), 200
-        finally:
-            # Clean up - delete the uploaded file
-            if os.path.exists(filepath):
-                os.remove(filepath)
-    except HTTPException:
-        raise  # e.g. 413 from MAX_CONTENT_LENGTH, handled by its errorhandler below
-    except Exception as e:
-        return jsonify({'error': f'Server error: {str(e)}'}), 500
-
-
-@app.errorhandler(413)
-def file_too_large(_error):
-    """Return JSON (not Flask's HTML page) when the upload exceeds MAX_CONTENT_LENGTH"""
-    return jsonify({'error': 'Image is too large. Please select an image smaller than 16MB.'}), 413
-
-
-@app.route('/api/info', methods=['GET'])
-def api_info():
-    """Get model and app information"""
-    return jsonify({
-        'app_name': 'Handwriting-Based Personality Detector',
-        'model': 'ResNet50 with Dense Layers',
-        'personality_classes': PERSONALITY_CLASSES,
-        'model_loaded': model is not None
-    }), 200
+    return app
 
 
 if __name__ == '__main__':
-    app.run(debug=False, use_reloader=False, host='0.0.0.0', port=5001)
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s %(name)s: %(message)s')
+    create_app().run(host=config.HOST, port=config.PORT, debug=False, use_reloader=False)
