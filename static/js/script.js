@@ -18,6 +18,9 @@ const selectedPreview = document.getElementById('selectedPreview');
 const selectedPreviewWrap = document.getElementById('selectedPreviewWrap');
 const fileMeta = document.getElementById('fileMeta');
 const fileMessage = document.getElementById('fileMessage');
+const uploadRejection = document.getElementById('uploadRejection');
+const uploadRejectionMessage = document.getElementById('uploadRejectionMessage');
+const uploadRejectionDetail = document.getElementById('uploadRejectionDetail');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const replaceBtn = document.getElementById('replaceBtn');
 const exportBtn = document.getElementById('exportBtn');
@@ -171,6 +174,26 @@ function setFileMessage(message, tone = '') {
   fileMessage.classList.toggle('success', tone === 'success');
 }
 
+// Shown when the server finds no handwriting in the image; the preview stays so the user can compare.
+function showRejection(message, detail) {
+  uploadRejectionMessage.textContent = message;
+  uploadRejectionDetail.textContent = detail || '';
+  uploadRejectionDetail.classList.toggle('hidden', !detail);
+  uploadRejection.classList.remove('hidden');
+}
+
+function hideRejection() {
+  uploadRejection.classList.add('hidden');
+}
+
+// Results on screen always belong to the image last analyzed successfully; hide them before a new attempt.
+function hideResults() {
+  resultPanel.classList.add('hidden');
+  comparisonPanel.classList.add('hidden');
+  traitDetails.classList.add('hidden');
+  lastReport = null;
+}
+
 function updateAnalyzeButtonState() {
   const canAnalyze = !!selectedFile && !isAnalyzing;
   analyzeBtn.disabled = !canAnalyze;
@@ -226,6 +249,7 @@ async function selectFile(file) {
     return;
   }
 
+  hideRejection();
   const reject = (message) => {
     // Keep a previously selected valid image; just report the problem with the new one.
     setFileMessage(selectedFile ? `${message} Still using ${selectedFile.name}.` : message, 'error');
@@ -294,58 +318,120 @@ function barRow(label, value, caption) {
 }
 
 function renderResult(data) {
+  if (!data || typeof data !== 'object' || !data.prediction || typeof data.prediction !== 'object') {
+    throw new Error('The server returned an invalid prediction payload. Please try another image.');
+  }
+
   const prediction = data.prediction;
-  const primary = data.model_predictions.find((m) => m.model === prediction.model) || {};
-  resultModel.textContent = `Primary model: ${prediction.display_name}`;
+  const modelPredictions = Array.isArray(data.model_predictions) ? data.model_predictions : [];
+  const primary = modelPredictions.find((m) => m.model === prediction.model) || {};
+
+  resultModel.textContent = `Primary model: ${prediction.display_name || 'Model output'}`;
 
   if (prediction.task === 'multiclass') {
+    const probabilities = prediction.probabilities && typeof prediction.probabilities === 'object' ? prediction.probabilities : {};
+    if (!prediction.predicted_personality || !Object.keys(probabilities).length) {
+      throw new Error('The selected model returned an incomplete classification result. Please try another image.');
+    }
     predictedTrait.textContent = prediction.predicted_personality;
     confidenceBadge.classList.remove('hidden');
     confidenceLabel.textContent = 'Top category score';
-    confidenceValue.textContent = SI.pct(prediction.confidence);
+    confidenceValue.textContent = SI.pct(Number(prediction.confidence));
     probabilityGrid.innerHTML = SI.TRAITS
-      .filter((trait) => trait in prediction.probabilities)
-      .map((trait) => barRow(trait, prediction.probabilities[trait]))
+      .filter((trait) => Object.prototype.hasOwnProperty.call(probabilities, trait))
+      .map((trait) => barRow(trait, Number(probabilities[trait])))
       .join('');
     displayTraitDetails(prediction.predicted_personality);
-  } else {
+  } else if (prediction.task === 'regression') {
+    const scores = prediction.trait_scores && typeof prediction.trait_scores === 'object' ? prediction.trait_scores : {};
+    if (!Object.keys(scores).length) {
+      throw new Error('This regression model returned no trait scores. Please try another image.');
+    }
     predictedTrait.textContent = 'Five independent trait estimates';
     confidenceBadge.classList.add('hidden');
     probabilityGrid.innerHTML = SI.TRAITS
-      .filter((trait) => trait in prediction.traits)
+      .filter((trait) => Object.prototype.hasOwnProperty.call(scores, trait))
       .map((trait) => {
-        const t = prediction.traits[trait];
-        return barRow(trait, t.probability, `Estimated ${t.level} pole (score of the high pole; threshold 50%)`);
+        const value = Number(scores[trait]);
+        return barRow(trait, Math.min(1, Math.max(0, value / 40)), `Estimated score: ${Number.isFinite(value) ? value.toFixed(1) : '—'} / 40`);
+      })
+      .join('');
+    traitDetails.classList.add('hidden');
+  } else if (prediction.task === 'multilabel') {
+    const scores = prediction.scores && typeof prediction.scores === 'object' ? prediction.scores : {};
+    const levels = prediction.levels && typeof prediction.levels === 'object' ? prediction.levels : {};
+    if (!Object.keys(scores).length) {
+      throw new Error('This model returned no trait-level scores. Please try another image.');
+    }
+    predictedTrait.textContent = 'Per-trait high/low estimates';
+    confidenceBadge.classList.add('hidden');
+    probabilityGrid.innerHTML = SI.TRAITS
+      .filter((trait) => Object.prototype.hasOwnProperty.call(scores, trait))
+      .map((trait) => {
+        const probability = Number(scores[trait] ?? 0);
+        const level = typeof levels[trait] === 'string' ? levels[trait] : (probability >= 0.5 ? 'high' : 'low');
+        return barRow(trait, probability, `Estimated ${level} pole`);
+      })
+      .join('');
+    traitDetails.classList.add('hidden');
+  } else {
+    const traits = prediction.traits && typeof prediction.traits === 'object' ? prediction.traits : {};
+    if (!Object.keys(traits).length) {
+      throw new Error('This model returned no trait probabilities. Please try another image.');
+    }
+    predictedTrait.textContent = 'Five independent trait estimates';
+    confidenceBadge.classList.add('hidden');
+    probabilityGrid.innerHTML = SI.TRAITS
+      .filter((trait) => Object.prototype.hasOwnProperty.call(traits, trait))
+      .map((trait) => {
+        const t = traits[trait] || {};
+        const probability = Number(t.probability ?? 0);
+        const level = typeof t.level === 'string' ? t.level : 'unknown';
+        return barRow(trait, probability, `Estimated ${level} pole (score of the high pole; threshold 50%)`);
       })
       .join('');
     traitDetails.classList.add('hidden');
   }
 
-  const notes = [...(data.warnings || [])];
-  if (primary.score_note) notes.push(`Scores: ${primary.score_note}`);
-  resultNotes.innerHTML = notes.map((n) => `<p class="note">${SI.escapeHtml(n)}</p>`).join('');
+  resultNotes.innerHTML = '';
   resultPanel.classList.remove('hidden');
 }
 
 function scoreSummary(entry) {
-  if (entry.task === 'multilabel') {
-    return SI.TRAITS.filter((t) => t in entry.scores)
-      .map((t) => `${t}: ${SI.pct(entry.scores[t])} (${entry.levels[t]})`).join('<br>');
+  const scores = entry && typeof entry.scores === 'object' ? entry.scores : {};
+  if (!Object.keys(scores).length) return '—';
+  if (entry.task === 'regression') {
+    return SI.TRAITS.filter((t) => Object.prototype.hasOwnProperty.call(scores, t))
+      .map((t) => `${t}: ${Number(scores[t]).toFixed(1)}`)
+      .join('<br>');
   }
-  return SI.TRAITS.filter((t) => t in entry.scores)
-    .map((t) => `${t === entry.predicted_label ? '<strong>' : ''}${t}: ${SI.pct(entry.scores[t])}${t === entry.predicted_label ? '</strong>' : ''}`)
+  if (entry.task === 'multilabel') {
+    return SI.TRAITS.filter((t) => Object.prototype.hasOwnProperty.call(scores, t))
+      .map((t) => `${t}: ${SI.pct(scores[t])} (${entry.levels && entry.levels[t] ? entry.levels[t] : 'n/a'})`).join('<br>');
+  }
+  return SI.TRAITS.filter((t) => Object.prototype.hasOwnProperty.call(scores, t))
+    .map((t) => `${t === entry.predicted_label ? '<strong>' : ''}${t}: ${SI.pct(scores[t])}${t === entry.predicted_label ? '</strong>' : ''}`)
     .join('<br>');
 }
 
 function renderComparison(models) {
+  // Only models that returned a prediction for this image are shown; unavailable or failed
+  // models stay listed on the Model Performance tab.
+  const available = (Array.isArray(models) ? models : []).filter((m) => m && m.status === 'ok');
+  const head = '<thead><tr><th scope="col">Model</th><th scope="col">Output for this image</th><th scope="col">Scores</th><th scope="col">Score type</th><th scope="col">Time</th></tr></thead>';
+  if (!available.length) {
+    comparisonTable.innerHTML = `${head}<tbody><tr><td colspan="5" class="empty-note">No model results are available for this image.</td></tr></tbody>`;
+    comparisonPanel.classList.remove('hidden');
+    return;
+  }
   comparisonTable.innerHTML = `
-    <thead><tr><th scope="col">Model</th><th scope="col">Output for this image</th><th scope="col">Scores</th><th scope="col">Score type</th><th scope="col">Time</th></tr></thead>
-    <tbody>${models.map((m) => {
-      if (m.status !== 'ok') {
-        return `<tr class="row-unavailable"><th scope="row">${SI.escapeHtml(m.display_name)}</th>
-          <td colspan="4"><span class="chip chip-muted">${m.status === 'error' ? 'Error' : 'Unavailable'}</span> ${SI.escapeHtml(m.message || '')}</td></tr>`;
-      }
-      const output = m.task === 'multilabel' ? 'Per-trait high/low estimates' : `Category: <strong>${SI.escapeHtml(m.predicted_label)}</strong>`;
+    ${head}
+    <tbody>${available.map((m) => {
+      const output = m.task === 'regression'
+        ? 'Five trait scores'
+        : m.task === 'multilabel'
+          ? 'Per-trait high/low estimates'
+          : `Category: <strong>${SI.escapeHtml(m.predicted_label || '—')}</strong>`;
       return `<tr><th scope="row">${SI.escapeHtml(m.display_name)}</th><td>${output}</td><td>${scoreSummary(m)}</td>
         <td title="${SI.escapeHtml(m.score_note || '')}">${SI.escapeHtml((m.score_type || '').replace(/_/g, ' '))}</td>
         <td>${m.latency_ms} ms</td></tr>`;
@@ -413,7 +499,6 @@ function downloadReport(report) {
 table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:6px;text-align:left;vertical-align:top}
 .warn{background:#fff7e6;border:1px solid #f0c36d;padding:10px;border-radius:6px}</style></head><body>
 <h1>ScriptInsight analysis report</h1>
-<p class="warn"><strong>Please note:</strong> ${SI.escapeHtml(data.disclaimer)}</p>
 <p><strong>Image:</strong> ${SI.escapeHtml(file.name)} (${SI.escapeHtml(SI.formatBytes(file.size))}, ${data.image.width}×${data.image.height}, ${SI.escapeHtml(data.image.format)})<br>
 <strong>Analysed:</strong> ${SI.escapeHtml(new Date(time).toLocaleString())}<br>
 <strong>App version:</strong> ${SI.escapeHtml(data.model_metadata.app_version)} · <strong>Primary model:</strong> ${SI.escapeHtml(data.prediction.display_name)}</p>
@@ -481,6 +566,8 @@ uploadForm.addEventListener('submit', async (event) => {
 
   isAnalyzing = true;
   updateAnalyzeButtonState();
+  hideRejection();
+  hideResults();
   analyzeBtn.textContent = 'Analyzing...';
   setFileMessage(`Uploading and analyzing ${file.name}...`);
 
@@ -496,6 +583,13 @@ uploadForm.addEventListener('submit', async (event) => {
     }
 
     if (!response.ok) {
+      let body = null;
+      try { body = await response.clone().json(); } catch (_) { /* non-JSON error body */ }
+      if (body && body.code === 'invalid_handwriting_image') {
+        showRejection(body.message || body.error, body.detail);
+        setFileMessage('No analysis was run for this image.', 'error');
+        return;
+      }
       throw new Error(await SI.errorMessage(response));
     }
 

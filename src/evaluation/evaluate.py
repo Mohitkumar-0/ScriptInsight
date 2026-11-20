@@ -1,8 +1,8 @@
 """Evaluate all trained models on the same held-out test split and save JSON + PNG artifacts.
 
 Only models trained on the same manifest labels (same label_mode and label order) are compared.
-The legacy Keras ResNet50 is excluded: it was trained on a different, unavailable dataset with a
-different label definition, so its numbers would not be comparable.
+The legacy Keras ResNet50 is excluded: it was trained on the original (augmented) copies of this same data with a
+different split, so some of its training images are now in the test split and its numbers would not be comparable.
 
 Usage:
     python -m src.evaluation.evaluate --manifest artifacts/splits/manifest.csv
@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -99,7 +100,7 @@ def save_plots(report, out_dir, history_path):
         plt.close(fig)
         written.append(path.name)
     if history_path and Path(history_path).exists():
-        history = json.loads(Path(history_path).read_text())['epochs']
+        history = json.loads(Path(history_path).read_text(encoding='utf-8'))['epochs']
         fig, ax = plt.subplots(figsize=(6, 3.4))
         ax.plot([h['epoch'] for h in history], [h['train_loss'] for h in history], label='train loss')
         ax.plot([h['epoch'] for h in history], [h['val_loss'] for h in history], label='validation loss')
@@ -130,6 +131,18 @@ def evaluate(manifest, out_dir=config.EVALUATION_DIR, classical_dir=config.CLASS
         'split_used': 'test', 'n_test': len(test_samples),
         'models': {}, 'skipped': skipped, 'warnings': [],
     }
+    if label_mode == 'multiclass':
+        # What a model gets by always predicting the most common training class (no learning at all).
+        majority = Counter(s['labels'] for s in samples if s['split'] == 'train').most_common(1)[0][0]
+        base = multiclass_metrics(np.array([s['labels'] for s in test_samples]),
+                                  np.full(len(test_samples), majority), label_names)
+        base_acc = base.get('accuracy', base['macro'].get('accuracy'))
+        report['baseline_majority_class'] = {'class': label_names[majority], 'accuracy': base_acc,
+                                             'macro_f1': base['macro']['f1']}
+        report['warnings'].append(
+            f'Majority-class baseline: always predicting {label_names[majority]} scores accuracy {base_acc:.3f} and '
+            f'macro-F1 {base["macro"]["f1"]:.3f} on this test split. A model that does not clearly beat this has '
+            'learned nothing useful.')
     for name, model in models.items():
         mmeta = model.metadata
         if mmeta['label_mode'] != label_mode or list(mmeta['label_names']) != list(label_names):
@@ -156,8 +169,8 @@ def evaluate(manifest, out_dir=config.EVALUATION_DIR, classical_dir=config.CLASS
     report['plots'] = save_plots(report, out_dir, Path(deep_dir) / 'resnet18_history.json')
     stamp = report['created_utc'].replace(':', '').replace('-', '')
     text = json.dumps(report, indent=2)
-    (out_dir / f'evaluation_{stamp}.json').write_text(text)
-    (out_dir / 'latest.json').write_text(text)
+    (out_dir / f'evaluation_{stamp}.json').write_text(text, encoding='utf-8')
+    (out_dir / 'latest.json').write_text(text, encoding='utf-8')
     return report
 
 
@@ -175,6 +188,8 @@ def main():
         print(f"{name:14s} test macro-F1 {m['macro']['f1']:.4f}  "
               f"accuracy {m.get('accuracy', m['macro'].get('accuracy')):.4f}  "
               f"median latency {m['latency_ms']['median']:.1f} ms")
+    for message in report['warnings']:
+        print(f'note: {message}')
     for name, reason in report['skipped'].items():
         print(f'{name:14s} skipped: {reason}')
 

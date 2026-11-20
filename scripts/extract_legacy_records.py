@@ -72,7 +72,7 @@ def parse_classification_report(text):
 
 
 def main():
-    cells = json.loads(NOTEBOOK.read_text())['cells']
+    cells = json.loads(NOTEBOOK.read_text(encoding='utf-8'))['cells']
     _, train_cell = find_cell(cells, 'history = model.fit(')
     _, tune_cell = find_cell(cells, 'history_finetune = model.fit(')
     _, eval_cell = find_cell(cells, 'best_model.evaluate(')
@@ -128,7 +128,7 @@ def main():
     }
     out = config.LEGACY_RECORDS_PATH
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(record, indent=2))
+    out.write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'Wrote {out}: {len(history)} epochs, best val acc {best_val}, test acc {record["test_metrics_recorded"]["accuracy"]}')
 
 

@@ -2,11 +2,34 @@
 const SI = (() => {
   const TRAITS = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'];
 
+  // Readable names for the model ids used by the API (the API's own display names are unchanged).
+  const MODEL_NAMES = {
+    hienwrite_rf: 'Random Forest regressor',
+    hienwrite_svr: 'Support Vector regressor',
+    hienwrite_resnet18: 'ResNet18 regressor',
+    resnet18: 'ResNet18',
+    svm: 'SVM',
+    random_forest: 'Random Forest',
+    legacy_resnet50: 'Legacy ResNet50',
+    mean_baseline: 'Baseline: dataset average',
+  };
+  const modelName = (id, fallback) => MODEL_NAMES[id] || fallback || id;
+  const MODEL_SHORT = {
+    hienwrite_rf: 'RF', hienwrite_svr: 'SVR', hienwrite_resnet18: 'ResNet18', resnet18: 'ResNet18',
+    svm: 'SVM', random_forest: 'Random Forest', legacy_resnet50: 'Legacy ResNet50', mean_baseline: 'Baseline',
+  };
+  const modelShort = (id, fallback) => MODEL_SHORT[id] || modelName(id, fallback);
+
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, (c) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
   }
+
+  const num = (value, digits = 2) => (value === null || value === undefined || Number.isNaN(value))
+    ? '—' : value.toFixed(digits).replace('-', '−');
+  const signed = (value, digits = 2) => (value === null || value === undefined || Number.isNaN(value))
+    ? '—' : `${value > 0 ? '+' : ''}${num(value, digits)}`;
 
   const pct = (value, digits = 1) => (value === null || value === undefined || Number.isNaN(value))
     ? '—' : `${(value * 100).toFixed(digits)}%`;
@@ -68,6 +91,57 @@ const SI = (() => {
       <div class="chart-legend">${legend}</div>`;
   }
 
+  function barChart(labels, series, { yLabel = 'value', height = 220 } = {}) {
+    const entries = Array.isArray(labels) ? labels : [];
+    const datasets = Array.isArray(series) ? series.filter((s) => Array.isArray(s.values)) : [];
+    if (!entries.length || !datasets.length) {
+      return '<p class="empty-note">No chart data available.</p>';
+    }
+    const width = 640;
+    const pad = { l: 48, r: 16, t: 12, b: 34 };
+    const maxValue = Math.max(1, ...datasets.flatMap((s) => s.values).filter((v) => Number.isFinite(v)));
+    const chartHeight = height;
+    const groupWidth = (width - pad.l - pad.r) / Math.max(entries.length, 1);
+    const barGroupWidth = Math.min(26, groupWidth / Math.max(datasets.length + 1, 2));
+    const sy = (value) => pad.t + (1 - (value / maxValue)) * (chartHeight - pad.t - pad.b);
+    const yTicks = [0, 0.5, 1].map((p) => maxValue * p);
+
+    const bars = entries.map((label, index) => {
+      const xBase = pad.l + groupWidth * index + groupWidth * 0.12;
+      return datasets.map((seriesEntry, seriesIndex) => {
+        const value = Number(seriesEntry.values[index]);
+        const barWidth = Math.min(barGroupWidth, (groupWidth * 0.72) / Math.max(datasets.length, 1));
+        const x = xBase + seriesIndex * (barWidth + 4);
+        const y = value > 0 ? sy(value) : sy(0);
+        const heightPx = Math.max(0, sy(0) - y);
+        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${heightPx.toFixed(1)}" rx="3" class="bar ${seriesEntry.className || 'fill-1'}" title="${escapeHtml(seriesEntry.label)}: ${escapeHtml(String(value))}" aria-label="${escapeHtml(seriesEntry.label)} ${escapeHtml(label)} ${escapeHtml(String(value))}"></rect>`;
+      }).join('');
+    }).join('');
+
+    const xLabels = entries.map((label, index) => {
+      const x = pad.l + groupWidth * index + groupWidth / 2;
+      return `<text x="${x}" y="${chartHeight - 10}" text-anchor="middle" class="chart-tick">${escapeHtml(label)}</text>`;
+    }).join('');
+
+    const yLabels = yTicks.map((tick) => {
+      const y = sy(tick);
+      return `<line x1="${pad.l}" x2="${width - pad.r}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" class="chart-grid"/>
+        <text x="${pad.l - 6}" y="${(y + 4).toFixed(1)}" text-anchor="end" class="chart-tick">${tick.toFixed(1)}</text>`;
+    }).join('');
+
+    const legend = datasets.map((s) => `<span class="legend-item"><i class="legend-swatch ${s.className || 'fill-1'}"></i>${escapeHtml(s.label)}</span>`).join('');
+
+    return `
+      <svg class="bar-chart" viewBox="0 0 ${width} ${chartHeight}" role="img" aria-label="${escapeHtml(datasets.map((s) => s.label).join(' and '))} by trait">
+        ${yLabels}
+        <text x="${width / 2}" y="${chartHeight - 6}" text-anchor="middle" class="chart-tick">Trait</text>
+        <text x="12" y="${chartHeight / 2}" text-anchor="middle" class="chart-tick" transform="rotate(-90 12 ${chartHeight / 2})">${escapeHtml(yLabel)}</text>
+        ${bars}
+        ${xLabels}
+      </svg>
+      <div class="chart-legend">${legend}</div>`;
+  }
+
   function confusionTable(matrix, labels, caption) {
     const max = Math.max(1, ...matrix.flat());
     return `
@@ -122,7 +196,7 @@ const SI = (() => {
   }
 
   return {
-    TRAITS, escapeHtml, pct, formatBytes, errorMessage, getJSON, lineChart, confusionTable, initTheme,
-    initTabs, showTab, onTab: (fn) => tabListeners.push(fn)
+    TRAITS, MODEL_NAMES, modelName, modelShort, escapeHtml, num, signed, pct, formatBytes, errorMessage, getJSON, lineChart, barChart,
+    confusionTable, initTheme, initTabs, showTab, onTab: (fn) => tabListeners.push(fn)
   };
 })();

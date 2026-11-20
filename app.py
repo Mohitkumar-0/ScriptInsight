@@ -13,8 +13,9 @@ from werkzeug.exceptions import HTTPException
 
 import config
 from src.errors import ModelUnavailableError
+from src.preprocessing.handwriting_validator import NO_HANDWRITING_MESSAGE, validate_handwriting
 from src.preprocessing.image_processor import ImageValidationError, decode_image
-from src.services.prediction_service import PredictionService, load_json
+from src.services.prediction_service import MODEL_ORDER, PredictionService, load_json
 
 log = logging.getLogger('scriptinsight')
 
@@ -40,6 +41,11 @@ def prediction_payload(primary):
         return {**base, 'predicted_personality': primary['predicted_label'],
                 'confidence': round(primary['confidence'], 4),
                 'probabilities': {k: round(v, 4) for k, v in primary['scores'].items()}}
+    if primary['task'] == 'regression':
+        # HiEnWrite: five numerical scores on the dataset's questionnaire scale (not probabilities).
+        return {**base, 'experimental': True, 'dataset': primary.get('dataset', 'HiEnWrite'),
+                'trait_scores': {t: round(v, 2) for t, v in primary['scores'].items()},
+                'training_label_stats': primary.get('target_stats')}
     return {**base, 'traits': {t: {'probability': round(primary['scores'][t], 4), 'level': primary['levels'][t]}
                                for t in config.TRAITS if t in primary['scores']}}
 
@@ -76,10 +82,26 @@ def create_app(service=None):
             return error('No file provided. Send the image as multipart/form-data field "file".', 400, 'no_file')
         if not upload.filename:
             return error('No file selected.', 400, 'no_file')
+        requested = (request.form.get('model') or '').strip() or None
+        if requested == 'auto':
+            requested = None
+        if requested and requested not in MODEL_ORDER:
+            return error(f'Unknown model "{requested[:40]}". Choose one of: {", ".join(MODEL_ORDER)}.', 400, 'unknown_model')
+        if requested and requested not in svc().models:
+            state = svc().status.get(requested, {}).get('state', 'unavailable')
+            return error(f'The selected model ({requested}) is not available ({state}). Check /api/info.', 503,
+                         'model_unavailable')
         try:
             # The image is decoded in memory and never written to disk.
             decoded = decode_image(upload.read(config.MAX_UPLOAD_BYTES + 1), upload.filename)
-            primary, results, warnings = svc().predict(decoded.gray)
+            # Content check before any model runs: blank images, faces and photos are rejected, not scored.
+            check = validate_handwriting(decoded.gray, decoded.rgb)
+            if not check.valid:
+                log.info('Rejected upload as not handwriting (%s)', check.code)
+                return jsonify({'success': False, 'error': NO_HANDWRITING_MESSAGE, 'message': NO_HANDWRITING_MESSAGE,
+                                'code': 'invalid_handwriting_image', 'reason': check.code,
+                                'detail': check.reason}), 400
+            primary, results, warnings = svc().predict(decoded.gray, model=requested)
         except ImageValidationError as exc:
             return error(exc.message, exc.http_status, exc.code)
         except ModelUnavailableError:
@@ -93,8 +115,8 @@ def create_app(service=None):
             'prediction': prediction_payload(primary),
             'model_predictions': [_round_scores(r) for r in results],
             'image': {'width': decoded.width, 'height': decoded.height, 'format': decoded.format},
-            'model_metadata': {'primary_model': primary['model'], 'trait_order': config.TRAITS,
-                               'app_version': config.APP_VERSION},
+            'model_metadata': {'primary_model': primary['model'], 'requested_model': requested,
+                               'trait_order': config.TRAITS, 'app_version': config.APP_VERSION},
             'warnings': warnings,
             'disclaimer': config.DISCLAIMER,
         }), 200
@@ -139,13 +161,34 @@ def create_app(service=None):
                                                      'provenance': legacy['provenance']} if legacy else None},
             'legacy_recorded': {k: v for k, v in legacy.items() if k != 'history'} if legacy else None,
             'accuracy_target': {'target': config.ACCURACY_TARGET, 'traits': config.ACCURACY_TARGET_TRAITS},
+            'hienwrite': hienwrite_metrics(),
         }), 200
+
+    def hienwrite_metrics():
+        """HiEnWrite regression results, read only from files written by the pipeline (never estimated)."""
+        evaluation = load_json(config.HIENWRITE_EVALUATION_DIR / 'latest.json')
+        validation = load_json(config.HIENWRITE_VALIDATION_DIR / 'validation_report.json')
+        return {
+            'evaluation_available': evaluation is not None,
+            'evaluation': evaluation,
+            'plots': [url_for('hienwrite_artifact', filename=p) for p in (evaluation or {}).get('plots', [])],
+            'split': load_json(config.HIENWRITE_SPLITS_DIR / 'split_meta.json'),
+            'validation': {k: validation[k] for k in ('created_utc', 'counts', 'exclusions_by_reason',
+                                                      'constant_targets_masked', 'writer_ids')} if validation else None,
+            'training_history': load_json(config.HIENWRITE_RESNET18_HISTORY_PATH),
+        }
 
     @app.route('/artifacts/evaluation/<path:filename>')
     def evaluation_artifact(filename):
         if Path(filename).suffix.lower() not in {'.png', '.json'}:
             abort(404)
         return send_from_directory(config.EVALUATION_DIR, filename)
+
+    @app.route('/artifacts/hienwrite/evaluation/<path:filename>')
+    def hienwrite_artifact(filename):
+        if Path(filename).suffix.lower() != '.png':
+            abort(404)
+        return send_from_directory(config.HIENWRITE_EVALUATION_DIR, filename)
 
     @app.errorhandler(413)
     def too_large(_error):

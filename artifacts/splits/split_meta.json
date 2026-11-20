@@ -1,0 +1,59 @@
+{
+  "created_utc": "2026-11-17T20:36:24+00:00",
+  "data_root": "C:\\Users\\Asus\\Desktop\\pd\\kaggle_handwriting\\dataset",
+  "dataset_fingerprint": "7ee490622698377d",
+  "label_mode": "multiclass",
+  "label_names": [
+    "Agreeableness",
+    "Conscientiousness",
+    "Extraversion",
+    "Neuroticism",
+    "Openness"
+  ],
+  "seed": 42,
+  "ratios": {
+    "train": 0.8,
+    "val": 0.1,
+    "test": 0.1
+  },
+  "grouping": "filename_regex:^(.+?)-\\d",
+  "n_samples": 4076,
+  "n_groups": 221,
+  "distribution": {
+    "train": {
+      "n": 3260,
+      "class_count": {
+        "Agreeableness": 697,
+        "Conscientiousness": 619,
+        "Extraversion": 544,
+        "Neuroticism": 792,
+        "Openness": 608
+      }
+    },
+    "val": {
+      "n": 408,
+      "class_count": {
+        "Agreeableness": 80,
+        "Conscientiousness": 80,
+        "Extraversion": 72,
+        "Neuroticism": 104,
+        "Openness": 72
+      }
+    },
+    "test": {
+      "n": 408,
+      "class_count": {
+        "Agreeableness": 80,
+        "Conscientiousness": 80,
+        "Extraversion": 72,
+        "Neuroticism": 104,
+        "Openness": 72
+      }
+    }
+  },
+  "cross_split_groups": 0,
+  "warnings": [
+    "Dataset has ONE category per image. Models trained on it choose one of five categories; they do not predict five independent Big Five trait levels.",
+    "DEMO ONLY: these labels have no documented source, each category was photographed in one session, and the same writers appear in several categories. Accuracy here reflects photo session and writer, not personality."
+  ]
+}

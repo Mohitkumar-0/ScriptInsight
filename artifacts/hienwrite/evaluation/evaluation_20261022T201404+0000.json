@@ -1,0 +1,2203 @@
+{
+  "created_utc": "2026-10-22T20:14:04+00:00",
+  "dataset": "HiEnWrite",
+  "task": "five-target regression (raw questionnaire score scale)",
+  "split_used": "test",
+  "n_test": 86,
+  "n_test_groups": 44,
+  "n_test_valid_per_trait": {
+    "Extraversion": 86,
+    "Agreeableness": 86,
+    "Conscientiousness": 86,
+    "Neuroticism": 86,
+    "Openness": 46
+  },
+  "manifest": "/Users/amitkumaryadav/Desktop/HandParsona/artifacts/hienwrite/splits/split_manifest.csv",
+  "split": {
+    "dataset_fingerprint": "efe899f06db72c1d",
+    "seed": 42,
+    "ratios": {
+      "train": 0.7,
+      "val": 0.15,
+      "test": 0.15
+    },
+    "split_unit": "group (inferred participant, merged through shared images)",
+    "n_samples": 578,
+    "n_groups": 295,
+    "counts": {
+      "train": {
+        "samples": 405,
+        "groups": 207,
+        "by_language": {
+          "e": 209,
+          "h": 196
+        }
+      },
+      "val": {
+        "samples": 87,
+        "groups": 44,
+        "by_language": {
+          "e": 43,
+          "h": 44
+        }
+      },
+      "test": {
+        "samples": 86,
+        "groups": 44,
+        "by_language": {
+          "e": 46,
+          "h": 40
+        }
+      }
+    },
+    "target_distributions": {
+      "train": {
+        "Extraversion": {
+          "n": 405,
+          "mean": 18.988,
+          "std": 6.775,
+          "min": 0.0,
+          "q25": 15.0,
+          "median": 19.0,
+          "q75": 23.0,
+          "max": 40.0,
+          "histogram": {
+            "counts": [
+              10,
+              25,
+              55,
+              126,
+              123,
+              46,
+              15,
+              5
+            ],
+            "edges": [
+              0.0,
+              5.0,
+              10.0,
+              15.0,
+              20.0,
+              25.0,
+              30.0,
+              35.0,
+              40.0
+            ]
+          }
+        },
+        "Agreeableness": {
+          "n": 405,
+          "mean": 26.454,
+          "std": 4.893,
+          "min": 11.0,
+          "q25": 23.0,
+          "median": 27.0,
+          "q75": 30.0,
+          "max": 40.0,
+          "histogram": {
+            "counts": [
+              6,
+              13,
+              40,
+              106,
+              126,
+              75,
+              34,
+              5
+            ],
+            "edges": [
+              11.0,
+              14.62,
+              18.25,
+              21.88,
+              25.5,
+              29.12,
+              32.75,
+              36.38,
+              40.0
+            ]
+          }
+        },
+        "Conscientiousness": {
+          "n": 405,
+          "mean": 24.225,
+          "std": 6.161,
+          "min": 7.0,
+          "q25": 20.0,
+          "median": 24.0,
+          "q75": 29.0,
+          "max": 40.0,
+          "histogram": {
+            "counts": [
+              6,
+              24,
+              67,
+              94,
+              93,
+              66,
+              39,
+              16
+            ],
+            "edges": [
+              7.0,
+              11.12,
+              15.25,
+              19.38,
+              23.5,
+              27.62,
+              31.75,
+              35.88,
+              40.0
+            ]
+          }
+        },
+        "Neuroticism": {
+          "n": 405,
+          "mean": 20.938,
+          "std": 6.546,
+          "min": 3.0,
+          "q25": 16.0,
+          "median": 20.0,
+          "q75": 26.0,
+          "max": 37.0,
+          "histogram": {
+            "counts": [
+              7,
+              23,
+              57,
+              82,
+              112,
+              73,
+              32,
+              19
+            ],
+            "edges": [
+              3.0,
+              7.25,
+              11.5,
+              15.75,
+              20.0,
+              24.25,
+              28.5,
+              32.75,
+              37.0
+            ]
+          }
+        },
+        "Openness": {
+          "n": 209,
+          "mean": 25.636,
+          "std": 5.61,
+          "min": 8.0,
+          "q25": 22.0,
+          "median": 25.0,
+          "q75": 30.0,
+          "max": 40.0,
+          "histogram": {
+            "counts": [
+              2,
+              4,
+              18,
+              59,
+              45,
+              49,
+              24,
+              8
+            ],
+            "edges": [
+              8.0,
+              12.0,
+              16.0,
+              20.0,
+              24.0,
+              28.0,
+              32.0,
+              36.0,
+              40.0
+            ]
+          }
+        }
+      },
+      "val": {
+        "Extraversion": {
+          "n": 87,
+          "mean": 20.184,
+          "std": 5.868,
+          "min": 4.0,
+          "q25": 16.0,
+          "median": 22.0,
+          "q75": 24.0,
+          "max": 34.0,
+          "histogram": {
+            "counts": [
+              2,
+              4,
+              14,
+              14,
+              17,
+              28,
+              4,
+              4
+            ],
+            "edges": [
+              4.0,
+              7.75,
+              11.5,
+              15.25,
+              19.0,
+              22.75,
+              26.5,
+              30.25,
+              34.0
+            ]
+          }
+        },
+        "Agreeableness": {
+          "n": 87,
+          "mean": 25.759,
+          "std": 4.08,
+          "min": 18.0,
+          "q25": 23.0,
+          "median": 26.0,
+          "q75": 29.0,
+          "max": 36.0,
+          "histogram": {
+            "counts": [
+              10,
+              10,
+              12,
+              20,
+              19,
+              8,
+              6,
+              2
+            ],
+            "edges": [
+              18.0,
+              20.25,
+              22.5,
+              24.75,
+              27.0,
+              29.25,
+              31.5,
+              33.75,
+              36.0
+            ]
+          }
+        },
+        "Conscientiousness": {
+          "n": 87,
+          "mean": 24.368,
+          "std": 5.775,
+          "min": 13.0,
+          "q25": 20.5,
+          "median": 24.0,
+          "q75": 28.0,
+          "max": 37.0,
+          "histogram": {
+            "counts": [
+              4,
+              10,
+              10,
+              21,
+              18,
+              12,
+              4,
+              8
+            ],
+            "edges": [
+              13.0,
+              16.0,
+              19.0,
+              22.0,
+              25.0,
+              28.0,
+              31.0,
+              34.0,
+              37.0
+            ]
+          }
+        },
+        "Neuroticism": {
+          "n": 87,
+          "mean": 20.057,
+          "std": 5.27,
+          "min": 10.0,
+          "q25": 16.0,
+          "median": 19.0,
+          "q75": 24.0,
+          "max": 31.0,
+          "histogram": {
+            "counts": [
+              4,
+              16,
+              11,
+              18,
+              10,
+              8,
+              16,
+              4
+            ],
+            "edges": [
+              10.0,
+              12.62,
+              15.25,
+              17.88,
+              20.5,
+              23.12,
+              25.75,
+              28.38,
+              31.0
+            ]
+          }
+        },
+        "Openness": {
+          "n": 43,
+          "mean": 23.977,
+          "std": 4.788,
+          "min": 15.0,
+          "q25": 20.0,
+          "median": 24.0,
+          "q75": 27.5,
+          "max": 34.0,
+          "histogram": {
+            "counts": [
+              3,
+              5,
+              8,
+              7,
+              6,
+              9,
+              2,
+              3
+            ],
+            "edges": [
+              15.0,
+              17.38,
+              19.75,
+              22.12,
+              24.5,
+              26.88,
+              29.25,
+              31.62,
+              34.0
+            ]
+          }
+        }
+      },
+      "test": {
+        "Extraversion": {
+          "n": 86,
+          "mean": 20.279,
+          "std": 6.403,
+          "min": 3.0,
+          "q25": 15.0,
+          "median": 21.5,
+          "q75": 24.0,
+          "max": 35.0,
+          "histogram": {
+            "counts": [
+              1,
+              7,
+              11,
+              13,
+              19,
+              19,
+              14,
+              2
+            ],
+            "edges": [
+              3.0,
+              7.0,
+              11.0,
+              15.0,
+              19.0,
+              23.0,
+              27.0,
+              31.0,
+              35.0
+            ]
+          }
+        },
+        "Agreeableness": {
+          "n": 86,
+          "mean": 26.593,
+          "std": 4.636,
+          "min": 13.0,
+          "q25": 23.25,
+          "median": 27.5,
+          "q75": 30.0,
+          "max": 37.0,
+          "histogram": {
+            "counts": [
+              1,
+              4,
+              8,
+              11,
+              19,
+              28,
+              11,
+              4
+            ],
+            "edges": [
+              13.0,
+              16.0,
+              19.0,
+              22.0,
+              25.0,
+              28.0,
+              31.0,
+              34.0,
+              37.0
+            ]
+          }
+        },
+        "Conscientiousness": {
+          "n": 86,
+          "mean": 25.198,
+          "std": 5.596,
+          "min": 16.0,
+          "q25": 21.0,
+          "median": 25.0,
+          "q75": 29.0,
+          "max": 38.0,
+          "histogram": {
+            "counts": [
+              8,
+              20,
+              13,
+              14,
+              10,
+              10,
+              6,
+              5
+            ],
+            "edges": [
+              16.0,
+              18.75,
+              21.5,
+              24.25,
+              27.0,
+              29.75,
+              32.5,
+              35.25,
+              38.0
+            ]
+          }
+        },
+        "Neuroticism": {
+          "n": 86,
+          "mean": 20.326,
+          "std": 4.751,
+          "min": 10.0,
+          "q25": 17.0,
+          "median": 20.0,
+          "q75": 23.0,
+          "max": 30.0,
+          "histogram": {
+            "counts": [
+              2,
+              8,
+              17,
+              13,
+              16,
+              12,
+              13,
+              5
+            ],
+            "edges": [
+              10.0,
+              12.5,
+              15.0,
+              17.5,
+              20.0,
+              22.5,
+              25.0,
+              27.5,
+              30.0
+            ]
+          }
+        },
+        "Openness": {
+          "n": 46,
+          "mean": 26.522,
+          "std": 4.67,
+          "min": 18.0,
+          "q25": 23.25,
+          "median": 26.0,
+          "q75": 30.0,
+          "max": 35.0,
+          "histogram": {
+            "counts": [
+              7,
+              2,
+              6,
+              9,
+              5,
+              6,
+              5,
+              6
+            ],
+            "edges": [
+              18.0,
+              20.12,
+              22.25,
+              24.38,
+              26.5,
+              28.62,
+              30.75,
+              32.88,
+              35.0
+            ]
+          }
+        }
+      }
+    },
+    "masked_targets": [
+      {
+        "language": "h",
+        "target": "Openness",
+        "csv_column": "Openness to Experience",
+        "value": 24,
+        "n_rows": 345
+      }
+    ],
+    "csv_columns": {
+      "Extraversion": "Extroversion",
+      "Agreeableness": "Agreeableness",
+      "Conscientiousness": "Conscientiousness",
+      "Neuroticism": "Neuroticism",
+      "Openness": "Openness to Experience"
+    }
+  },
+  "aggregation": "macro = unweighted mean over the five traits of each per-trait metric",
+  "baseline": {
+    "display_name": "Train-mean baseline",
+    "description": "predicts the training-split mean of each trait",
+    "train_means": {
+      "Extraversion": 18.987654320987655,
+      "Agreeableness": 26.45432098765432,
+      "Conscientiousness": 24.224691358024693,
+      "Neuroticism": 20.938271604938272,
+      "Openness": 25.636363636363637
+    },
+    "test_metrics": {
+      "task": "regression",
+      "n": 86,
+      "per_trait": {
+        "Extraversion": {
+          "n": 86,
+          "mae": 5.398507034165949,
+          "rmse": 6.495731297015846,
+          "r2": -0.04115190539040525,
+          "pearson_r": null,
+          "pearson_p": null,
+          "target_mean": 20.27906976744186,
+          "target_std": 6.403401968605893,
+          "prediction_mean": 18.98765432098766,
+          "prediction_std": 3.57355088784928e-15
+        },
+        "Agreeableness": {
+          "n": 86,
+          "mae": 3.6374677002583975,
+          "rmse": 4.6109201894058405,
+          "r2": -0.0009057014834321642,
+          "pearson_r": null,
+          "pearson_p": null,
+          "target_mean": 26.593023255813954,
+          "target_std": 4.6358650616730674,
+          "prediction_mean": 26.454320987654313,
+          "prediction_std": 7.14710177569856e-15
+        },
+        "Conscientiousness": {
+          "n": 86,
+          "mae": 4.652339936836061,
+          "rmse": 5.647653756510584,
+          "r2": -0.030588612035571172,
+          "pearson_r": null,
+          "pearson_p": null,
+          "target_mean": 25.197674418604652,
+          "target_std": 5.595838301161825,
+          "prediction_mean": 24.2246913580247,
+          "prediction_std": 7.14710177569856e-15
+        },
+        "Neuroticism": {
+          "n": 86,
+          "mae": 4.021820269882285,
+          "rmse": 4.763191230581893,
+          "r2": -0.016824093528736705,
+          "pearson_r": null,
+          "pearson_p": null,
+          "target_mean": 20.325581395348838,
+          "target_std": 4.751326404192749,
+          "prediction_mean": 20.93827160493828,
+          "prediction_std": 7.14710177569856e-15
+        },
+        "Openness": {
+          "n": 46,
+          "mae": 3.901185770750988,
+          "rmse": 4.703230134434078,
+          "r2": -0.03673940692393107,
+          "pearson_r": null,
+          "pearson_p": null,
+          "target_mean": 26.52173913043478,
+          "target_std": 4.670185009110846,
+          "prediction_mean": 25.63636363636365,
+          "prediction_std": 1.4367885501185262e-14
+        }
+      },
+      "macro": {
+        "mae": 4.322264142378736,
+        "rmse": 5.244145321589647,
+        "r2": -0.025241943872415275,
+        "pearson_r": null
+      },
+      "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+      "label_order": [
+        "Extraversion",
+        "Agreeableness",
+        "Conscientiousness",
+        "Neuroticism",
+        "Openness"
+      ]
+    },
+    "by_language": {
+      "English": {
+        "task": "regression",
+        "n": 46,
+        "per_trait": {
+          "Extraversion": {
+            "n": 46,
+            "mae": 5.372249060654859,
+            "rmse": 6.584183130729993,
+            "r2": -0.025290382454946636,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 20.02173913043478,
+            "target_std": 6.57432423374713,
+            "prediction_mean": 18.987654320987655,
+            "prediction_std": 0.0
+          },
+          "Agreeableness": {
+            "n": 46,
+            "mae": 3.6186258722490607,
+            "rmse": 4.68399344256819,
+            "r2": -7.766549979826287e-05,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 26.41304347826087,
+            "target_std": 4.735567955877553,
+            "prediction_mean": 26.454320987654306,
+            "prediction_std": 1.4367885501185262e-14
+          },
+          "Conscientiousness": {
+            "n": 46,
+            "mae": 4.71959205582394,
+            "rmse": 5.706145315819997,
+            "r2": -0.05071005424386188,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 25.47826086956522,
+            "target_std": 5.628258583788625,
+            "prediction_mean": 24.224691358024696,
+            "prediction_std": 3.5919713752963155e-15
+          },
+          "Neuroticism": {
+            "n": 46,
+            "mae": 4.239130434782608,
+            "rmse": 4.919622259949051,
+            "r2": -0.0028958701678332144,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 20.67391304347826,
+            "target_std": 4.966797975114739,
+            "prediction_mean": 20.93827160493827,
+            "prediction_std": 3.5919713752963155e-15
+          },
+          "Openness": {
+            "n": 46,
+            "mae": 3.901185770750988,
+            "rmse": 4.703230134434078,
+            "r2": -0.03673940692393107,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 26.52173913043478,
+            "target_std": 4.670185009110846,
+            "prediction_mean": 25.63636363636365,
+            "prediction_std": 1.4367885501185262e-14
+          }
+        },
+        "macro": {
+          "mae": 4.370156638852292,
+          "rmse": 5.319434856700262,
+          "r2": -0.023142675858074214,
+          "pearson_r": null
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "Hindi": {
+        "task": "regression",
+        "n": 40,
+        "per_trait": {
+          "Extraversion": {
+            "n": 40,
+            "mae": 5.428703703703704,
+            "rmse": 6.3924988310268125,
+            "r2": -0.06571149757113437,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 20.575,
+            "target_std": 6.271169277141553,
+            "prediction_mean": 18.987654320987655,
+            "prediction_std": 0.0
+          },
+          "Agreeableness": {
+            "n": 40,
+            "mae": 3.659135802469136,
+            "rmse": 4.525427491362145,
+            "r2": -0.005869055971330139,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 26.8,
+            "target_std": 4.569688313446694,
+            "prediction_mean": 26.45432098765432,
+            "prediction_std": 0.0
+          },
+          "Conscientiousness": {
+            "n": 40,
+            "mae": 4.575,
+            "rmse": 5.579630483269279,
+            "r2": -0.01377108227789603,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 24.875,
+            "target_std": 5.612200537382362,
+            "prediction_mean": 24.224691358024693,
+            "prediction_std": 0.0
+          },
+          "Neuroticism": {
+            "n": 40,
+            "mae": 3.771913580246914,
+            "rmse": 4.576690326575984,
+            "r2": -0.05154375302308334,
+            "pearson_r": null,
+            "pearson_p": null,
+            "target_mean": 19.925,
+            "target_std": 4.519969934095602,
+            "prediction_mean": 20.938271604938272,
+            "prediction_std": 0.0
+          },
+          "Openness": {
+            "n": 0,
+            "mae": null,
+            "rmse": null,
+            "r2": null,
+            "pearson_r": null,
+            "pearson_p": null
+          }
+        },
+        "macro": {
+          "mae": 4.358688271604938,
+          "rmse": 5.268561783058555,
+          "r2": -0.03422384721086097,
+          "pearson_r": null
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      }
+    }
+  },
+  "models": {
+    "hienwrite_resnet18": {
+      "display_name": "HiEnWrite ResNet18 regression \u00b7 experimental",
+      "artifact": "resnet18_regression.pt",
+      "artifact_sha256_16": "c0624b453548dade",
+      "validation_metrics": {
+        "task": "regression",
+        "n": 87,
+        "per_trait": {
+          "Extraversion": {
+            "n": 87,
+            "mae": 5.598417158473223,
+            "rmse": 6.805675915800637,
+            "r2": -0.3608646861718743,
+            "pearson_r": -0.15413023198534886,
+            "pearson_p": 0.1540501447732027,
+            "target_mean": 20.183908045977013,
+            "target_std": 5.867785001911322,
+            "prediction_mean": 18.58566331592121,
+            "prediction_std": 2.360371467849593
+          },
+          "Agreeableness": {
+            "n": 87,
+            "mae": 3.363671753996303,
+            "rmse": 4.232020609205799,
+            "r2": -0.08815985300538576,
+            "pearson_r": 0.0560258720415735,
+            "pearson_p": 0.6062586485732063,
+            "target_mean": 25.75862068965517,
+            "target_std": 4.080485371383971,
+            "prediction_mean": 26.380883118531408,
+            "prediction_std": 1.2908952834159795
+          },
+          "Conscientiousness": {
+            "n": 87,
+            "mae": 4.762906328107121,
+            "rmse": 5.751640215464409,
+            "r2": -0.0034337849356735894,
+            "pearson_r": 0.19179369318498635,
+            "pearson_p": 0.07513838957333549,
+            "target_mean": 24.367816091954023,
+            "target_std": 5.77507664809446,
+            "prediction_mean": 23.535193963394008,
+            "prediction_std": 1.9076423248312244
+          },
+          "Neuroticism": {
+            "n": 87,
+            "mae": 4.654459623909368,
+            "rmse": 5.3375526354398835,
+            "r2": -0.037623229566614125,
+            "pearson_r": 0.15485757765098435,
+            "pearson_p": 0.1520925989536185,
+            "target_mean": 20.057471264367816,
+            "target_std": 5.270268343724287,
+            "prediction_mean": 20.207928306956852,
+            "prediction_std": 2.1154477946878907
+          },
+          "Openness": {
+            "n": 43,
+            "mae": 4.09720675576409,
+            "rmse": 4.829918969554264,
+            "r2": -0.041675251154336124,
+            "pearson_r": 0.23355194064844054,
+            "pearson_p": 0.1317321306706394,
+            "target_mean": 23.976744186046513,
+            "target_std": 4.788320970728194,
+            "prediction_mean": 25.157304063752694,
+            "prediction_std": 2.001083654932751
+          }
+        },
+        "macro": {
+          "mae": 4.495332324050021,
+          "rmse": 5.391361669092999,
+          "r2": -0.10635136096677678,
+          "pearson_r": 0.09641977030812718,
+          "nrmse": 0.8958601168802414
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "test_metrics": {
+        "task": "regression",
+        "n": 86,
+        "per_trait": {
+          "Extraversion": {
+            "n": 86,
+            "mae": 5.592353565105177,
+            "rmse": 7.173454278783089,
+            "r2": -0.2697396000456975,
+            "pearson_r": -0.15116428154663025,
+            "pearson_p": 0.16473404617815918,
+            "target_mean": 20.27906976744186,
+            "target_std": 6.403401968605893,
+            "prediction_mean": 18.756787561639303,
+            "prediction_std": 2.1389032714273597
+          },
+          "Agreeableness": {
+            "n": 86,
+            "mae": 3.4078626049762493,
+            "rmse": 4.413766785522853,
+            "r2": 0.0828577144337771,
+            "pearson_r": 0.2917496611589637,
+            "pearson_p": 0.006419434397703002,
+            "target_mean": 26.593023255813954,
+            "target_std": 4.6358650616730674,
+            "prediction_mean": 26.55053821345804,
+            "prediction_std": 1.5687231401978294
+          },
+          "Conscientiousness": {
+            "n": 86,
+            "mae": 5.491975961384137,
+            "rmse": 6.899999554038392,
+            "r2": -0.538322307386246,
+            "pearson_r": -0.2863710458816057,
+            "pearson_p": 0.007516159528961899,
+            "target_mean": 25.197674418604652,
+            "target_std": 5.595838301161825,
+            "prediction_mean": 23.54434279417464,
+            "prediction_std": 2.4790580495092214
+          },
+          "Neuroticism": {
+            "n": 86,
+            "mae": 4.284107572463114,
+            "rmse": 5.346121438469894,
+            "r2": -0.2809360017953717,
+            "pearson_r": 0.08318106024342323,
+            "pearson_p": 0.4464047173824749,
+            "target_mean": 20.325581395348838,
+            "target_std": 4.751326404192749,
+            "prediction_mean": 19.67777890628432,
+            "prediction_std": 2.859722975411676
+          },
+          "Openness": {
+            "n": 46,
+            "mae": 4.290398575451982,
+            "rmse": 5.509666388543544,
+            "r2": -0.4227472441039759,
+            "pearson_r": -0.15631803090838597,
+            "pearson_p": 0.2995412544220587,
+            "target_mean": 26.52173913043478,
+            "target_std": 4.670185009110846,
+            "prediction_mean": 24.64537645734875,
+            "prediction_std": 1.7507635761636584
+          }
+        },
+        "macro": {
+          "mae": 4.613339655876132,
+          "rmse": 5.868601689071554,
+          "r2": -0.2857774877795028,
+          "pearson_r": -0.043784527386847
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "by_language": {
+        "English": {
+          "task": "regression",
+          "n": 46,
+          "per_trait": {
+            "Extraversion": {
+              "n": 46,
+              "mae": 5.651726409186782,
+              "rmse": 7.383020531648217,
+              "r2": -0.2891730927280287,
+              "pearson_r": -0.21591845771869334,
+              "pearson_p": 0.1495306558132647,
+              "target_mean": 20.02173913043478,
+              "target_std": 6.57432423374713,
+              "prediction_mean": 19.042458709151454,
+              "prediction_std": 2.2592446349345217
+            },
+            "Agreeableness": {
+              "n": 46,
+              "mae": 3.275086398695444,
+              "rmse": 4.399302707299045,
+              "r2": 0.1177963231961946,
+              "pearson_r": 0.3435137989546859,
+              "pearson_p": 0.019422128455484848,
+              "target_mean": 26.41304347826087,
+              "target_std": 4.735567955877553,
+              "prediction_mean": 26.480168948510926,
+              "prediction_std": 1.6260887726162148
+            },
+            "Conscientiousness": {
+              "n": 46,
+              "mae": 5.874552814541463,
+              "rmse": 7.32173677123005,
+              "r2": -0.7299177529835543,
+              "pearson_r": -0.3182893816767437,
+              "pearson_p": 0.031103577799870632,
+              "target_mean": 25.47826086956522,
+              "target_std": 5.628258583788625,
+              "prediction_mean": 23.282460287229593,
+              "prediction_std": 2.834847232007088
+            },
+            "Neuroticism": {
+              "n": 46,
+              "mae": 4.659740529617818,
+              "rmse": 5.860743970145423,
+              "r2": -0.4233045113813565,
+              "pearson_r": -0.018566940800810616,
+              "pearson_p": 0.9025252160682716,
+              "target_mean": 20.67391304347826,
+              "target_std": 4.966797975114739,
+              "prediction_mean": 19.442097715954784,
+              "prediction_std": 2.8910600949799443
+            },
+            "Openness": {
+              "n": 46,
+              "mae": 4.290398575451982,
+              "rmse": 5.509666388543544,
+              "r2": -0.4227472441039759,
+              "pearson_r": -0.15631803090838597,
+              "pearson_p": 0.2995412544220587,
+              "target_mean": 26.52173913043478,
+              "target_std": 4.670185009110846,
+              "prediction_mean": 24.64537645734875,
+              "prediction_std": 1.7507635761636584
+            }
+          },
+          "macro": {
+            "mae": 4.750300945498698,
+            "rmse": 6.094894073773256,
+            "r2": -0.3494692556001442,
+            "pearson_r": -0.07311580242998954
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        },
+        "Hindi": {
+          "task": "regression",
+          "n": 40,
+          "per_trait": {
+            "Extraversion": {
+              "n": 40,
+              "mae": 5.524074794411332,
+              "rmse": 6.924616850534154,
+              "r2": -0.2505176711499806,
+              "pearson_r": -0.05067438699246047,
+              "pearson_p": 0.7561581713084709,
+              "target_mean": 20.575,
+              "target_std": 6.271169277141553,
+              "prediction_mean": 18.428265742000328,
+              "prediction_std": 1.9683892693740497
+            },
+            "Agreeableness": {
+              "n": 40,
+              "mae": 3.5605552421991744,
+              "rmse": 4.4303420976828845,
+              "r2": 0.035956232686582545,
+              "pearson_r": 0.22221064408081564,
+              "pearson_p": 0.1681664896319579,
+              "target_mean": 26.8,
+              "target_std": 4.569688313446694,
+              "prediction_mean": 26.63146286814723,
+              "prediction_std": 1.5165640740132862
+            },
+            "Conscientiousness": {
+              "n": 40,
+              "mae": 5.052012580253214,
+              "rmse": 6.380633433998535,
+              "r2": -0.32573466633755777,
+              "pearson_r": -0.23426790469531011,
+              "pearson_p": 0.1456711712010174,
+              "target_mean": 24.875,
+              "target_std": 5.612200537382362,
+              "prediction_mean": 23.845507677161443,
+              "prediction_std": 1.9869316490514097
+            },
+            "Neuroticism": {
+              "n": 40,
+              "mae": 3.852129671735203,
+              "rmse": 4.684934702728481,
+              "r2": -0.101872582288832,
+              "pearson_r": 0.23246235254055828,
+              "pearson_p": 0.1488909898461021,
+              "target_mean": 19.925,
+              "target_std": 4.519969934095602,
+              "prediction_mean": 19.948812275163288,
+              "prediction_std": 2.8352975411682877
+            },
+            "Openness": {
+              "n": 0,
+              "mae": null,
+              "rmse": null,
+              "r2": null,
+              "pearson_r": null,
+              "pearson_p": null
+            }
+          },
+          "macro": {
+            "mae": 4.497193072149731,
+            "rmse": 5.605131771236014,
+            "r2": -0.16054217177244695,
+            "pearson_r": 0.042432676233400836
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        }
+      },
+      "latency_ms": {
+        "mean": 20.88623103478566,
+        "median": 12.800270997104235,
+        "note": "model inference after decoding, single image"
+      },
+      "config": {
+        "preprocessing": {
+          "size": 224,
+          "denoise": true,
+          "fit": "pad",
+          "channels": "grayscale x3",
+          "mean": [
+            0.485,
+            0.456,
+            0.406
+          ],
+          "std": [
+            0.229,
+            0.224,
+            0.225
+          ]
+        },
+        "pretrained": "torchvision ResNet18_Weights.IMAGENET1K_V1",
+        "freeze_backbone": true,
+        "loss": "masked mse on standardised targets",
+        "best_epoch": 12,
+        "epochs_run": 20,
+        "learning_rate": 0.001,
+        "batch_size": 16,
+        "device": "mps",
+        "seed": 42
+      }
+    },
+    "hienwrite_svr": {
+      "display_name": "HiEnWrite SVR (HOG) \u00b7 experimental",
+      "artifact": "svr_hog.joblib",
+      "artifact_sha256_16": "573da1c099945059",
+      "validation_metrics": {
+        "task": "regression",
+        "n": 87,
+        "per_trait": {
+          "Extraversion": {
+            "n": 87,
+            "mae": 5.093453973312708,
+            "rmse": 6.086890175731007,
+            "r2": -0.0885875118176449,
+            "pearson_r": -0.09251671178437434,
+            "pearson_p": 0.39405476432202463,
+            "target_mean": 20.183908045977013,
+            "target_std": 5.867785001911322,
+            "prediction_mean": 18.8881394819717,
+            "prediction_std": 0.7402195366882256
+          },
+          "Agreeableness": {
+            "n": 87,
+            "mae": 3.5444684496795884,
+            "rmse": 4.283315067480641,
+            "r2": -0.11469792519180211,
+            "pearson_r": -0.1530373259899959,
+            "pearson_p": 0.15702681823497078,
+            "target_mean": 25.75862068965517,
+            "target_std": 4.080485371383971,
+            "prediction_mean": 26.32591031641444,
+            "prediction_std": 0.78058174137368
+          },
+          "Conscientiousness": {
+            "n": 87,
+            "mae": 4.748156292996331,
+            "rmse": 5.824365689146824,
+            "r2": -0.02896965114778438,
+            "pearson_r": 0.0018001544199108231,
+            "pearson_p": 0.9867973074467545,
+            "target_mean": 24.367816091954023,
+            "target_std": 5.77507664809446,
+            "prediction_mean": 24.213750066825092,
+            "prediction_std": 0.9811057452572504
+          },
+          "Neuroticism": {
+            "n": 87,
+            "mae": 4.584328470592004,
+            "rmse": 5.23487617068658,
+            "r2": 0.0019135253625115478,
+            "pearson_r": 0.13810242411244272,
+            "pearson_p": 0.20208822646966185,
+            "target_mean": 20.057471264367816,
+            "target_std": 5.270268343724287,
+            "prediction_mean": 20.628013406290535,
+            "prediction_std": 1.1116251395635162
+          },
+          "Openness": {
+            "n": 43,
+            "mae": 3.9956060363858814,
+            "rmse": 4.81039904328975,
+            "r2": -0.03327248669478711,
+            "pearson_r": 0.15476991112032976,
+            "pearson_p": 0.32169736203462684,
+            "target_mean": 23.976744186046513,
+            "target_std": 4.788320970728194,
+            "prediction_mean": 24.81410490944504,
+            "prediction_std": 1.5119421014868588
+          }
+        },
+        "macro": {
+          "mae": 4.393202644593302,
+          "rmse": 5.2479692292669595,
+          "r2": -0.05272280989790139,
+          "pearson_r": 0.009823690375662613,
+          "nrmse": 0.8752652177979183
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "test_metrics": {
+        "task": "regression",
+        "n": 86,
+        "per_trait": {
+          "Extraversion": {
+            "n": 86,
+            "mae": 5.512701296302894,
+            "rmse": 6.711067785573149,
+            "r2": -0.1113254142433231,
+            "pearson_r": -0.22527215294361735,
+            "pearson_p": 0.03703259733124388,
+            "target_mean": 20.27906976744186,
+            "target_std": 6.403401968605893,
+            "prediction_mean": 19.047129016794894,
+            "prediction_std": 0.8180304276803054
+          },
+          "Agreeableness": {
+            "n": 86,
+            "mae": 3.6730383336286727,
+            "rmse": 4.6505923361461114,
+            "r2": -0.018203290454210874,
+            "pearson_r": -0.026723586213848523,
+            "pearson_p": 0.8070437664716431,
+            "target_mean": 26.593023255813954,
+            "target_std": 4.6358650616730674,
+            "prediction_mean": 26.432952806498527,
+            "prediction_std": 0.493069587110533
+          },
+          "Conscientiousness": {
+            "n": 86,
+            "mae": 4.676632602277009,
+            "rmse": 5.71239215535183,
+            "r2": -0.05435106405712431,
+            "pearson_r": -0.03237109717033499,
+            "pearson_p": 0.7673202287889348,
+            "target_mean": 25.197674418604652,
+            "target_std": 5.595838301161825,
+            "prediction_mean": 24.272843161352867,
+            "prediction_std": 0.7512484092252589
+          },
+          "Neuroticism": {
+            "n": 86,
+            "mae": 4.010818148401955,
+            "rmse": 4.836208441127515,
+            "r2": -0.048237794431720715,
+            "pearson_r": 0.021389754731292114,
+            "pearson_p": 0.845017074030432,
+            "target_mean": 20.325581395348838,
+            "target_std": 4.751326404192749,
+            "prediction_mean": 20.597627838886254,
+            "prediction_std": 1.1137669456356247
+          },
+          "Openness": {
+            "n": 46,
+            "mae": 4.13792220607938,
+            "rmse": 5.10794374130717,
+            "r2": -0.22283921510108584,
+            "pearson_r": 0.0034406242496634043,
+            "pearson_p": 0.9818949266423255,
+            "target_mean": 26.52173913043478,
+            "target_std": 4.670185009110846,
+            "prediction_mean": 25.018880884521355,
+            "prediction_std": 1.6134874521022617
+          }
+        },
+        "macro": {
+          "mae": 4.402222517337982,
+          "rmse": 5.403640891901155,
+          "r2": -0.09099135565749297,
+          "pearson_r": -0.051907291469369066
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "by_language": {
+        "English": {
+          "task": "regression",
+          "n": 46,
+          "per_trait": {
+            "Extraversion": {
+              "n": 46,
+              "mae": 5.5009148179820855,
+              "rmse": 6.85291602693477,
+              "r2": -0.11069265645996174,
+              "pearson_r": -0.25514257989486033,
+              "pearson_p": 0.08702777672424311,
+              "target_mean": 20.02173913043478,
+              "target_std": 6.57432423374713,
+              "prediction_mean": 18.922082414448422,
+              "prediction_std": 0.8448806543278337
+            },
+            "Agreeableness": {
+              "n": 46,
+              "mae": 3.656860866529601,
+              "rmse": 4.696865146179809,
+              "r2": -0.005581682819404854,
+              "pearson_r": 0.02698796085109264,
+              "pearson_p": 0.8586945532260484,
+              "target_mean": 26.41304347826087,
+              "target_std": 4.735567955877553,
+              "prediction_mean": 26.441550774210306,
+              "prediction_std": 0.5028707457521825
+            },
+            "Conscientiousness": {
+              "n": 46,
+              "mae": 4.694565282989562,
+              "rmse": 5.675468175441469,
+              "r2": -0.039442855885285066,
+              "pearson_r": 0.07406410842214994,
+              "pearson_p": 0.6247173263525713,
+              "target_mean": 25.47826086956522,
+              "target_std": 5.628258583788625,
+              "prediction_mean": 24.33338613716112,
+              "prediction_std": 0.7055435771051379
+            },
+            "Neuroticism": {
+              "n": 46,
+              "mae": 4.256029607979711,
+              "rmse": 4.999307635491794,
+              "r2": -0.03564771529130195,
+              "pearson_r": 0.06563200876801574,
+              "pearson_p": 0.6647566842321886,
+              "target_mean": 20.67391304347826,
+              "target_std": 4.966797975114739,
+              "prediction_mean": 20.376474047448504,
+              "prediction_std": 1.272143718846273
+            },
+            "Openness": {
+              "n": 46,
+              "mae": 4.13792220607938,
+              "rmse": 5.10794374130717,
+              "r2": -0.22283921510108584,
+              "pearson_r": 0.0034406242496634043,
+              "pearson_p": 0.9818949266423255,
+              "target_mean": 26.52173913043478,
+              "target_std": 4.670185009110846,
+              "prediction_mean": 25.018880884521355,
+              "prediction_std": 1.6134874521022617
+            }
+          },
+          "macro": {
+            "mae": 4.449258556312069,
+            "rmse": 5.466500145071003,
+            "r2": -0.08284082511140789,
+            "pearson_r": -0.01700357552078772
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        },
+        "Hindi": {
+          "task": "regression",
+          "n": 40,
+          "per_trait": {
+            "Extraversion": {
+              "n": 40,
+              "mae": 5.526255746371826,
+              "rmse": 6.544142379674107,
+              "r2": -0.11687306118424634,
+              "pearson_r": -0.21046013434244287,
+              "pearson_p": 0.1923990459342306,
+              "target_mean": 20.575,
+              "target_std": 6.271169277141553,
+              "prediction_mean": 19.190932609493338,
+              "prediction_std": 0.7714664190230602
+            },
+            "Agreeableness": {
+              "n": 40,
+              "mae": 3.6916424207926055,
+              "rmse": 4.596802800206526,
+              "r2": -0.03784852573607833,
+              "pearson_r": -0.09124158364332019,
+              "pearson_p": 0.5755245022293413,
+              "target_mean": 26.8,
+              "target_std": 4.569688313446694,
+              "prediction_mean": 26.423065143629987,
+              "prediction_std": 0.48775077463199185
+            },
+            "Conscientiousness": {
+              "n": 40,
+              "mae": 4.6560100194575735,
+              "rmse": 5.754561845311316,
+              "r2": -0.07833461382762663,
+              "pearson_r": -0.15049099599440546,
+              "pearson_p": 0.3539778636865235,
+              "target_mean": 24.875,
+              "target_std": 5.612200537382362,
+              "prediction_mean": 24.20321873917337,
+              "prediction_std": 0.8039751111132292
+            },
+            "Neuroticism": {
+              "n": 40,
+              "mae": 3.7288249698875355,
+              "rmse": 4.641564674281881,
+              "r2": -0.08156619500066964,
+              "pearson_r": -0.009553020567190783,
+              "pearson_p": 0.9533471752927021,
+              "target_mean": 19.925,
+              "target_std": 4.519969934095602,
+              "prediction_mean": 20.85195469903966,
+              "prediction_std": 0.84394821312255
+            },
+            "Openness": {
+              "n": 0,
+              "mae": null,
+              "rmse": null,
+              "r2": null,
+              "pearson_r": null,
+              "pearson_p": null
+            }
+          },
+          "macro": {
+            "mae": 4.400683289127385,
+            "rmse": 5.384267924868458,
+            "r2": -0.07865559893715524,
+            "pearson_r": -0.11543643363683982
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        }
+      },
+      "latency_ms": {
+        "mean": 23.088292591849093,
+        "median": 15.251457996782847,
+        "note": "model inference after decoding, single image"
+      },
+      "config": {
+        "estimator": "per-trait RBF SVR (scaled features, optional PCA, standardised target)",
+        "feature_set": "hog",
+        "selected_params": {
+          "Extraversion": {
+            "pca": null,
+            "C": 0.3,
+            "epsilon": 0.5
+          },
+          "Agreeableness": {
+            "pca": null,
+            "C": 0.3,
+            "epsilon": 0.5
+          },
+          "Conscientiousness": {
+            "pca": null,
+            "C": 0.3,
+            "epsilon": 0.5
+          },
+          "Neuroticism": {
+            "pca": null,
+            "C": 1.0,
+            "epsilon": 0.5
+          },
+          "Openness": {
+            "pca": 64,
+            "C": 1.0,
+            "epsilon": 0.5
+          }
+        },
+        "preprocessing": {
+          "size": 224,
+          "denoise": true,
+          "fit": "pad"
+        },
+        "seed": 42
+      }
+    },
+    "hienwrite_rf": {
+      "display_name": "HiEnWrite Random Forest (HOG + LBP) \u00b7 experimental",
+      "artifact": "random_forest_hog_lbp.joblib",
+      "artifact_sha256_16": "def15bf063c67c90",
+      "validation_metrics": {
+        "task": "regression",
+        "n": 87,
+        "per_trait": {
+          "Extraversion": {
+            "n": 87,
+            "mae": 5.07652690766897,
+            "rmse": 6.108966357306166,
+            "r2": -0.0964980982528505,
+            "pearson_r": -0.07280575284591598,
+            "pearson_p": 0.5027590375679062,
+            "target_mean": 20.183908045977013,
+            "target_std": 5.867785001911322,
+            "prediction_mean": 18.907197172010314,
+            "prediction_std": 0.9351715899676025
+          },
+          "Agreeableness": {
+            "n": 87,
+            "mae": 3.36211879341888,
+            "rmse": 4.156975065068739,
+            "r2": -0.04990980079745233,
+            "pearson_r": -0.03089487629799273,
+            "pearson_p": 0.7763582299356735,
+            "target_mean": 25.75862068965517,
+            "target_std": 4.080485371383971,
+            "prediction_mean": 26.33945477174322,
+            "prediction_std": 0.5850019340598881
+          },
+          "Conscientiousness": {
+            "n": 87,
+            "mae": 4.710647176600262,
+            "rmse": 5.807272576244684,
+            "r2": -0.022938956425077706,
+            "pearson_r": 0.03605868833545006,
+            "pearson_p": 0.7402092260862467,
+            "target_mean": 24.367816091954023,
+            "target_std": 5.77507664809446,
+            "prediction_mean": 24.187682385641814,
+            "prediction_std": 1.0889164223750896
+          },
+          "Neuroticism": {
+            "n": 87,
+            "mae": 4.6209115974695445,
+            "rmse": 5.326572187154349,
+            "r2": -0.033358410265375005,
+            "pearson_r": 0.050966807079044704,
+            "pearson_p": 0.6392013364371537,
+            "target_mean": 20.057471264367816,
+            "target_std": 5.270268343724287,
+            "prediction_mean": 20.857005321314965,
+            "prediction_std": 0.8619188728173067
+          },
+          "Openness": {
+            "n": 43,
+            "mae": 3.978260853932933,
+            "rmse": 4.746412956996821,
+            "r2": -0.005966916706533931,
+            "pearson_r": 0.24400232322957688,
+            "pearson_p": 0.11483686599633977,
+            "target_mean": 23.976744186046513,
+            "target_std": 4.788320970728194,
+            "prediction_mean": 25.184725414523836,
+            "prediction_std": 1.079389087016362
+          }
+        },
+        "macro": {
+          "mae": 4.349693065818117,
+          "rmse": 5.229239828554152,
+          "r2": -0.04173443648945789,
+          "pearson_r": 0.04546543790003259,
+          "nrmse": 0.870718453662589
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "test_metrics": {
+        "task": "regression",
+        "n": 86,
+        "per_trait": {
+          "Extraversion": {
+            "n": 86,
+            "mae": 5.579842684141713,
+            "rmse": 6.800793479426657,
+            "r2": -0.14124048249396348,
+            "pearson_r": -0.1745701779333121,
+            "pearson_p": 0.1079276041289804,
+            "target_mean": 20.27906976744186,
+            "target_std": 6.403401968605893,
+            "prediction_mean": 18.91323816144754,
+            "prediction_std": 1.152287410159823
+          },
+          "Agreeableness": {
+            "n": 86,
+            "mae": 3.715073454169658,
+            "rmse": 4.67053929552193,
+            "r2": -0.026956418815049954,
+            "pearson_r": -0.11244574752882491,
+            "pearson_p": 0.3026376988472212,
+            "target_mean": 26.593023255813954,
+            "target_std": 4.6358650616730674,
+            "prediction_mean": 26.38608041508666,
+            "prediction_std": 0.37745698523000815
+          },
+          "Conscientiousness": {
+            "n": 86,
+            "mae": 4.686892666971624,
+            "rmse": 5.795810107530751,
+            "r2": -0.08536923770407867,
+            "pearson_r": -0.03981704246596296,
+            "pearson_p": 0.7158660435214779,
+            "target_mean": 25.197674418604652,
+            "target_std": 5.595838301161825,
+            "prediction_mean": 24.249946820122844,
+            "prediction_std": 1.1240723302344815
+          },
+          "Neuroticism": {
+            "n": 86,
+            "mae": 4.0999173567629805,
+            "rmse": 4.8171601562157065,
+            "r2": -0.03999670626572649,
+            "pearson_r": -0.0018075896595009383,
+            "pearson_p": 0.9868214494298172,
+            "target_mean": 20.325581395348838,
+            "target_std": 4.751326404192749,
+            "prediction_mean": 20.89483862513847,
+            "prediction_std": 0.7497896351888756
+          },
+          "Openness": {
+            "n": 46,
+            "mae": 4.104429526365719,
+            "rmse": 4.949215880697686,
+            "r2": -0.1480212912247576,
+            "pearson_r": -0.07169311630147746,
+            "pearson_p": 0.6358745645152015,
+            "target_mean": 26.52173913043478,
+            "target_std": 4.670185009110846,
+            "prediction_mean": 25.404764607264447,
+            "prediction_std": 1.1022548948588518
+          }
+        },
+        "macro": {
+          "mae": 4.437231137682339,
+          "rmse": 5.406703783878546,
+          "r2": -0.08831682730071524,
+          "pearson_r": -0.08006673477781567
+        },
+        "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+        "label_order": [
+          "Extraversion",
+          "Agreeableness",
+          "Conscientiousness",
+          "Neuroticism",
+          "Openness"
+        ]
+      },
+      "by_language": {
+        "English": {
+          "task": "regression",
+          "n": 46,
+          "per_trait": {
+            "Extraversion": {
+              "n": 46,
+              "mae": 5.586489819844956,
+              "rmse": 6.9773547697751415,
+              "r2": -0.1513959337677977,
+              "pearson_r": -0.21361770273791578,
+              "pearson_p": 0.15402215163315008,
+              "target_mean": 20.02173913043478,
+              "target_std": 6.57432423374713,
+              "prediction_mean": 18.73250866758947,
+              "prediction_std": 1.2065199611402373
+            },
+            "Agreeableness": {
+              "n": 46,
+              "mae": 3.717539719014859,
+              "rmse": 4.732639861296101,
+              "r2": -0.020958492924281646,
+              "pearson_r": -0.08152747261483165,
+              "pearson_p": 0.5901443557593247,
+              "target_mean": 26.41304347826087,
+              "target_std": 4.735567955877553,
+              "prediction_mean": 26.371501840238615,
+              "prediction_std": 0.3996053436478397
+            },
+            "Conscientiousness": {
+              "n": 46,
+              "mae": 4.740643485510605,
+              "rmse": 5.79542948263042,
+              "r2": -0.08384826010047353,
+              "pearson_r": 0.01278506048880007,
+              "pearson_p": 0.9327944564079065,
+              "target_mean": 25.47826086956522,
+              "target_std": 5.628258583788625,
+              "prediction_mean": 24.23882394697447,
+              "prediction_std": 1.1164298352228694
+            },
+            "Neuroticism": {
+              "n": 46,
+              "mae": 4.324008358932506,
+              "rmse": 4.9244370910673805,
+              "r2": -0.004859897870761243,
+              "pearson_r": 0.06636862158969006,
+              "pearson_p": 0.6612197801660648,
+              "target_mean": 20.67391304347826,
+              "target_std": 4.966797975114739,
+              "prediction_mean": 20.830299210020076,
+              "prediction_std": 0.7808061665388729
+            },
+            "Openness": {
+              "n": 46,
+              "mae": 4.104429526365719,
+              "rmse": 4.949215880697686,
+              "r2": -0.1480212912247576,
+              "pearson_r": -0.07169311630147746,
+              "pearson_p": 0.6358745645152015,
+              "target_mean": 26.52173913043478,
+              "target_std": 4.670185009110846,
+              "prediction_mean": 25.404764607264447,
+              "prediction_std": 1.1022548948588518
+            }
+          },
+          "macro": {
+            "mae": 4.49462218193373,
+            "rmse": 5.475815417093346,
+            "r2": -0.08181677517761435,
+            "pearson_r": -0.05753692191514694
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        },
+        "Hindi": {
+          "task": "regression",
+          "n": 40,
+          "per_trait": {
+            "Extraversion": {
+              "n": 40,
+              "mae": 5.572198478082983,
+              "rmse": 6.59190421435996,
+              "r2": -0.1332353486344895,
+              "pearson_r": -0.14544481674109544,
+              "pearson_p": 0.3705308447327278,
+              "target_mean": 20.575,
+              "target_std": 6.271169277141553,
+              "prediction_mean": 19.12107707938432,
+              "prediction_std": 1.0636617829119985
+            },
+            "Agreeableness": {
+              "n": 40,
+              "mae": 3.7122372495976763,
+              "rmse": 4.598086901467071,
+              "r2": -0.038428445650444454,
+              "pearson_r": -0.15890506136738414,
+              "pearson_p": 0.3273939744656242,
+              "target_mean": 26.8,
+              "target_std": 4.569688313446694,
+              "prediction_mean": 26.40284577616191,
+              "prediction_std": 0.3545836076605752
+            },
+            "Conscientiousness": {
+              "n": 40,
+              "mae": 4.625079225651795,
+              "rmse": 5.79624779526647,
+              "r2": -0.09401407564079078,
+              "pearson_r": -0.09797703688961232,
+              "pearson_p": 0.5475324933091339,
+              "target_mean": 24.875,
+              "target_std": 5.612200537382362,
+              "prediction_mean": 24.262738124243477,
+              "prediction_std": 1.1469004450280618
+            },
+            "Neuroticism": {
+              "n": 40,
+              "mae": 3.842212704268023,
+              "rmse": 4.6907596371373455,
+              "r2": -0.10461427496579989,
+              "pearson_r": -0.07859411533222416,
+              "pearson_p": 0.6297650975959834,
+              "target_mean": 19.925,
+              "target_std": 4.519969934095602,
+              "prediction_mean": 20.969058952524612,
+              "prediction_std": 0.715023907986832
+            },
+            "Openness": {
+              "n": 0,
+              "mae": null,
+              "rmse": null,
+              "r2": null,
+              "pearson_r": null,
+              "pearson_p": null
+            }
+          },
+          "macro": {
+            "mae": 4.437931914400119,
+            "rmse": 5.419249637057712,
+            "r2": -0.09257303622288116,
+            "pearson_r": -0.12023025758257902
+          },
+          "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+          "label_order": [
+            "Extraversion",
+            "Agreeableness",
+            "Conscientiousness",
+            "Neuroticism",
+            "Openness"
+          ]
+        }
+      },
+      "latency_ms": {
+        "mean": 149.65413668636927,
+        "median": 141.372207996028,
+        "note": "model inference after decoding, single image"
+      },
+      "config": {
+        "estimator": "per-trait RandomForestRegressor",
+        "feature_set": "hog_lbp",
+        "selected_params": {
+          "Extraversion": {
+            "n_estimators": 500,
+            "max_features": "sqrt",
+            "min_samples_leaf": 20
+          },
+          "Agreeableness": {
+            "n_estimators": 500,
+            "max_features": "sqrt",
+            "min_samples_leaf": 20
+          },
+          "Conscientiousness": {
+            "n_estimators": 500,
+            "max_features": 0.1,
+            "min_samples_leaf": 5
+          },
+          "Neuroticism": {
+            "n_estimators": 500,
+            "max_features": "sqrt",
+            "min_samples_leaf": 5
+          },
+          "Openness": {
+            "n_estimators": 500,
+            "max_features": 0.1,
+            "min_samples_leaf": 5
+          }
+        },
+        "preprocessing": {
+          "size": 224,
+          "denoise": true,
+          "fit": "pad"
+        },
+        "seed": 42
+      }
+    }
+  },
+  "skipped": {},
+  "warnings": [],
+  "bootstrap": {
+    "method": "participant-group bootstrap, 2000 resamples, percentile 95% intervals, seed 42",
+    "models": {
+      "hienwrite_resnet18": {
+        "Extraversion": {
+          "rmse_95ci": [
+            5.611881423986015,
+            8.571862829519706
+          ],
+          "pearson_r_95ci": [
+            -0.41096649649034667,
+            0.16765559750587541
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.05162538232226524,
+            1.2171852058391204
+          ],
+          "share_of_resamples_better_than_baseline": 0.019
+        },
+        "Agreeableness": {
+          "rmse_95ci": [
+            3.569167611706056,
+            5.21293830023792
+          ],
+          "pearson_r_95ci": [
+            0.09634749416758068,
+            0.48404245737574936
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.5310340388792028,
+            0.11300545229809517
+          ],
+          "share_of_resamples_better_than_baseline": 0.9
+        },
+        "Conscientiousness": {
+          "rmse_95ci": [
+            5.6505272632139185,
+            8.074954892081013
+          ],
+          "pearson_r_95ci": [
+            -0.4690589709615513,
+            -0.06058593151710735
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.6800380064051098,
+            1.750766908646291
+          ],
+          "share_of_resamples_better_than_baseline": 0.0
+        },
+        "Neuroticism": {
+          "rmse_95ci": [
+            4.210627836307647,
+            6.4022466545198125
+          ],
+          "pearson_r_95ci": [
+            -0.21366353572821384,
+            0.36910603628892497
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.26620877025607703,
+            1.439314740413327
+          ],
+          "share_of_resamples_better_than_baseline": 0.1005
+        },
+        "Openness": {
+          "rmse_95ci": [
+            4.357080705982727,
+            6.561976777061436
+          ],
+          "pearson_r_95ci": [
+            -0.3876348111374207,
+            0.16876352802411637
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.09255459163606776,
+            1.4466059766920851
+          ],
+          "share_of_resamples_better_than_baseline": 0.0095
+        },
+        "macro": {
+          "rmse_95ci": [
+            5.111344827603942,
+            6.541530006843599
+          ],
+          "pearson_r_95ci": [
+            -0.18964681224819246,
+            0.12808994360344583
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.21997231779095056,
+            1.012176091057559
+          ],
+          "share_of_resamples_better_than_baseline": 0.0
+        }
+      },
+      "hienwrite_svr": {
+        "Extraversion": {
+          "rmse_95ci": [
+            5.47716961391564,
+            7.937737953880245
+          ],
+          "pearson_r_95ci": [
+            -0.4912105185708154,
+            0.055820278983328635
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.002744847546439131,
+            0.43910922145177034
+          ],
+          "share_of_resamples_better_than_baseline": 0.026
+        },
+        "Agreeableness": {
+          "rmse_95ci": [
+            3.74317697386678,
+            5.539867913584339
+          ],
+          "pearson_r_95ci": [
+            -0.25936656742544245,
+            0.18854831501139768
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.06694377442971118,
+            0.15064661691741005
+          ],
+          "share_of_resamples_better_than_baseline": 0.2395
+        },
+        "Conscientiousness": {
+          "rmse_95ci": [
+            4.708437748523905,
+            6.639240208552264
+          ],
+          "pearson_r_95ci": [
+            -0.32512639957981176,
+            0.25286093654421554
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.1427939380279766,
+            0.2746695021502205
+          ],
+          "share_of_resamples_better_than_baseline": 0.2815
+        },
+        "Neuroticism": {
+          "rmse_95ci": [
+            4.042969849709335,
+            5.589517338636786
+          ],
+          "pearson_r_95ci": [
+            -0.2864652694192585,
+            0.2985174298974541
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.2673850684569227,
+            0.4295660390522541
+          ],
+          "share_of_resamples_better_than_baseline": 0.339
+        },
+        "Openness": {
+          "rmse_95ci": [
+            4.22394796232393,
+            5.964354075543876
+          ],
+          "pearson_r_95ci": [
+            -0.2841358133474248,
+            0.28767202569726813
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.0819999067248518,
+            0.8399206093850246
+          ],
+          "share_of_resamples_better_than_baseline": 0.051
+        },
+        "macro": {
+          "rmse_95ci": [
+            4.870052536238146,
+            5.897636599849919
+          ],
+          "pearson_r_95ci": [
+            -0.19736397967845076,
+            0.08596175118211755
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.013972482349216504,
+            0.3057106350447471
+          ],
+          "share_of_resamples_better_than_baseline": 0.0165
+        }
+      },
+      "hienwrite_rf": {
+        "Extraversion": {
+          "rmse_95ci": [
+            5.568788623814597,
+            8.02286565415071
+          ],
+          "pearson_r_95ci": [
+            -0.46465564443217144,
+            0.11466560562111376
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.02342545368040263,
+            0.6262054383740234
+          ],
+          "share_of_resamples_better_than_baseline": 0.032
+        },
+        "Agreeableness": {
+          "rmse_95ci": [
+            3.7749988643836763,
+            5.542117305095735
+          ],
+          "pearson_r_95ci": [
+            -0.3241542245039613,
+            0.12352570321327483
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.030997178923287436,
+            0.14149248449115812
+          ],
+          "share_of_resamples_better_than_baseline": 0.078
+        },
+        "Conscientiousness": {
+          "rmse_95ci": [
+            4.7350008113464135,
+            6.721777240413227
+          ],
+          "pearson_r_95ci": [
+            -0.31161003623057876,
+            0.2537867369009954
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.17254826756748012,
+            0.46199217578637597
+          ],
+          "share_of_resamples_better_than_baseline": 0.1905
+        },
+        "Neuroticism": {
+          "rmse_95ci": [
+            4.024630311627214,
+            5.557554685724625
+          ],
+          "pearson_r_95ci": [
+            -0.23681920511602753,
+            0.2270797760785436
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.11407558146884071,
+            0.21954417422885925
+          ],
+          "share_of_resamples_better_than_baseline": 0.26
+        },
+        "Openness": {
+          "rmse_95ci": [
+            4.150993163880264,
+            5.726311171376961
+          ],
+          "pearson_r_95ci": [
+            -0.36687724451268267,
+            0.2389286110059233
+          ],
+          "rmse_minus_baseline_95ci": [
+            -0.09846698777003973,
+            0.542538803541931
+          ],
+          "share_of_resamples_better_than_baseline": 0.074
+        },
+        "macro": {
+          "rmse_95ci": [
+            4.901936515007114,
+            5.889355591288156
+          ],
+          "pearson_r_95ci": [
+            -0.215713614665127,
+            0.04912598150058138
+          ],
+          "rmse_minus_baseline_95ci": [
+            0.04165616060993495,
+            0.2766665807380799
+          ],
+          "share_of_resamples_better_than_baseline": 0.0035
+        }
+      }
+    }
+  },
+  "plots": [
+    "test_rmse_by_trait.png",
+    "scatter_hienwrite_resnet18.png",
+    "scatter_hienwrite_svr.png",
+    "scatter_hienwrite_rf.png",
+    "resnet18_training_curves.png"
+  ]
+}

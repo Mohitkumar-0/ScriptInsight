@@ -3,17 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ScriptInsight · Handwriting Personality Detector</title>
+    <title>ScriptInsight · Handwriting Personality Analysis</title>
     <link rel="stylesheet" href="{{ asset_url('css/style.css') }}" />
   </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">ScriptInsight · AI handwriting analysis</p>
-          <h1>Personality Detector</h1>
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">✍️</span>
+          <div>
+            <h1>ScriptInsight</h1>
+            <p class="brand-subtitle">Intelligent personality prediction using handwriting analysis</p>
+          </div>
         </div>
-        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">
           <span id="themeIcon">🌙</span>
         </button>
       </header>
@@ -21,22 +24,24 @@
       <nav class="tabs" role="tablist" aria-label="Sections">
         <button type="button" role="tab" data-tab="analyze" aria-controls="panel-analyze" id="tab-analyze">Analyze</button>
         <button type="button" role="tab" data-tab="dashboard" aria-controls="panel-dashboard" id="tab-dashboard">Dashboard</button>
-        <button type="button" role="tab" data-tab="evaluation" aria-controls="panel-evaluation" id="tab-evaluation">Evaluation</button>
+        <button type="button" role="tab" data-tab="evaluation" aria-controls="panel-evaluation" id="tab-evaluation">Model Performance</button>
         <button type="button" role="tab" data-tab="history" aria-controls="panel-history" id="tab-history">History</button>
       </nav>
-
-      <p class="disclaimer" role="note"><strong>Please note:</strong> {{ disclaimer }}</p>
 
       <main class="container">
         <!-- Analyze -->
         <div id="panel-analyze" data-panel="analyze" role="tabpanel" aria-labelledby="tab-analyze" class="panel">
-          <section class="hero card">
-            <div class="hero-copy">
-              <h2>Upload a handwriting sample</h2>
-              <p>
-                The server runs every trained model on the image and shows their outputs side by side.
-                Scores describe what the models output, not a validated assessment of the writer.
-              </p>
+          <section class="card upload-card">
+            <div class="upload-intro">
+              <p class="eyebrow">Analyze</p>
+              <h2>Analyze a handwriting sample</h2>
+              <p class="muted">Upload a clear photo or scan of handwritten text. The selected model estimates a score for
+                each of the five Big Five personality traits.</p>
+              <ol class="steps">
+                <li><strong>Choose an image</strong><span>JPG, PNG or WEBP, at least 128×128 px, up to 16MB</span></li>
+                <li><strong>Pick a model</strong><span>or keep the default</span></li>
+                <li><strong>Analyze</strong><span>results appear below</span></li>
+              </ol>
             </div>
 
             <form id="uploadForm" class="upload-form" enctype="multipart/form-data" novalidate>
@@ -44,10 +49,10 @@
                 <input id="fileInput" name="file" type="file"
                        accept=".jpg,.jpeg,.png,.webp,.bmp,.tif,.tiff,.gif,image/jpeg,image/png,image/webp,image/bmp,image/tiff,image/gif" />
                 <div class="upload-content">
-                  <div class="upload-icon">✍️</div>
+                  <div class="upload-icon" aria-hidden="true">⤒</div>
                   <div>
                     <strong id="selectedFileLabel">Choose or drop a handwriting image</strong>
-                    <span>JPG, PNG, WEBP (also BMP, TIFF, GIF) · min 128×128 px · max 16MB</span>
+                    <span>Click to browse, or drag a file here</span>
                   </div>
                 </div>
               </label>
@@ -57,11 +62,30 @@
               </div>
               <p id="fileMeta" class="file-meta hidden"></p>
 
+              <div id="uploadRejection" class="upload-rejection hidden" role="alert">
+                <strong>This image can't be analyzed</strong>
+                <p id="uploadRejectionMessage"></p>
+                <p id="uploadRejectionDetail" class="upload-rejection-detail"></p>
+                <ul>
+                  <li>Use a clear photo or scan of handwritten text.</li>
+                  <li>Make sure the page is evenly lit, in focus and fills most of the frame.</li>
+                  <li>Keep background clutter, faces and other objects out of the shot.</li>
+                </ul>
+                <p class="upload-rejection-detail">Choose a different image above and analyze again.</p>
+              </div>
+
+              <label class="field" for="modelSelect">
+                <span class="field-label">Model</span>
+                <select id="modelSelect" name="model">
+                  <option value="">Default model</option>
+                </select>
+              </label>
+
               <div id="fileMessage" class="file-message" aria-live="polite"></div>
 
               <div class="form-actions">
                 <button type="submit" class="primary-btn" id="analyzeBtn">Analyze handwriting</button>
-                <button type="button" class="secondary-btn hidden" id="replaceBtn">Replace image</button>
+                <button type="button" class="secondary-btn hidden" id="replaceBtn">Choose another image</button>
               </div>
             </form>
           </section>
@@ -69,26 +93,28 @@
           <section id="resultPanel" class="results card hidden" aria-live="polite">
             <div class="result-header">
               <div>
-                <p class="eyebrow" id="resultModel">Prediction</p>
+                <p class="eyebrow">Result</p>
                 <h3 id="predictedTrait">-</h3>
+                <p class="result-model" id="resultModel"></p>
               </div>
               <div class="confidence-badge" id="confidenceBadge">
                 <span id="confidenceLabel">Model score</span>
                 <strong id="confidenceValue">0%</strong>
               </div>
             </div>
-            <div id="resultNotes" class="notes"></div>
             <div class="probability-grid" id="probabilityGrid"></div>
+            <div id="resultNotes" class="notes"></div>
             <div class="result-actions">
+              <button type="button" class="secondary-btn" id="resetBtn">Analyze another image</button>
               <button type="button" class="secondary-btn" id="exportBtn">Download report</button>
             </div>
           </section>
 
           <section id="comparisonPanel" class="card hidden">
             <div class="section-header">
-              <p class="eyebrow">Model comparison</p>
+              <p class="eyebrow">Comparison</p>
               <h3>All models on this image</h3>
-              <p class="muted">Scores for the uploaded image only. Accuracy figures are on the Evaluation tab.</p>
+              <p class="muted">Scores for this image from every model that produced a result. Test-set results are on the Model Performance tab.</p>
             </div>
             <div class="table-wrap"><table class="data-table" id="comparisonTable"></table></div>
           </section>
@@ -107,20 +133,21 @@
         <div id="panel-dashboard" data-panel="dashboard" role="tabpanel" aria-labelledby="tab-dashboard" class="panel hidden">
           <section class="card">
             <div class="section-header">
-              <p class="eyebrow">Dashboard</p>
-              <h3>Models, data and training status</h3>
-              <p class="muted">Only verified or explicitly recorded values are shown; anything else is marked unavailable.</p>
+              <p class="eyebrow">Overview</p>
+              <h2>Dashboard</h2>
+              <p class="muted">What this installation of ScriptInsight can do, and the data its models were trained on.</p>
             </div>
-            <div id="dashboardContent" class="dashboard-grid"><p class="muted">Loading…</p></div>
+            <div id="dashboardContent"><p class="muted">Loading…</p></div>
           </section>
         </div>
 
-        <!-- Evaluation -->
+        <!-- Model Performance -->
         <div id="panel-evaluation" data-panel="evaluation" role="tabpanel" aria-labelledby="tab-evaluation" class="panel hidden">
           <section class="card">
             <div class="section-header">
               <p class="eyebrow">Evaluation</p>
-              <h3>Held-out test results and training history</h3>
+              <h2>Model Performance</h2>
+              <p class="muted">How accurately each model predicted trait scores for handwriting it had never seen.</p>
             </div>
             <div id="evaluationContent"><p class="muted">Loading…</p></div>
           </section>
@@ -131,20 +158,23 @@
           <section class="card">
             <div class="section-header">
               <p class="eyebrow">History</p>
-              <h3>Results from this browser tab</h3>
+              <h2>Your recent analyses</h2>
               <p class="muted">
-                Stored only in this tab's session storage and cleared when the tab closes. Images are never stored.
+                Kept only in this browser tab and cleared when the tab closes. Images are never stored.
               </p>
             </div>
             <div class="history-controls">
               <label class="switch"><input type="checkbox" id="historyToggle" checked /> Keep results in this tab's history</label>
-              <button type="button" class="secondary-btn" id="clearHistoryBtn">Clear history</button>
+              <button type="button" class="secondary-btn small" id="clearHistoryBtn">Clear history</button>
             </div>
             <div id="historyList"></div>
           </section>
         </div>
       </main>
-      <footer class="footer muted">ScriptInsight v{{ app_version }}</footer>
+      <footer class="footer muted">
+        <span>ScriptInsight v{{ app_version }}</span>
+        <span>Trained on the HiEnWrite dataset (Checker, Yadav &amp; Katarya, 2025), CC BY-NC 4.0, used non-commercially.</span>
+      </footer>
     </div>
 
     <script src="{{ asset_url('js/common.js') }}"></script>

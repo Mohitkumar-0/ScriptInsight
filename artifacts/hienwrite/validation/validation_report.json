@@ -1,0 +1,1714 @@
+{
+  "created_utc": "2026-10-22T20:00:12+00:00",
+  "data_root": "/Users/amitkumaryadav/Downloads/HiEnWrite-Dataset-main",
+  "csv": "data/merged_data.csv",
+  "csv_sha256": "0fca5b5ef0972478f0cc9f1d27d28e5c529243e87ad856dad4ef07503d83fc1c",
+  "csv_columns_used": {
+    "image": "image",
+    "Extraversion": "Extroversion",
+    "Agreeableness": "Agreeableness",
+    "Conscientiousness": "Conscientiousness",
+    "Neuroticism": "Neuroticism",
+    "Openness": "Openness to Experience"
+  },
+  "min_image_side": 128,
+  "counts": {
+    "csv_rows": 690,
+    "unique_image_references": 690,
+    "image_files_on_disk": 660,
+    "csv_rows_matched_to_a_file": 660,
+    "missing_image_files": 30,
+    "files_on_disk_not_in_csv": [],
+    "unreadable_images": 8,
+    "too_small_images": 1,
+    "duplicate_images_excluded": 73,
+    "usable_samples": 578,
+    "usable_by_language": {
+      "English": 298,
+      "Hindi": 280
+    },
+    "participants_in_csv": 345,
+    "participants_usable": 303,
+    "groups_usable": 295
+  },
+  "exclusions_by_reason": {
+    "duplicate_image": 5,
+    "duplicate_image_conflicting_labels": 68,
+    "missing_file": 30,
+    "too_small(<128px)": 1,
+    "unreadable_image:corrupt_image": 1,
+    "unreadable_image:empty_file": 7
+  },
+  "excluded_rows": [
+    {
+      "image": "24e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "24h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "26e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "26h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "41e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "41h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "52h.jpeg",
+      "reason": "unreadable_image:corrupt_image",
+      "duplicate_of": ""
+    },
+    {
+      "image": "57h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "60e.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "81h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "82h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "95h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "115h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "118h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "119e.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "119h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "120e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "120h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "123e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "123h.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "125e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "125h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "134h.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "136e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "136h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "137e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "137h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "138e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "138h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "139e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "139h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "142h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "144h.jpeg",
+      "reason": "duplicate_image",
+      "duplicate_of": "144e.jpeg"
+    },
+    {
+      "image": "150h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "151e.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "151h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "160e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "160h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "162e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "162h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "164h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "170e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "170h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "172e.jpeg",
+      "reason": "duplicate_image",
+      "duplicate_of": "146e.jpeg"
+    },
+    {
+      "image": "172h.jpeg",
+      "reason": "duplicate_image",
+      "duplicate_of": "146h.jpeg"
+    },
+    {
+      "image": "176h.jpeg",
+      "reason": "too_small(<128px)",
+      "duplicate_of": ""
+    },
+    {
+      "image": "179e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "191e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "191h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "201h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "219e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "219h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "226h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "231e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "231h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "232e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "232h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "236e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "236h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "239e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "239h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "248e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "248h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "250e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "250h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "255e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "255h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "263e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "263h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "264h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "268e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "268h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "272e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "272h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "277h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "279e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "279h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "283e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "283h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "291e.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "295h.jpeg",
+      "reason": "duplicate_image",
+      "duplicate_of": "157h.jpeg"
+    },
+    {
+      "image": "296h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "297e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "297h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "310e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "310h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "316h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "322e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "322h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "333e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "333h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "337h.jpeg",
+      "reason": "duplicate_image",
+      "duplicate_of": "337e.jpeg"
+    },
+    {
+      "image": "338e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "338h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "341e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "341h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "348e.jpeg",
+      "reason": "unreadable_image:empty_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "354e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "354h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "361h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "363e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "369h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "372e.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "372h.jpeg",
+      "reason": "missing_file",
+      "duplicate_of": ""
+    },
+    {
+      "image": "386e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "386h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "387e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "387h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "402e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "402h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "403e.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    },
+    {
+      "image": "403h.jpeg",
+      "reason": "duplicate_image_conflicting_labels",
+      "duplicate_of": ""
+    }
+  ],
+  "duplicate_csv_rows": 0,
+  "duplicate_clusters": [
+    {
+      "images": [
+        "57h.jpeg",
+        "142h.jpeg",
+        "296h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "81h.jpeg",
+        "82h.jpeg",
+        "277h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "119h.jpeg",
+        "150h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "123e.jpeg",
+        "363e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "136e.jpeg",
+        "137e.jpeg",
+        "138e.jpeg",
+        "139e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "136h.jpeg",
+        "137h.jpeg",
+        "138h.jpeg",
+        "139h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "144e.jpeg",
+        "144h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": true,
+      "kept": "144e.jpeg"
+    },
+    {
+      "images": [
+        "146e.jpeg",
+        "172e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": true,
+      "kept": "146e.jpeg"
+    },
+    {
+      "images": [
+        "146h.jpeg",
+        "172h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": true,
+      "kept": "146h.jpeg"
+    },
+    {
+      "images": [
+        "157h.jpeg",
+        "295h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": true,
+      "kept": "157h.jpeg"
+    },
+    {
+      "images": [
+        "170e.jpeg",
+        "322e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "170h.jpeg",
+        "322h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "201h.jpeg",
+        "226h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "231e.jpeg",
+        "232e.jpeg",
+        "236e.jpeg",
+        "239e.jpeg",
+        "248e.jpeg",
+        "250e.jpeg",
+        "283e.jpeg",
+        "297e.jpeg",
+        "297h.jpeg",
+        "310e.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "231h.jpeg",
+        "232h.jpeg",
+        "236h.jpeg",
+        "239h.jpeg",
+        "248h.jpeg",
+        "250h.jpeg",
+        "263e.jpeg",
+        "263h.jpeg",
+        "264h.jpeg",
+        "283h.jpeg",
+        "310h.jpeg",
+        "369h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "255e.jpeg",
+        "333e.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "255h.jpeg",
+        "333h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "279e.jpeg",
+        "341e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "279h.jpeg",
+        "341h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "316h.jpeg",
+        "361h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "337e.jpeg",
+        "337h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": true,
+      "kept": "337e.jpeg"
+    },
+    {
+      "images": [
+        "338e.jpeg",
+        "354e.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "338h.jpeg",
+        "354h.jpeg"
+      ],
+      "byte_identical": false,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "386e.jpeg",
+        "387e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "386h.jpeg",
+        "387h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "402e.jpeg",
+        "403e.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    },
+    {
+      "images": [
+        "402h.jpeg",
+        "403h.jpeg"
+      ],
+      "byte_identical": true,
+      "labels_agree": false,
+      "kept": null
+    }
+  ],
+  "near_duplicate_pairs": [
+    {
+      "a": "57h.jpeg",
+      "b": "142h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "57h.jpeg",
+      "b": "296h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "81h.jpeg",
+      "b": "82h.jpeg",
+      "dhash_bits": 5,
+      "same_participant": false
+    },
+    {
+      "a": "81h.jpeg",
+      "b": "277h.jpeg",
+      "dhash_bits": 5,
+      "same_participant": false
+    },
+    {
+      "a": "82h.jpeg",
+      "b": "277h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "231e.jpeg",
+      "b": "236e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "231h.jpeg",
+      "b": "236h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "231h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "232e.jpeg",
+      "b": "236e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "232h.jpeg",
+      "b": "236h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "232h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "239e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "248e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "250e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "283e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "297e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "297h.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236e.jpeg",
+      "b": "310e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "239h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "248h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "250h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "263e.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "263h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "264h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "283h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "310h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "236h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    },
+    {
+      "a": "239h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "248h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "250h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "255e.jpeg",
+      "b": "333e.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "255h.jpeg",
+      "b": "333h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "263e.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "263h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "264h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "283h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "310h.jpeg",
+      "b": "369h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "316h.jpeg",
+      "b": "361h.jpeg",
+      "dhash_bits": 0,
+      "same_participant": false
+    },
+    {
+      "a": "338e.jpeg",
+      "b": "354e.jpeg",
+      "dhash_bits": 4,
+      "same_participant": false
+    },
+    {
+      "a": "338h.jpeg",
+      "b": "354h.jpeg",
+      "dhash_bits": 3,
+      "same_participant": false
+    }
+  ],
+  "constant_targets_masked": [
+    {
+      "language": "h",
+      "target": "Openness",
+      "csv_column": "Openness to Experience",
+      "value": 24,
+      "n_rows": 345
+    }
+  ],
+  "writer_ids": {
+    "documented_column": false,
+    "strategy": "inferred participant = numeric prefix of the image id (<number><e|h>.jpeg), merged through shared exact / near-duplicate images",
+    "evidence": {
+      "participants_with_two_rows": 345,
+      "pairs_identical_on_E_A_C_N_age_gender": 345,
+      "paper_abstract": "handwritten samples collected from over 400 authors; approximately 800 images"
+    },
+    "limitation": "Writer identity is not documented in the CSV or readme. If one person contributed under several numbers, their samples could fall in different splits."
+  },
+  "image_size": {
+    "width": {
+      "n": 652,
+      "mean": 2051.992,
+      "std": 1061.231,
+      "min": 48.0,
+      "q25": 1280.0,
+      "median": 1600.0,
+      "q75": 2808.5,
+      "max": 5759.0,
+      "histogram": {
+        "counts": [
+          15,
+          283,
+          108,
+          95,
+          62,
+          81,
+          6,
+          2
+        ],
+        "edges": [
+          48.0,
+          761.88,
+          1475.75,
+          2189.62,
+          2903.5,
+          3617.38,
+          4331.25,
+          5045.12,
+          5759.0
+        ]
+      }
+    },
+    "height": {
+      "n": 652,
+      "mean": 1205.196,
+      "std": 771.351,
+      "min": 48.0,
+      "q25": 637.0,
+      "median": 914.0,
+      "q75": 1636.25,
+      "max": 4624.0,
+      "histogram": {
+        "counts": [
+          134,
+          276,
+          100,
+          96,
+          10,
+          26,
+          6,
+          4
+        ],
+        "edges": [
+          48.0,
+          620.0,
+          1192.0,
+          1764.0,
+          2336.0,
+          2908.0,
+          3480.0,
+          4052.0,
+          4624.0
+        ]
+      }
+    }
+  },
+  "target_ranges_all_rows": {
+    "Extraversion": [
+      0,
+      40
+    ],
+    "Agreeableness": [
+      11,
+      40
+    ],
+    "Conscientiousness": [
+      7,
+      40
+    ],
+    "Neuroticism": [
+      2,
+      37
+    ],
+    "Openness": [
+      8,
+      40
+    ]
+  },
+  "target_distributions_usable": {
+    "Extraversion": {
+      "n": 578,
+      "mean": 19.36,
+      "std": 6.606,
+      "min": 0.0,
+      "q25": 15.0,
+      "median": 20.0,
+      "q75": 24.0,
+      "max": 40.0,
+      "histogram": {
+        "counts": [
+          13,
+          28,
+          84,
+          159,
+          191,
+          75,
+          21,
+          7
+        ],
+        "edges": [
+          0.0,
+          5.0,
+          10.0,
+          15.0,
+          20.0,
+          25.0,
+          30.0,
+          35.0,
+          40.0
+        ]
+      }
+    },
+    "Agreeableness": {
+      "n": 578,
+      "mean": 26.37,
+      "std": 4.741,
+      "min": 11.0,
+      "q25": 23.0,
+      "median": 27.0,
+      "q75": 30.0,
+      "max": 40.0,
+      "histogram": {
+        "counts": [
+          7,
+          19,
+          60,
+          147,
+          191,
+          105,
+          42,
+          7
+        ],
+        "edges": [
+          11.0,
+          14.62,
+          18.25,
+          21.88,
+          25.5,
+          29.12,
+          32.75,
+          36.38,
+          40.0
+        ]
+      }
+    },
+    "Conscientiousness": {
+      "n": 578,
+      "mean": 24.391,
+      "std": 6.023,
+      "min": 7.0,
+      "q25": 20.0,
+      "median": 24.0,
+      "q75": 29.0,
+      "max": 40.0,
+      "histogram": {
+        "counts": [
+          6,
+          28,
+          95,
+          143,
+          132,
+          94,
+          55,
+          25
+        ],
+        "edges": [
+          7.0,
+          11.12,
+          15.25,
+          19.38,
+          23.5,
+          27.62,
+          31.75,
+          35.88,
+          40.0
+        ]
+      }
+    },
+    "Neuroticism": {
+      "n": 578,
+      "mean": 20.715,
+      "std": 6.131,
+      "min": 3.0,
+      "q25": 16.0,
+      "median": 20.0,
+      "q75": 25.0,
+      "max": 37.0,
+      "histogram": {
+        "counts": [
+          7,
+          27,
+          87,
+          133,
+          162,
+          104,
+          39,
+          19
+        ],
+        "edges": [
+          3.0,
+          7.25,
+          11.5,
+          15.75,
+          20.0,
+          24.25,
+          28.5,
+          32.75,
+          37.0
+        ]
+      }
+    },
+    "Openness": {
+      "n": 298,
+      "mean": 25.534,
+      "std": 5.394,
+      "min": 8.0,
+      "q25": 22.0,
+      "median": 25.0,
+      "q75": 30.0,
+      "max": 40.0,
+      "histogram": {
+        "counts": [
+          2,
+          5,
+          28,
+          79,
+          74,
+          67,
+          35,
+          8
+        ],
+        "edges": [
+          8.0,
+          12.0,
+          16.0,
+          20.0,
+          24.0,
+          28.0,
+          32.0,
+          36.0,
+          40.0
+        ]
+      }
+    }
+  },
+  "target_distributions_usable_by_language": {
+    "English": {
+      "Extraversion": {
+        "n": 298,
+        "mean": 19.332,
+        "std": 6.622,
+        "min": 0.0,
+        "q25": 15.0,
+        "median": 20.0,
+        "q75": 24.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            7,
+            15,
+            43,
+            82,
+            98,
+            39,
+            10,
+            4
+          ],
+          "edges": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0,
+            25.0,
+            30.0,
+            35.0,
+            40.0
+          ]
+        }
+      },
+      "Agreeableness": {
+        "n": 298,
+        "mean": 26.356,
+        "std": 4.78,
+        "min": 11.0,
+        "q25": 23.0,
+        "median": 27.0,
+        "q75": 30.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            4,
+            10,
+            31,
+            75,
+            99,
+            53,
+            22,
+            4
+          ],
+          "edges": [
+            11.0,
+            14.62,
+            18.25,
+            21.88,
+            25.5,
+            29.12,
+            32.75,
+            36.38,
+            40.0
+          ]
+        }
+      },
+      "Conscientiousness": {
+        "n": 298,
+        "mean": 24.423,
+        "std": 6.014,
+        "min": 7.0,
+        "q25": 20.0,
+        "median": 24.0,
+        "q75": 29.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            3,
+            14,
+            49,
+            75,
+            66,
+            50,
+            28,
+            13
+          ],
+          "edges": [
+            7.0,
+            11.12,
+            15.25,
+            19.38,
+            23.5,
+            27.62,
+            31.75,
+            35.88,
+            40.0
+          ]
+        }
+      },
+      "Neuroticism": {
+        "n": 298,
+        "mean": 20.738,
+        "std": 6.168,
+        "min": 3.0,
+        "q25": 16.0,
+        "median": 20.0,
+        "q75": 25.0,
+        "max": 37.0,
+        "histogram": {
+          "counts": [
+            4,
+            14,
+            44,
+            69,
+            82,
+            55,
+            20,
+            10
+          ],
+          "edges": [
+            3.0,
+            7.25,
+            11.5,
+            15.75,
+            20.0,
+            24.25,
+            28.5,
+            32.75,
+            37.0
+          ]
+        }
+      },
+      "Openness": {
+        "n": 298,
+        "mean": 25.534,
+        "std": 5.394,
+        "min": 8.0,
+        "q25": 22.0,
+        "median": 25.0,
+        "q75": 30.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            2,
+            5,
+            28,
+            79,
+            74,
+            67,
+            35,
+            8
+          ],
+          "edges": [
+            8.0,
+            12.0,
+            16.0,
+            20.0,
+            24.0,
+            28.0,
+            32.0,
+            36.0,
+            40.0
+          ]
+        }
+      }
+    },
+    "Hindi": {
+      "Extraversion": {
+        "n": 280,
+        "mean": 19.389,
+        "std": 6.6,
+        "min": 0.0,
+        "q25": 15.0,
+        "median": 20.0,
+        "q75": 24.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            6,
+            13,
+            41,
+            77,
+            93,
+            36,
+            11,
+            3
+          ],
+          "edges": [
+            0.0,
+            5.0,
+            10.0,
+            15.0,
+            20.0,
+            25.0,
+            30.0,
+            35.0,
+            40.0
+          ]
+        }
+      },
+      "Agreeableness": {
+        "n": 280,
+        "mean": 26.386,
+        "std": 4.708,
+        "min": 11.0,
+        "q25": 23.0,
+        "median": 27.0,
+        "q75": 30.0,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            3,
+            9,
+            29,
+            72,
+            92,
+            52,
+            20,
+            3
+          ],
+          "edges": [
+            11.0,
+            14.62,
+            18.25,
+            21.88,
+            25.5,
+            29.12,
+            32.75,
+            36.38,
+            40.0
+          ]
+        }
+      },
+      "Conscientiousness": {
+        "n": 280,
+        "mean": 24.357,
+        "std": 6.044,
+        "min": 7.0,
+        "q25": 20.0,
+        "median": 24.0,
+        "q75": 28.25,
+        "max": 40.0,
+        "histogram": {
+          "counts": [
+            3,
+            14,
+            46,
+            68,
+            66,
+            44,
+            27,
+            12
+          ],
+          "edges": [
+            7.0,
+            11.12,
+            15.25,
+            19.38,
+            23.5,
+            27.62,
+            31.75,
+            35.88,
+            40.0
+          ]
+        }
+      },
+      "Neuroticism": {
+        "n": 280,
+        "mean": 20.689,
+        "std": 6.103,
+        "min": 3.0,
+        "q25": 16.0,
+        "median": 20.0,
+        "q75": 25.0,
+        "max": 37.0,
+        "histogram": {
+          "counts": [
+            3,
+            13,
+            43,
+            64,
+            80,
+            49,
+            19,
+            9
+          ],
+          "edges": [
+            3.0,
+            7.25,
+            11.5,
+            15.75,
+            20.0,
+            24.25,
+            28.5,
+            32.75,
+            37.0
+          ]
+        }
+      },
+      "Openness": {
+        "n": 0
+      }
+    }
+  },
+  "gender_counts_usable": {
+    "Female": 91,
+    "Male": 483,
+    "Prefer not to say": 4
+  },
+  "age_values_usable": {
+    "17": 4,
+    "18": 18,
+    "19": 80,
+    "20": 150,
+    "21": 197,
+    "22": 101,
+    "23": 12,
+    "24": 4,
+    "Prefer Not Say": 12
+  }
+}

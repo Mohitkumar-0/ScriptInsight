@@ -1,0 +1,198 @@
+{
+  "model_name": "hienwrite_resnet18",
+  "display_name": "HiEnWrite ResNet18 regression \u00b7 experimental",
+  "arch": "resnet18",
+  "dataset": "HiEnWrite",
+  "experimental": true,
+  "num_outputs": 5,
+  "label_mode": "regression",
+  "task": "regression",
+  "label_names": [
+    "Extraversion",
+    "Agreeableness",
+    "Conscientiousness",
+    "Neuroticism",
+    "Openness"
+  ],
+  "csv_columns": {
+    "Extraversion": "Extroversion",
+    "Agreeableness": "Agreeableness",
+    "Conscientiousness": "Conscientiousness",
+    "Neuroticism": "Neuroticism",
+    "Openness": "Openness to Experience"
+  },
+  "score_type": "regression_score",
+  "target_mean": [
+    18.987654320987655,
+    26.45432098765432,
+    24.224691358024693,
+    20.938271604938272,
+    25.636363636363637
+  ],
+  "target_std": [
+    6.7748329911834775,
+    4.8930150604571425,
+    6.161311959753006,
+    6.546001876688741,
+    5.610071487771087
+  ],
+  "target_stats": {
+    "Extraversion": {
+      "n": 405,
+      "mean": 18.987654320987655,
+      "std": 6.7748329911834775,
+      "min": 0.0,
+      "max": 40.0
+    },
+    "Agreeableness": {
+      "n": 405,
+      "mean": 26.45432098765432,
+      "std": 4.8930150604571425,
+      "min": 11.0,
+      "max": 40.0
+    },
+    "Conscientiousness": {
+      "n": 405,
+      "mean": 24.224691358024693,
+      "std": 6.161311959753006,
+      "min": 7.0,
+      "max": 40.0
+    },
+    "Neuroticism": {
+      "n": 405,
+      "mean": 20.938271604938272,
+      "std": 6.546001876688741,
+      "min": 3.0,
+      "max": 37.0
+    },
+    "Openness": {
+      "n": 209,
+      "mean": 25.636363636363637,
+      "std": 5.610071487771087,
+      "min": 8.0,
+      "max": 40.0
+    }
+  },
+  "preprocessing": {
+    "size": 224,
+    "denoise": true,
+    "fit": "pad",
+    "channels": "grayscale x3",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "augmentation": "Compose(\n    RandomAffine(degrees=[-10.0, 10.0], translate=(0.03, 0.03), scale=(0.95, 1.05), shear=[-5.0, 5.0], fill=255)\n    ColorJitter(brightness=(0.8, 1.2), contrast=(0.8, 1.2), saturation=None, hue=None)\n)",
+  "pretrained": "torchvision ResNet18_Weights.IMAGENET1K_V1",
+  "freeze_backbone": true,
+  "loss": "masked mse on standardised targets",
+  "best_epoch": 12,
+  "epochs_planned": 60,
+  "early_stopping_patience": 8,
+  "selection_metric": "validation loss (masked, standardised targets)",
+  "validation_loss": 0.8143388819511589,
+  "validation_metrics": {
+    "task": "regression",
+    "n": 87,
+    "per_trait": {
+      "Extraversion": {
+        "n": 87,
+        "mae": 5.598417158473223,
+        "rmse": 6.805675915800637,
+        "r2": -0.3608646861718743,
+        "pearson_r": -0.15413023198534886,
+        "pearson_p": 0.1540501447732027,
+        "target_mean": 20.183908045977013,
+        "target_std": 5.867785001911322,
+        "prediction_mean": 18.58566331592121,
+        "prediction_std": 2.360371467849593
+      },
+      "Agreeableness": {
+        "n": 87,
+        "mae": 3.363671753996303,
+        "rmse": 4.232020609205799,
+        "r2": -0.08815985300538576,
+        "pearson_r": 0.0560258720415735,
+        "pearson_p": 0.6062586485732063,
+        "target_mean": 25.75862068965517,
+        "target_std": 4.080485371383971,
+        "prediction_mean": 26.380883118531408,
+        "prediction_std": 1.2908952834159795
+      },
+      "Conscientiousness": {
+        "n": 87,
+        "mae": 4.762906328107121,
+        "rmse": 5.751640215464409,
+        "r2": -0.0034337849356735894,
+        "pearson_r": 0.19179369318498635,
+        "pearson_p": 0.07513838957333549,
+        "target_mean": 24.367816091954023,
+        "target_std": 5.77507664809446,
+        "prediction_mean": 23.535193963394008,
+        "prediction_std": 1.9076423248312244
+      },
+      "Neuroticism": {
+        "n": 87,
+        "mae": 4.654459623909368,
+        "rmse": 5.3375526354398835,
+        "r2": -0.037623229566614125,
+        "pearson_r": 0.15485757765098435,
+        "pearson_p": 0.1520925989536185,
+        "target_mean": 20.057471264367816,
+        "target_std": 5.270268343724287,
+        "prediction_mean": 20.207928306956852,
+        "prediction_std": 2.1154477946878907
+      },
+      "Openness": {
+        "n": 43,
+        "mae": 4.09720675576409,
+        "rmse": 4.829918969554264,
+        "r2": -0.041675251154336124,
+        "pearson_r": 0.23355194064844054,
+        "pearson_p": 0.1317321306706394,
+        "target_mean": 23.976744186046513,
+        "target_std": 4.788320970728194,
+        "prediction_mean": 25.157304063752694,
+        "prediction_std": 2.001083654932751
+      }
+    },
+    "macro": {
+      "mae": 4.495332324050021,
+      "rmse": 5.391361669092999,
+      "r2": -0.10635136096677678,
+      "pearson_r": 0.09641977030812718,
+      "nrmse": 0.8958601168802414
+    },
+    "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+    "label_order": [
+      "Extraversion",
+      "Agreeableness",
+      "Conscientiousness",
+      "Neuroticism",
+      "Openness"
+    ]
+  },
+  "batch_size": 16,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "optimizer": "AdamW + ReduceLROnPlateau(factor 0.5, patience 3)",
+  "seed": 42,
+  "device": "mps",
+  "dataset_fingerprint": "efe899f06db72c1d",
+  "split_seed": 42,
+  "n_train": 405,
+  "n_val": 87,
+  "smoke_test": false,
+  "torch_version": "2.14.1",
+  "torchvision_version": "0.29.1",
+  "created_utc": "2026-10-22T20:07:48+00:00",
+  "epochs_run": 20,
+  "training_seconds": 33.4
+}

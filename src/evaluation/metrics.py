@@ -73,3 +73,66 @@ def accuracy_target_check(metrics, traits, target):
                    'met': metrics['per_trait'][t]['accuracy'] >= target} for t in traits}
     return {'applicable': True, 'target': target, 'traits': results,
             'all_met': all(r['met'] for r in results.values())}
+
+
+# ----------------------------------------------------------------------------------------- regression
+# Five numerical targets (HiEnWrite). ``mask`` marks valid targets per sample (False = missing/masked); every
+# metric of a trait uses only its valid samples. Aggregates are UNWEIGHTED means over traits ("macro").
+MIN_SAMPLES_FOR_CORRELATION = 3
+
+
+def _pearson(t, p):
+    """Pearson r and two-sided p-value, or (None, None) when undefined (n < 3 or a constant vector)."""
+    if len(t) < MIN_SAMPLES_FOR_CORRELATION or np.ptp(t) == 0 or np.ptp(p) == 0:  # exact constant check
+        return None, None
+    from scipy.stats import pearsonr
+    result = pearsonr(t, p)
+    return float(result.statistic), float(result.pvalue)
+
+
+def regression_metrics(y_true, y_pred, label_names, mask=None):
+    """Per-trait MAE, RMSE, R^2 and Pearson r (with p-value), plus unweighted means over traits."""
+    from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+    y_true = np.asarray(y_true, dtype=float)
+    y_pred = np.asarray(y_pred, dtype=float)
+    mask = np.isfinite(y_true) if mask is None else np.asarray(mask, dtype=bool) & np.isfinite(y_true)
+    per_trait = {}
+    for i, name in enumerate(label_names):
+        valid = mask[:, i]
+        t, p = y_true[valid, i], y_pred[valid, i]
+        if len(t) == 0:
+            per_trait[name] = {'n': 0, 'mae': None, 'rmse': None, 'r2': None, 'pearson_r': None, 'pearson_p': None}
+            continue
+        r, p_value = _pearson(t, p)
+        per_trait[name] = {
+            'n': int(len(t)),
+            'mae': float(mean_absolute_error(t, p)),
+            'rmse': float(np.sqrt(mean_squared_error(t, p))),
+            # R^2 is relative to predicting this split's own mean; undefined for constant targets or n < 2.
+            'r2': float(r2_score(t, p)) if len(t) >= 2 and np.std(t) > 0 else None,
+            'pearson_r': r, 'pearson_p': p_value,
+            'target_mean': float(t.mean()), 'target_std': float(t.std(ddof=1)) if len(t) > 1 else 0.0,
+            'prediction_mean': float(p.mean()), 'prediction_std': float(p.std(ddof=1)) if len(p) > 1 else 0.0,
+        }
+
+    def mean_of(key):
+        values = [m[key] for m in per_trait.values() if m.get(key) is not None]
+        return float(np.mean(values)) if values else None
+
+    return {
+        'task': 'regression',
+        'n': int(len(y_true)),
+        'per_trait': per_trait,
+        'macro': {k: mean_of(k) for k in ('mae', 'rmse', 'r2', 'pearson_r')},
+        'aggregation': 'macro = unweighted mean over traits of each per-trait metric (traits where it is defined)',
+        'label_order': list(label_names),
+    }
+
+
+def normalized_rmse(metrics, target_std):
+    """Mean over traits of RMSE / training-target std (1.0 ~ no better than predicting the mean).
+    Used to compare regression models on the validation split; lower is better."""
+    values = [metrics['per_trait'][t]['rmse'] / target_std[t] for t in metrics['label_order']
+              if metrics['per_trait'][t]['rmse'] is not None and target_std.get(t)]
+    return float(np.mean(values)) if values else None

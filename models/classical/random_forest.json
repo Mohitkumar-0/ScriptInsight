@@ -1,0 +1,120 @@
+{
+  "model_name": "random_forest",
+  "display_name": "Random Forest (HOG + LBP)",
+  "label_mode": "multiclass",
+  "label_names": [
+    "Agreeableness",
+    "Conscientiousness",
+    "Extraversion",
+    "Neuroticism",
+    "Openness"
+  ],
+  "score_type": "vote_fraction",
+  "feature_version": "hog9-c16-b2_lbp8r1-g4_lbp16r2_v1",
+  "feature_dim": 6262,
+  "denoise": true,
+  "selected_params": {
+    "n_estimators": 300,
+    "max_depth": null,
+    "max_features": "sqrt"
+  },
+  "selection_metric": "validation macro-F1",
+  "validation_metrics": {
+    "task": "multiclass",
+    "n": 408,
+    "accuracy": 0.36764705882352944,
+    "chance_accuracy_majority": 0.2549019607843137,
+    "per_class": {
+      "Agreeableness": {
+        "precision": 0.2890625,
+        "recall": 0.4625,
+        "f1": 0.3557692307692308,
+        "support": 80
+      },
+      "Conscientiousness": {
+        "precision": 0.3103448275862069,
+        "recall": 0.1125,
+        "f1": 0.1651376146788991,
+        "support": 80
+      },
+      "Extraversion": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 72
+      },
+      "Neuroticism": {
+        "precision": 0.3716216216216216,
+        "recall": 0.5288461538461539,
+        "f1": 0.4365079365079365,
+        "support": 104
+      },
+      "Openness": {
+        "precision": 0.5697674418604651,
+        "recall": 0.6805555555555556,
+        "f1": 0.620253164556962,
+        "support": 72
+      }
+    },
+    "confusion_matrix": [
+      [
+        37,
+        7,
+        1,
+        22,
+        13
+      ],
+      [
+        24,
+        9,
+        3,
+        44,
+        0
+      ],
+      [
+        40,
+        2,
+        0,
+        20,
+        10
+      ],
+      [
+        26,
+        0,
+        9,
+        55,
+        14
+      ],
+      [
+        1,
+        11,
+        4,
+        7,
+        49
+      ]
+    ],
+    "label_order": [
+      "Agreeableness",
+      "Conscientiousness",
+      "Extraversion",
+      "Neuroticism",
+      "Openness"
+    ],
+    "macro": {
+      "precision": 0.30815927821365874,
+      "recall": 0.3568803418803419,
+      "f1": 0.31553358930260567
+    },
+    "weighted": {
+      "precision": 0.31280512418994777,
+      "recall": 0.36764705882352944,
+      "f1": 0.3228617668646497
+    }
+  },
+  "n_train": 3260,
+  "n_val": 408,
+  "dataset_fingerprint": "7ee490622698377d",
+  "seed": 42,
+  "sklearn_version": "1.9.1",
+  "created_utc": "2026-11-17T21:54:27+00:00"
+}

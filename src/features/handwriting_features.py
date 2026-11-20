@@ -49,6 +49,14 @@ def extract_features(gray_224):
     return features
 
 
-def features_from_gray(gray, denoise=config.DENOISE):
+FEATURE_SETS = {'hog': slice(0, HOG_DIM), 'hog_lbp': slice(0, FEATURE_DIM)}
+
+
+def features_from_gray(gray, denoise=config.DENOISE, fit='stretch'):
     """Raw grayscale image of any size -> feature vector (standardisation + extraction)."""
-    return extract_features(standardize_gray(gray, denoise=denoise))
+    return extract_features(standardize_gray(gray, denoise=denoise, fit=fit))
+
+
+def select_features(features, feature_set):
+    """Columns of a full HOG+LBP vector (or matrix) used by a model: 'hog' or 'hog_lbp'."""
+    return np.asarray(features)[..., FEATURE_SETS[feature_set]]

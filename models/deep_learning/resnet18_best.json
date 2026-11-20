@@ -1,0 +1,139 @@
+{
+  "model_name": "resnet18",
+  "display_name": "ResNet18 (fine-tuned)",
+  "arch": "resnet18",
+  "num_outputs": 5,
+  "label_mode": "multiclass",
+  "label_names": [
+    "Agreeableness",
+    "Conscientiousness",
+    "Extraversion",
+    "Neuroticism",
+    "Openness"
+  ],
+  "score_type": "softmax_probability",
+  "pretrained": "torchvision ResNet18_Weights.IMAGENET1K_V1",
+  "freeze_backbone": true,
+  "preprocessing": {
+    "size": 224,
+    "denoise": true,
+    "channels": "grayscale x3",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "augmentation": "RandomAffine(degrees=[-10.0, 10.0], translate=(0.03, 0.03), scale=(0.95, 1.05), shear=[-5.0, 5.0], fill=255)",
+  "best_epoch": 10,
+  "epochs_planned": 10,
+  "selection_metric": "validation macro-F1",
+  "validation_metrics": {
+    "task": "multiclass",
+    "n": 408,
+    "accuracy": 0.30392156862745096,
+    "chance_accuracy_majority": 0.2549019607843137,
+    "per_class": {
+      "Agreeableness": {
+        "precision": 0.3037974683544304,
+        "recall": 0.3,
+        "f1": 0.3018867924528302,
+        "support": 80
+      },
+      "Conscientiousness": {
+        "precision": 0.23076923076923078,
+        "recall": 0.225,
+        "f1": 0.22784810126582278,
+        "support": 80
+      },
+      "Extraversion": {
+        "precision": 0.3723404255319149,
+        "recall": 0.4861111111111111,
+        "f1": 0.42168674698795183,
+        "support": 72
+      },
+      "Neuroticism": {
+        "precision": 0.18666666666666668,
+        "recall": 0.1346153846153846,
+        "f1": 0.1564245810055866,
+        "support": 104
+      },
+      "Openness": {
+        "precision": 0.4024390243902439,
+        "recall": 0.4583333333333333,
+        "f1": 0.42857142857142855,
+        "support": 72
+      }
+    },
+    "confusion_matrix": [
+      [
+        24,
+        26,
+        9,
+        6,
+        15
+      ],
+      [
+        24,
+        18,
+        14,
+        11,
+        13
+      ],
+      [
+        1,
+        8,
+        35,
+        25,
+        3
+      ],
+      [
+        22,
+        15,
+        35,
+        14,
+        18
+      ],
+      [
+        8,
+        11,
+        1,
+        19,
+        33
+      ]
+    ],
+    "label_order": [
+      "Agreeableness",
+      "Conscientiousness",
+      "Extraversion",
+      "Neuroticism",
+      "Openness"
+    ],
+    "macro": {
+      "precision": 0.2992025631424974,
+      "recall": 0.3208119658119658,
+      "f1": 0.307283530056724
+    },
+    "weighted": {
+      "precision": 0.2891244844549551,
+      "recall": 0.30392156862745096,
+      "f1": 0.293788079809678
+    }
+  },
+  "batch_size": 32,
+  "learning_rate": 0.0001,
+  "optimizer": "Adam",
+  "seed": 42,
+  "device": "cuda",
+  "dataset_fingerprint": "7ee490622698377d",
+  "n_train": 3260,
+  "n_val": 408,
+  "torch_version": "2.14.1+cu126",
+  "torchvision_version": "0.29.1+cu126",
+  "created_utc": "2026-11-17T21:58:30+00:00"
+}

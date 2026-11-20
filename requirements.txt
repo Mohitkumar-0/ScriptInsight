@@ -16,6 +16,7 @@ scikit-image==0.22.0
 torch==2.2.2
 torchvision==0.17.2
 matplotlib==3.8.4
+waitress==3.0.2  # production server for Windows (gunicorn does not run on Windows)
 
 # Legacy Keras ResNet50 demo model (best_model.h5).
 # tensorflow-metal is intentionally NOT installed: on Apple GPUs it corrupted this model's outputs.

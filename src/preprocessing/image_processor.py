@@ -30,6 +30,7 @@ class DecodedImage:
     width: int
     height: int
     format: str               # format detected from the file content, e.g. 'JPEG'
+    rgb: np.ndarray = None    # uint8, H x W x 3 colour version, used only by the handwriting validator
 
 
 def _extension(filename):
@@ -73,7 +74,9 @@ def decode_image(data, filename='', min_side=None):
             'too_small',
             f'Image is too small ({width}x{height}). Minimum size is {min_side}x{min_side} pixels.', 422)
 
-    return DecodedImage(gray=_to_gray(image), width=width, height=height, format=detected)
+    image = _flatten_alpha(image)
+    rgb = np.asarray(image.convert('RGB'), dtype=np.uint8)
+    return DecodedImage(gray=_to_gray(image), width=width, height=height, format=detected, rgb=rgb)
 
 
 def decode_image_file(path, min_side=None):
@@ -81,21 +84,49 @@ def decode_image_file(path, min_side=None):
     return decode_image(path.read_bytes(), path.name, min_side=min_side)
 
 
-def _to_gray(image):
-    """Convert to 8-bit grayscale, compositing any transparency onto white paper."""
+def _flatten_alpha(image):
+    """Composite any transparency onto white paper."""
     if image.mode in ('RGBA', 'LA') or (image.mode == 'P' and 'transparency' in image.info):
         rgba = image.convert('RGBA')
         background = Image.new('RGBA', rgba.size, (255, 255, 255, 255))
         image = Image.alpha_composite(background, rgba)
-    return np.asarray(image.convert('L'), dtype=np.uint8)
+    return image
 
 
-def standardize_gray(gray, size=config.IMAGE_SIZE, denoise=config.DENOISE):
-    """Resize to size x size and optionally apply 3x3 Gaussian noise suppression (uint8 output)."""
+def _to_gray(image):
+    """Convert to 8-bit grayscale, compositing any transparency onto white paper."""
+    return np.asarray(_flatten_alpha(image).convert('L'), dtype=np.uint8)
+
+
+def standardize_gray(gray, size=config.IMAGE_SIZE, denoise=config.DENOISE, fit='stretch'):
+    """Resize to size x size and optionally apply 3x3 Gaussian noise suppression (uint8 output).
+
+    fit='stretch' : resize both sides to ``size`` (aspect ratio not kept; original behaviour).
+    fit='pad'     : keep the aspect ratio, so stroke slant and letter proportions survive, and centre the
+                    image on a square filled with its median gray (an estimate of the paper colour).
+    """
     if denoise:
         gray = cv2.GaussianBlur(gray, (3, 3), 0)
+    if fit == 'pad':
+        h, w = gray.shape
+        scale = size / max(h, w)
+        new_w, new_h = max(1, round(w * scale)), max(1, round(h * scale))
+        interpolation = cv2.INTER_AREA if scale < 1 else cv2.INTER_LINEAR
+        resized = cv2.resize(gray, (new_w, new_h), interpolation=interpolation)
+        canvas = np.full((size, size), int(np.median(gray)), dtype=np.uint8)
+        top, left = (size - new_h) // 2, (size - new_w) // 2
+        canvas[top:top + new_h, left:left + new_w] = resized
+        return canvas
+    if fit != 'stretch':
+        raise ValueError(f'Unknown resize mode: {fit!r}')
     interpolation = cv2.INTER_AREA if min(gray.shape) > size else cv2.INTER_LINEAR
     return cv2.resize(gray, (size, size), interpolation=interpolation)
+
+
+def prepare_gray(gray, prep):
+    """Deterministic preprocessing described by a model's saved ``preprocessing`` dict. Training and
+    inference both call this, so a checkpoint is always fed images prepared exactly as in training."""
+    return standardize_gray(gray, size=prep['size'], denoise=prep['denoise'], fit=prep.get('fit', 'stretch'))
 
 
 def resnet18_tensor(gray_224):

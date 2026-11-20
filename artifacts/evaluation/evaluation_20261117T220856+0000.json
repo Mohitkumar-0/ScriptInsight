@@ -1,0 +1,717 @@
+{
+  "created_utc": "2026-11-17T22:08:56+00:00",
+  "manifest": "C:\\Users\\Asus\\Desktop\\pd\\HandParsona\\artifacts\\splits\\manifest.csv",
+  "dataset": {
+    "dataset_fingerprint": "7ee490622698377d",
+    "label_mode": "multiclass",
+    "label_names": [
+      "Agreeableness",
+      "Conscientiousness",
+      "Extraversion",
+      "Neuroticism",
+      "Openness"
+    ],
+    "seed": 42,
+    "grouping": "filename_regex:^(.+?)-\\d",
+    "n_samples": 4076,
+    "n_groups": 221,
+    "distribution": {
+      "train": {
+        "n": 3260,
+        "class_count": {
+          "Agreeableness": 697,
+          "Conscientiousness": 619,
+          "Extraversion": 544,
+          "Neuroticism": 792,
+          "Openness": 608
+        }
+      },
+      "val": {
+        "n": 408,
+        "class_count": {
+          "Agreeableness": 80,
+          "Conscientiousness": 80,
+          "Extraversion": 72,
+          "Neuroticism": 104,
+          "Openness": 72
+        }
+      },
+      "test": {
+        "n": 408,
+        "class_count": {
+          "Agreeableness": 80,
+          "Conscientiousness": 80,
+          "Extraversion": 72,
+          "Neuroticism": 104,
+          "Openness": 72
+        }
+      }
+    },
+    "warnings": [
+      "Dataset has ONE category per image. Models trained on it choose one of five categories; they do not predict five independent Big Five trait levels.",
+      "DEMO ONLY: these labels have no documented source, each category was photographed in one session, and the same writers appear in several categories. Accuracy here reflects photo session and writer, not personality."
+    ]
+  },
+  "split_used": "test",
+  "n_test": 408,
+  "models": {
+    "svm": {
+      "display_name": "SVM (HOG + LBP)",
+      "artifact": "svm.joblib",
+      "artifact_sha256_16": "78e13524dea90dd9",
+      "score_type": "platt_probability",
+      "validation_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.38480392156862747,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.5588235294117647,
+            "recall": 0.475,
+            "f1": 0.5135135135135135,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.19047619047619047,
+            "recall": 0.1,
+            "f1": 0.13114754098360656,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.42748091603053434,
+            "recall": 0.5384615384615384,
+            "f1": 0.4765957446808511,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.3333333333333333,
+            "recall": 0.7638888888888888,
+            "f1": 0.4641350210970464,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            38,
+            4,
+            0,
+            1,
+            37
+          ],
+          [
+            9,
+            8,
+            1,
+            34,
+            28
+          ],
+          [
+            12,
+            21,
+            0,
+            32,
+            7
+          ],
+          [
+            9,
+            0,
+            1,
+            56,
+            38
+          ],
+          [
+            0,
+            9,
+            0,
+            8,
+            55
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.30202279385036457,
+          "recall": 0.3754700854700855,
+          "f1": 0.31707836405500356
+        },
+        "weighted": {
+          "precision": 0.3147107668093431,
+          "recall": 0.38480392156862747,
+          "f1": 0.3297954983469742
+        }
+      },
+      "test_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.3284313725490196,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.1206896551724138,
+            "recall": 0.0875,
+            "f1": 0.10144927536231885,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.5128205128205128,
+            "recall": 0.5,
+            "f1": 0.5063291139240507,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.9333333333333333,
+            "recall": 0.19444444444444445,
+            "f1": 0.3218390804597701,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.34285714285714286,
+            "recall": 0.23076923076923078,
+            "f1": 0.27586206896551724,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.2620320855614973,
+            "recall": 0.6805555555555556,
+            "f1": 0.3783783783783784,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            7,
+            4,
+            0,
+            26,
+            43
+          ],
+          [
+            10,
+            40,
+            0,
+            5,
+            25
+          ],
+          [
+            35,
+            15,
+            14,
+            4,
+            4
+          ],
+          [
+            5,
+            8,
+            1,
+            24,
+            66
+          ],
+          [
+            1,
+            11,
+            0,
+            11,
+            49
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.4343465459489801,
+          "recall": 0.33865384615384614,
+          "f1": 0.3167715834180071
+        },
+        "weighted": {
+          "precision": 0.42255947661030585,
+          "recall": 0.3284313725490196,
+          "f1": 0.3130578023325246
+        },
+        "latency_ms": {
+          "mean": 44.300859068743215,
+          "median": 43.512050000572344,
+          "p95": 51.63833500046166,
+          "n": 408,
+          "note": "model inference only (after decoding), single image, CPU"
+        }
+      },
+      "validation_accuracy_target": {
+        "applicable": false,
+        "reason": "Per-trait accuracy needs independent trait labels (multilabel task)."
+      },
+      "config": {
+        "selected_params": {
+          "C": 1.0,
+          "gamma": 0.0001
+        },
+        "feature_version": "hog9-c16-b2_lbp8r1-g4_lbp16r2_v1",
+        "denoise": true,
+        "seed": 42
+      }
+    },
+    "random_forest": {
+      "display_name": "Random Forest (HOG + LBP)",
+      "artifact": "random_forest.joblib",
+      "artifact_sha256_16": "cbadfa5a1a11f36e",
+      "score_type": "vote_fraction",
+      "validation_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.36764705882352944,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.2890625,
+            "recall": 0.4625,
+            "f1": 0.3557692307692308,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.3103448275862069,
+            "recall": 0.1125,
+            "f1": 0.1651376146788991,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.3716216216216216,
+            "recall": 0.5288461538461539,
+            "f1": 0.4365079365079365,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.5697674418604651,
+            "recall": 0.6805555555555556,
+            "f1": 0.620253164556962,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            37,
+            7,
+            1,
+            22,
+            13
+          ],
+          [
+            24,
+            9,
+            3,
+            44,
+            0
+          ],
+          [
+            40,
+            2,
+            0,
+            20,
+            10
+          ],
+          [
+            26,
+            0,
+            9,
+            55,
+            14
+          ],
+          [
+            1,
+            11,
+            4,
+            7,
+            49
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.30815927821365874,
+          "recall": 0.3568803418803419,
+          "f1": 0.31553358930260567
+        },
+        "weighted": {
+          "precision": 0.31280512418994777,
+          "recall": 0.36764705882352944,
+          "f1": 0.3228617668646497
+        }
+      },
+      "test_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.37745098039215685,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.14634146341463414,
+            "recall": 0.15,
+            "f1": 0.14814814814814814,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.42,
+            "recall": 0.2625,
+            "f1": 0.3230769230769231,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.7037037037037037,
+            "recall": 0.5277777777777778,
+            "f1": 0.6031746031746031,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.31896551724137934,
+            "recall": 0.3557692307692308,
+            "f1": 0.33636363636363636,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.4339622641509434,
+            "recall": 0.6388888888888888,
+            "f1": 0.5168539325842697,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            12,
+            8,
+            3,
+            34,
+            23
+          ],
+          [
+            10,
+            21,
+            4,
+            35,
+            10
+          ],
+          [
+            30,
+            2,
+            38,
+            1,
+            1
+          ],
+          [
+            27,
+            7,
+            7,
+            37,
+            26
+          ],
+          [
+            3,
+            12,
+            2,
+            9,
+            46
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.4045945897021322,
+          "recall": 0.3869871794871795,
+          "f1": 0.3855234486695161
+        },
+        "weighted": {
+          "precision": 0.3931168640975705,
+          "recall": 0.37745098039215685,
+          "f1": 0.3757889177805459
+        },
+        "latency_ms": {
+          "mean": 88.06966666641387,
+          "median": 88.71165000164183,
+          "p95": 102.17435999729786,
+          "n": 408,
+          "note": "model inference only (after decoding), single image, CPU"
+        }
+      },
+      "validation_accuracy_target": {
+        "applicable": false,
+        "reason": "Per-trait accuracy needs independent trait labels (multilabel task)."
+      },
+      "config": {
+        "selected_params": {
+          "n_estimators": 300,
+          "max_depth": null,
+          "max_features": "sqrt"
+        },
+        "feature_version": "hog9-c16-b2_lbp8r1-g4_lbp16r2_v1",
+        "denoise": true,
+        "seed": 42
+      }
+    },
+    "resnet18": {
+      "display_name": "ResNet18 (fine-tuned)",
+      "artifact": "resnet18_best.pt",
+      "artifact_sha256_16": "b39630bf89ace1b6",
+      "score_type": "softmax_probability",
+      "validation_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.30392156862745096,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.3037974683544304,
+            "recall": 0.3,
+            "f1": 0.3018867924528302,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.23076923076923078,
+            "recall": 0.225,
+            "f1": 0.22784810126582278,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.3723404255319149,
+            "recall": 0.4861111111111111,
+            "f1": 0.42168674698795183,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.18666666666666668,
+            "recall": 0.1346153846153846,
+            "f1": 0.1564245810055866,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.4024390243902439,
+            "recall": 0.4583333333333333,
+            "f1": 0.42857142857142855,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            24,
+            26,
+            9,
+            6,
+            15
+          ],
+          [
+            24,
+            18,
+            14,
+            11,
+            13
+          ],
+          [
+            1,
+            8,
+            35,
+            25,
+            3
+          ],
+          [
+            22,
+            15,
+            35,
+            14,
+            18
+          ],
+          [
+            8,
+            11,
+            1,
+            19,
+            33
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.2992025631424974,
+          "recall": 0.3208119658119658,
+          "f1": 0.307283530056724
+        },
+        "weighted": {
+          "precision": 0.2891244844549551,
+          "recall": 0.30392156862745096,
+          "f1": 0.293788079809678
+        }
+      },
+      "test_metrics": {
+        "task": "multiclass",
+        "n": 408,
+        "accuracy": 0.27205882352941174,
+        "chance_accuracy_majority": 0.2549019607843137,
+        "per_class": {
+          "Agreeableness": {
+            "precision": 0.10526315789473684,
+            "recall": 0.05,
+            "f1": 0.06779661016949153,
+            "support": 80
+          },
+          "Conscientiousness": {
+            "precision": 0.07142857142857142,
+            "recall": 0.0625,
+            "f1": 0.06666666666666667,
+            "support": 80
+          },
+          "Extraversion": {
+            "precision": 0.5,
+            "recall": 0.5694444444444444,
+            "f1": 0.5324675324675324,
+            "support": 72
+          },
+          "Neuroticism": {
+            "precision": 0.22340425531914893,
+            "recall": 0.20192307692307693,
+            "f1": 0.21212121212121213,
+            "support": 104
+          },
+          "Openness": {
+            "precision": 0.3225806451612903,
+            "recall": 0.5555555555555556,
+            "f1": 0.40816326530612246,
+            "support": 72
+          }
+        },
+        "confusion_matrix": [
+          [
+            4,
+            4,
+            10,
+            34,
+            28
+          ],
+          [
+            22,
+            5,
+            6,
+            22,
+            25
+          ],
+          [
+            0,
+            9,
+            41,
+            13,
+            9
+          ],
+          [
+            6,
+            36,
+            19,
+            21,
+            22
+          ],
+          [
+            6,
+            16,
+            6,
+            4,
+            40
+          ]
+        ],
+        "label_order": [
+          "Agreeableness",
+          "Conscientiousness",
+          "Extraversion",
+          "Neuroticism",
+          "Openness"
+        ],
+        "macro": {
+          "precision": 0.2445353259607495,
+          "recall": 0.2878846153846154,
+          "f1": 0.2574430573462051
+        },
+        "weighted": {
+          "precision": 0.23675291017320846,
+          "recall": 0.27205882352941174,
+          "f1": 0.24642913148823986
+        },
+        "latency_ms": {
+          "mean": 22.707646813810868,
+          "median": 22.15125000293483,
+          "p95": 24.842185000670725,
+          "n": 408,
+          "note": "model inference only (after decoding), single image, CPU"
+        }
+      },
+      "validation_accuracy_target": {
+        "applicable": false,
+        "reason": "Per-trait accuracy needs independent trait labels (multilabel task)."
+      },
+      "config": {
+        "pretrained": "torchvision ResNet18_Weights.IMAGENET1K_V1",
+        "freeze_backbone": true,
+        "best_epoch": 10,
+        "preprocessing": {
+          "size": 224,
+          "denoise": true,
+          "channels": "grayscale x3",
+          "mean": [
+            0.485,
+            0.456,
+            0.406
+          ],
+          "std": [
+            0.229,
+            0.224,
+            0.225
+          ]
+        },
+        "seed": 42
+      }
+    }
+  },
+  "skipped": {},
+  "warnings": [
+    "Majority-class baseline: always predicting Neuroticism scores accuracy 0.255 and macro-F1 0.081 on this test split. A model that does not clearly beat this has learned nothing useful."
+  ],
+  "baseline_majority_class": {
+    "class": "Neuroticism",
+    "accuracy": 0.2549019607843137,
+    "macro_f1": 0.08125
+  },
+  "plots": [
+    "confusion_svm.png",
+    "confusion_random_forest.png",
+    "confusion_resnet18.png",
+    "resnet18_loss.png"
+  ]
+}

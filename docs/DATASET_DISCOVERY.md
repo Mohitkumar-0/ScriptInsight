@@ -1,5 +1,16 @@
 # Dataset discovery report (23 Oct 2026)
 
+> **Update (18 Nov 2026).** The Kaggle set "Personality Prediction using Handwriting images" was found and used
+> to train the SVM / Random Forest / ResNet18 classifiers as **demo models only**. It is the legacy model's own
+> data (4,076 augmented images from 221 photos), has no documented label source, one photo session per category
+> and overlapping writers. See [KAGGLE_DEMO_DATASET.md](KAGGLE_DEMO_DATASET.md). The conclusion below (no
+> *validated* labelled dataset was found) still stands. HWxPI could not be obtained.
+
+> **Update (23 Oct 2026, later).** The project owner downloaded **HiEnWrite** (Hindi-English handwriting with
+> five numerical Big Five scores; CC BY-NC 4.0). It is now used for *experimental five-trait regression*;
+> see [HIENWRITE.md](HIENWRITE.md). It does not provide binary or categorical labels, so the conclusion below
+> still holds for the SVM / Random Forest / ResNet18 **classifiers**.
+
 **Result: no usable labelled handwriting dataset was found.** SVM, Random Forest and ResNet18 training
 are therefore blocked. No labels were invented and no substitute dataset was used.
 

@@ -1,11 +1,13 @@
-"""Inference for the fine-tuned ResNet18 checkpoint. Never falls back to random weights."""
+"""Inference for fine-tuned ResNet18 checkpoints (classification or HiEnWrite regression).
+Never falls back to random weights."""
 from pathlib import Path
 
+import numpy as np
 import torch
 
 from src.errors import ModelUnavailableError
 from src.deep_learning.model import build_resnet18, outputs_to_scores
-from src.preprocessing.image_processor import resnet18_tensor, standardize_gray
+from src.preprocessing.image_processor import prepare_gray, resnet18_tensor
 
 
 class ResNet18Model:
@@ -30,13 +32,21 @@ class ResNet18Model:
         self.display_name = meta.get('display_name', 'ResNet18')
         self.label_mode = meta['label_mode']
         self.label_names = meta['label_names']
+        if self.label_mode == 'regression':
+            self.target_mean = np.asarray(meta['target_mean'], dtype=np.float64)
+            self.target_std = np.asarray(meta['target_std'], dtype=np.float64)
+
+    def preprocess(self, gray):
+        """Model input tensor (1, 3, H, W), prepared exactly as during training."""
+        return torch.from_numpy(resnet18_tensor(prepare_gray(gray, self.metadata['preprocessing'])))[None]
 
     def predict_gray(self, gray):
-        prep = self.metadata['preprocessing']
-        x = torch.from_numpy(resnet18_tensor(standardize_gray(gray, size=prep['size'], denoise=prep['denoise'])))
         with torch.inference_mode():
-            scores = outputs_to_scores(self.model(x[None]), self.label_mode)[0].tolist()
-        scores = dict(zip(self.label_names, map(float, scores)))
+            outputs = self.model(self.preprocess(gray))
+        if self.label_mode == 'regression':
+            values = outputs[0].double().numpy() * self.target_std + self.target_mean  # back to the raw score scale
+            return {'task': 'regression', 'scores': dict(zip(self.label_names, map(float, values)))}
+        scores = dict(zip(self.label_names, map(float, outputs_to_scores(outputs, self.label_mode)[0].tolist())))
         if self.label_mode == 'multilabel':
             return {'task': 'multilabel', 'scores': scores,
                     'levels': {t: 'high' if p >= 0.5 else 'low' for t, p in scores.items()}}

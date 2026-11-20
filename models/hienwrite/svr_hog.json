@@ -1,0 +1,700 @@
+{
+  "model_name": "hienwrite_svr",
+  "display_name": "HiEnWrite SVR (HOG) \u00b7 experimental",
+  "dataset": "HiEnWrite",
+  "experimental": true,
+  "label_mode": "regression",
+  "task": "regression",
+  "label_names": [
+    "Extraversion",
+    "Agreeableness",
+    "Conscientiousness",
+    "Neuroticism",
+    "Openness"
+  ],
+  "csv_columns": {
+    "Extraversion": "Extroversion",
+    "Agreeableness": "Agreeableness",
+    "Conscientiousness": "Conscientiousness",
+    "Neuroticism": "Neuroticism",
+    "Openness": "Openness to Experience"
+  },
+  "score_type": "regression_score",
+  "estimator": "per-trait RBF SVR (scaled features, optional PCA, standardised target)",
+  "feature_set": "hog",
+  "feature_version": "hog9-c16-b2_lbp8r1-g4_lbp16r2_v1",
+  "feature_dim": 6262,
+  "preprocessing": {
+    "size": 224,
+    "denoise": true,
+    "fit": "pad"
+  },
+  "denoise": true,
+  "selected_params": {
+    "Extraversion": {
+      "pca": null,
+      "C": 0.3,
+      "epsilon": 0.5
+    },
+    "Agreeableness": {
+      "pca": null,
+      "C": 0.3,
+      "epsilon": 0.5
+    },
+    "Conscientiousness": {
+      "pca": null,
+      "C": 0.3,
+      "epsilon": 0.5
+    },
+    "Neuroticism": {
+      "pca": null,
+      "C": 1.0,
+      "epsilon": 0.5
+    },
+    "Openness": {
+      "pca": 64,
+      "C": 1.0,
+      "epsilon": 0.5
+    }
+  },
+  "grid": {
+    "pca": [
+      64,
+      null
+    ],
+    "C": [
+      0.3,
+      1.0,
+      3.0
+    ],
+    "epsilon": [
+      0.1,
+      0.5
+    ]
+  },
+  "search": {
+    "Extraversion": [
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.309877692467839
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.196085901318647
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.5262469604659845
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.499447834343721
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.907342976531889
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.783080101239173
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.182826361420319
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.086890175731007
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.453107204367822
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.348942258198934
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.754610786416665
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.521151956070953
+      }
+    ],
+    "Agreeableness": [
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.387777054900157
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.3852891180078
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.772483604226987
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.588168764378702
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.0066587230513395
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.817152241867737
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.298044739179352
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.283315067480641
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.534416858312056
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.412957258266854
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.628982002063367
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.5511333546157395
+      }
+    ],
+    "Conscientiousness": [
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.897823529378513
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.83766523213397
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.000746687706747
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.004540735103179
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.243683146554336
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 6.131191862366009
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.855784111472986
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.824365689146824
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.00081071609063
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.930975665546971
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 6.162073789640214
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.978183567522881
+      }
+    ],
+    "Neuroticism": [
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.666666942370634
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.452711888596819
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.7916181490847025
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.3594686208256945
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.689194835952282
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.451499710862926
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.501889090900978
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.372034099075269
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.543759269884831
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.23487617068658
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 5.4044779634817735
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 5.275859131846503
+      }
+    ],
+    "Openness": [
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.84126802980513
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.826705666578654
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.909575477706845
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.81039904328975
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.973545095142425
+      },
+      {
+        "params": {
+          "pca": 64,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.910404733778754
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.8293382466882875
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 0.3,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.861708545996124
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.87573388845561
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 1.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.83841287024303
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.1
+        },
+        "val_rmse": 4.868026715221503
+      },
+      {
+        "params": {
+          "pca": null,
+          "C": 3.0,
+          "epsilon": 0.5
+        },
+        "val_rmse": 4.8741485819587655
+      }
+    ]
+  },
+  "selection_metric": "validation RMSE per trait",
+  "validation_metrics": {
+    "task": "regression",
+    "n": 87,
+    "per_trait": {
+      "Extraversion": {
+        "n": 87,
+        "mae": 5.093453973312708,
+        "rmse": 6.086890175731007,
+        "r2": -0.0885875118176449,
+        "pearson_r": -0.09251671178437434,
+        "pearson_p": 0.39405476432202463,
+        "target_mean": 20.183908045977013,
+        "target_std": 5.867785001911322,
+        "prediction_mean": 18.8881394819717,
+        "prediction_std": 0.7402195366882256
+      },
+      "Agreeableness": {
+        "n": 87,
+        "mae": 3.5444684496795884,
+        "rmse": 4.283315067480641,
+        "r2": -0.11469792519180211,
+        "pearson_r": -0.1530373259899959,
+        "pearson_p": 0.15702681823497078,
+        "target_mean": 25.75862068965517,
+        "target_std": 4.080485371383971,
+        "prediction_mean": 26.32591031641444,
+        "prediction_std": 0.78058174137368
+      },
+      "Conscientiousness": {
+        "n": 87,
+        "mae": 4.748156292996331,
+        "rmse": 5.824365689146824,
+        "r2": -0.02896965114778438,
+        "pearson_r": 0.0018001544199108231,
+        "pearson_p": 0.9867973074467545,
+        "target_mean": 24.367816091954023,
+        "target_std": 5.77507664809446,
+        "prediction_mean": 24.213750066825092,
+        "prediction_std": 0.9811057452572504
+      },
+      "Neuroticism": {
+        "n": 87,
+        "mae": 4.584328470592004,
+        "rmse": 5.23487617068658,
+        "r2": 0.0019135253625115478,
+        "pearson_r": 0.13810242411244272,
+        "pearson_p": 0.20208822646966185,
+        "target_mean": 20.057471264367816,
+        "target_std": 5.270268343724287,
+        "prediction_mean": 20.628013406290535,
+        "prediction_std": 1.1116251395635162
+      },
+      "Openness": {
+        "n": 43,
+        "mae": 3.9956060363858814,
+        "rmse": 4.81039904328975,
+        "r2": -0.03327248669478711,
+        "pearson_r": 0.15476991112032976,
+        "pearson_p": 0.32169736203462684,
+        "target_mean": 23.976744186046513,
+        "target_std": 4.788320970728194,
+        "prediction_mean": 24.81410490944504,
+        "prediction_std": 1.5119421014868588
+      }
+    },
+    "macro": {
+      "mae": 4.393202644593302,
+      "rmse": 5.2479692292669595,
+      "r2": -0.05272280989790139,
+      "pearson_r": 0.009823690375662613,
+      "nrmse": 0.8752652177979183
+    },
+    "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+    "label_order": [
+      "Extraversion",
+      "Agreeableness",
+      "Conscientiousness",
+      "Neuroticism",
+      "Openness"
+    ]
+  },
+  "target_stats": {
+    "Extraversion": {
+      "n": 405,
+      "mean": 18.987654320987655,
+      "std": 6.7748329911834775,
+      "min": 0.0,
+      "max": 40.0
+    },
+    "Agreeableness": {
+      "n": 405,
+      "mean": 26.45432098765432,
+      "std": 4.8930150604571425,
+      "min": 11.0,
+      "max": 40.0
+    },
+    "Conscientiousness": {
+      "n": 405,
+      "mean": 24.224691358024693,
+      "std": 6.161311959753006,
+      "min": 7.0,
+      "max": 40.0
+    },
+    "Neuroticism": {
+      "n": 405,
+      "mean": 20.938271604938272,
+      "std": 6.546001876688741,
+      "min": 3.0,
+      "max": 37.0
+    },
+    "Openness": {
+      "n": 209,
+      "mean": 25.636363636363637,
+      "std": 5.610071487771087,
+      "min": 8.0,
+      "max": 40.0
+    }
+  },
+  "n_train": 405,
+  "n_val": 87,
+  "n_train_per_trait": {
+    "Extraversion": 405,
+    "Agreeableness": 405,
+    "Conscientiousness": 405,
+    "Neuroticism": 405,
+    "Openness": 209
+  },
+  "dataset_fingerprint": "efe899f06db72c1d",
+  "split_seed": 42,
+  "seed": 42,
+  "sklearn_version": "1.9.1",
+  "created_utc": "2026-10-22T20:01:33+00:00"
+}

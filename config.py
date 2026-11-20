@@ -64,6 +64,19 @@ EVALUATION_DIR = ARTIFACTS_DIR / 'evaluation'
 SPLITS_DIR = ARTIFACTS_DIR / 'splits'
 LEGACY_RECORDS_PATH = ARTIFACTS_DIR / 'legacy_resnet50' / 'recorded_metrics.json'
 
+# HiEnWrite (Checker, Yadav & Katarya, ACM TALLIP 2025; CC BY-NC 4.0): five numerical Big Five scores per
+# image -> five-target REGRESSION. Kept separate from the classification pipelines above (see docs/HIENWRITE.md).
+HIENWRITE_ROOT = Path(_env('HIENWRITE_ROOT', str(Path.home() / 'Downloads' / 'HiEnWrite-Dataset-main')))
+HIENWRITE_ARTIFACTS_DIR = ARTIFACTS_DIR / 'hienwrite'
+HIENWRITE_VALIDATION_DIR = HIENWRITE_ARTIFACTS_DIR / 'validation'
+HIENWRITE_SPLITS_DIR = HIENWRITE_ARTIFACTS_DIR / 'splits'
+HIENWRITE_EVALUATION_DIR = HIENWRITE_ARTIFACTS_DIR / 'evaluation'
+HIENWRITE_MODELS_DIR = MODELS_DIR / 'hienwrite'
+HIENWRITE_SVR_PATH = HIENWRITE_MODELS_DIR / 'svr_hog.joblib'
+HIENWRITE_RF_PATH = HIENWRITE_MODELS_DIR / 'random_forest_hog_lbp.joblib'
+HIENWRITE_RESNET18_PATH = HIENWRITE_MODELS_DIR / 'resnet18_regression.pt'
+HIENWRITE_RESNET18_HISTORY_PATH = HIENWRITE_MODELS_DIR / 'resnet18_regression_history.json'
+
 # Report requirement NFR: >= 85% validation accuracy for these traits.
 ACCURACY_TARGET = 0.85
 ACCURACY_TARGET_TRAITS = ['Openness', 'Conscientiousness']

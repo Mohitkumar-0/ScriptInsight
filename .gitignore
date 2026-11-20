@@ -10,8 +10,8 @@ uploads/*
 !uploads/.gitkeep
 
 # Datasets are obtained separately (see docs/DATASET.md)
-data/
-datasets/
+/data/
+/datasets/
 
 # Large binary model weights (>100 MB) are kept out of git; see README "Model artifacts"
 *.h5
@@ -19,6 +19,18 @@ models/**/*.joblib
 models/**/*.pt
 artifacts/features/
 
+# Split manifest of the Kaggle demo data: absolute local paths and file names that contain people's names
+artifacts/splits/manifest.csv
+
 # OS / editor
 .DS_Store
+._*
+Thumbs.db
 node_modules/
+
+# Local diagnostic output (scripts/phase2_baseline.ps1)
+phase2_*.txt
+
+# HiEnWrite smoke-test outputs and checkpoint candidates
+artifacts/hienwrite/smoke/
+artifacts/hienwrite/runs/

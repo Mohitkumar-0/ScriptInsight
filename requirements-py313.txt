@@ -1,0 +1,23 @@
+# Pinned versions of the working Python 3.13 environment (.venv313), read from its installed packages
+# on 17 Nov 2026. The tests pass (121 passed, 4 skipped) and the three HiEnWrite models load with this set.
+# CPU-only PyTorch comes from the PyTorch index:
+#   pip install -r requirements-py313.txt --extra-index-url https://download.pytorch.org/whl/cpu
+# The legacy ResNet50 model additionally needs TensorFlow. Verified working on Windows 11 / Python 3.13.3:
+#   tensorflow==2.21.0 (Keras 3.15.1, numpy 2.5.5 unchanged). Install with scripts\add_legacy_tensorflow.ps1.
+tensorflow==2.21.0
+Flask==3.0.0
+Werkzeug==3.1.9
+numpy==2.5.5
+scipy==1.18.1
+scikit-learn==1.9.1
+scikit-image==0.26.0
+opencv-python-headless==4.10.0.84
+Pillow==13.0.0
+h5py==3.16.0
+joblib==1.6.0
+matplotlib==3.10.0
+torch==2.14.1
+torchvision==0.29.1
+typing_extensions==4.16.0
+pytest==8.3.3
+waitress==3.0.2

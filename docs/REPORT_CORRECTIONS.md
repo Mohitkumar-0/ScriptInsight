@@ -80,3 +80,22 @@ evidence show (as of 23 Oct 2026), and a suggested correction.
   `src/evaluation/evaluate.py`, once models are trained.
 - Results screen with dominant category and confidence, progress bars, plain-language trait descriptions,
   model comparison table, report export and session history.
+
+
+## E. HiEnWrite regression (added 23 Oct 2026; the original report is unchanged)
+
+If the report is extended to cover the HiEnWrite work, keep these points:
+
+- [ ] **Different dataset and task.** HiEnWrite (Checker, Yadav & Katarya, ACM TALLIP 2025,
+  doi:10.1145/3756010) supplies five *numerical* self-reported scores. The new models are **five-output
+  regressors** evaluated with MAE, RMSE, R² and Pearson r. Do not present them as HWxPI results, as
+  classifiers, or as comparable with the legacy ResNet50's 30.3% accuracy.
+- [ ] **Cite the dataset and state its licence.** CC BY-NC 4.0: attribution, non-commercial use only.
+- [ ] **Report the measured results honestly** (docs/HIENWRITE.md): on the 86-image test split, macro RMSE
+  is 5.40 (SVR), 5.41 (Random Forest) and 5.87 (ResNet18), against **5.24 for predicting the training
+  mean**. Correlations are about 0. No model beats the baseline.
+- [ ] **State the data problems found.** Openness is constant (24) for all Hindi rows and was masked. 30
+  images are missing and 8 are unreadable. Duplicate photographs filed under different participants with
+  conflicting labels were excluded. Writer ids are inferred from image ids.
+- [ ] **Keep the disclaimer.** Handwriting has not been shown to determine personality. These are research
+  models trained on self-reported labels.

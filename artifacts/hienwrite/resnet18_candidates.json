@@ -1,0 +1,45 @@
+{
+  "selection_rule": "lowest validation loss (masked MSE, standardised targets); test split not used",
+  "selected": "frozen224",
+  "candidates": [
+    {
+      "run": "r224",
+      "flags": "--epochs 40 --image-size 224 (full fine-tune, lr 1e-4)",
+      "best_epoch": 2,
+      "epochs_run": 10,
+      "validation_loss": 0.9168,
+      "val_macro_rmse": 5.674,
+      "val_macro_mae": 4.721,
+      "val_macro_pearson_r": 0.146,
+      "val_nrmse": 0.936,
+      "device": "mps",
+      "training_seconds": 44.3
+    },
+    {
+      "run": "frozen224",
+      "flags": "--epochs 60 --freeze-backbone --lr 1e-3 (linear probe on ImageNet features)",
+      "best_epoch": 12,
+      "epochs_run": 20,
+      "validation_loss": 0.8143,
+      "val_macro_rmse": 5.391,
+      "val_macro_mae": 4.495,
+      "val_macro_pearson_r": 0.096,
+      "val_nrmse": 0.896,
+      "device": "mps",
+      "training_seconds": 33.4
+    },
+    {
+      "run": "r384_lr3e-5",
+      "flags": "--epochs 40 --lr 3e-5 --image-size 384 (full fine-tune)",
+      "best_epoch": 1,
+      "epochs_run": 9,
+      "validation_loss": 0.8208,
+      "val_macro_rmse": 5.386,
+      "val_macro_mae": 4.376,
+      "val_macro_pearson_r": 0.1,
+      "val_nrmse": 0.895,
+      "device": "mps",
+      "training_seconds": 100.4
+    }
+  ]
+}

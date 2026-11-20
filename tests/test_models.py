@@ -9,7 +9,7 @@ from src.deep_learning.model import build_resnet18
 from src.deep_learning.predict_resnet18 import ResNet18Model
 from src.errors import ModelUnavailableError
 from src.preprocessing.image_processor import decode_image_file
-from tests.conftest import SAMPLE, synthetic_writer_image
+from tests.conftest import LEGACY_AVAILABLE, SAMPLE, synthetic_writer_image
 
 
 def test_resnet18_architecture_and_head():
@@ -68,7 +68,7 @@ def test_resnet18_multiclass_outputs_sum_to_one(tmp_path):
     assert out['predicted_label'] == max(out['scores'], key=out['scores'].get)
 
 
-@pytest.mark.skipif(not config.LEGACY_MODEL_PATH.exists(), reason='best_model.h5 not present')
+@pytest.mark.skipif(not LEGACY_AVAILABLE, reason='legacy model needs best_model.h5 and a working TensorFlow')
 def test_legacy_model_loads_trained_weights_and_is_deterministic():
     from src.deep_learning.legacy_resnet50 import LegacyResNet50Model
     model = LegacyResNet50Model()
@@ -82,3 +82,9 @@ def test_legacy_model_loads_trained_weights_and_is_deterministic():
     assert first['predicted_label'] == 'Openness' and abs(first['confidence'] - 0.3678) < 0.002
     # A random-weight or GPU-corrupted model would saturate at ~1.0; the trained model does not.
     assert max(model.predict_gray(np.full((300, 300), 255, np.uint8))['scores'].values()) < 0.95
+
+
+def test_artifact_from_incompatible_environment_is_reported(tmp_path):
+    (tmp_path / 'bad.joblib').write_bytes(b'not a pickle')
+    with pytest.raises(ModelUnavailableError, match='Retrain'):
+        ClassicalModel(tmp_path / 'bad.joblib')

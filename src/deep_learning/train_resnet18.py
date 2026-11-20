@@ -95,7 +95,7 @@ def run_epoch(model, loader, loss_fn, device, optimizer=None):
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
-            total += float(loss) * len(x)
+            total += float(loss.detach()) * len(x)
             count += len(x)
             outputs.append(logits.detach().cpu())
             targets.append(y.cpu())

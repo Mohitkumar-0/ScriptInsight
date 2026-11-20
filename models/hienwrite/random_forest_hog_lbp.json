@@ -1,0 +1,378 @@
+{
+  "model_name": "hienwrite_rf",
+  "display_name": "HiEnWrite Random Forest (HOG + LBP) \u00b7 experimental",
+  "dataset": "HiEnWrite",
+  "experimental": true,
+  "label_mode": "regression",
+  "task": "regression",
+  "label_names": [
+    "Extraversion",
+    "Agreeableness",
+    "Conscientiousness",
+    "Neuroticism",
+    "Openness"
+  ],
+  "csv_columns": {
+    "Extraversion": "Extroversion",
+    "Agreeableness": "Agreeableness",
+    "Conscientiousness": "Conscientiousness",
+    "Neuroticism": "Neuroticism",
+    "Openness": "Openness to Experience"
+  },
+  "score_type": "regression_score",
+  "estimator": "per-trait RandomForestRegressor",
+  "feature_set": "hog_lbp",
+  "feature_version": "hog9-c16-b2_lbp8r1-g4_lbp16r2_v1",
+  "feature_dim": 6262,
+  "preprocessing": {
+    "size": 224,
+    "denoise": true,
+    "fit": "pad"
+  },
+  "denoise": true,
+  "selected_params": {
+    "Extraversion": {
+      "n_estimators": 500,
+      "max_features": "sqrt",
+      "min_samples_leaf": 20
+    },
+    "Agreeableness": {
+      "n_estimators": 500,
+      "max_features": "sqrt",
+      "min_samples_leaf": 20
+    },
+    "Conscientiousness": {
+      "n_estimators": 500,
+      "max_features": 0.1,
+      "min_samples_leaf": 5
+    },
+    "Neuroticism": {
+      "n_estimators": 500,
+      "max_features": "sqrt",
+      "min_samples_leaf": 5
+    },
+    "Openness": {
+      "n_estimators": 500,
+      "max_features": 0.1,
+      "min_samples_leaf": 5
+    }
+  },
+  "grid": {
+    "n_estimators": [
+      500
+    ],
+    "max_features": [
+      "sqrt",
+      0.1
+    ],
+    "min_samples_leaf": [
+      5,
+      20
+    ]
+  },
+  "search": {
+    "Extraversion": [
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 6.256067198289741
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 6.108966357306166
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 6.252926550114466
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 6.150847698350098
+      }
+    ],
+    "Agreeableness": [
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 4.206235464703073
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 4.156975065068739
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 4.231219809379144
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 4.1954420265600865
+      }
+    ],
+    "Conscientiousness": [
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 5.8339749881867125
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 5.835603582073769
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 5.807272576244684
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 5.851247588668686
+      }
+    ],
+    "Neuroticism": [
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 5.32657218715435
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 5.343207651632452
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 5.377806390071764
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 5.388926331535917
+      }
+    ],
+    "Openness": [
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 4.8006420518642825
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": "sqrt",
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 4.8547820427061845
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 5
+        },
+        "val_rmse": 4.746412956996822
+      },
+      {
+        "params": {
+          "n_estimators": 500,
+          "max_features": 0.1,
+          "min_samples_leaf": 20
+        },
+        "val_rmse": 4.841897241836412
+      }
+    ]
+  },
+  "selection_metric": "validation RMSE per trait",
+  "validation_metrics": {
+    "task": "regression",
+    "n": 87,
+    "per_trait": {
+      "Extraversion": {
+        "n": 87,
+        "mae": 5.07652690766897,
+        "rmse": 6.108966357306166,
+        "r2": -0.0964980982528505,
+        "pearson_r": -0.07280575284591598,
+        "pearson_p": 0.5027590375679062,
+        "target_mean": 20.183908045977013,
+        "target_std": 5.867785001911322,
+        "prediction_mean": 18.907197172010314,
+        "prediction_std": 0.9351715899676025
+      },
+      "Agreeableness": {
+        "n": 87,
+        "mae": 3.36211879341888,
+        "rmse": 4.156975065068739,
+        "r2": -0.04990980079745233,
+        "pearson_r": -0.03089487629799273,
+        "pearson_p": 0.7763582299356735,
+        "target_mean": 25.75862068965517,
+        "target_std": 4.080485371383971,
+        "prediction_mean": 26.33945477174322,
+        "prediction_std": 0.5850019340598881
+      },
+      "Conscientiousness": {
+        "n": 87,
+        "mae": 4.710647176600262,
+        "rmse": 5.807272576244684,
+        "r2": -0.022938956425077706,
+        "pearson_r": 0.03605868833545006,
+        "pearson_p": 0.7402092260862467,
+        "target_mean": 24.367816091954023,
+        "target_std": 5.77507664809446,
+        "prediction_mean": 24.187682385641814,
+        "prediction_std": 1.0889164223750896
+      },
+      "Neuroticism": {
+        "n": 87,
+        "mae": 4.6209115974695445,
+        "rmse": 5.326572187154349,
+        "r2": -0.033358410265375005,
+        "pearson_r": 0.050966807079044704,
+        "pearson_p": 0.6392013364371537,
+        "target_mean": 20.057471264367816,
+        "target_std": 5.270268343724287,
+        "prediction_mean": 20.857005321314965,
+        "prediction_std": 0.8619188728173067
+      },
+      "Openness": {
+        "n": 43,
+        "mae": 3.978260853932933,
+        "rmse": 4.746412956996821,
+        "r2": -0.005966916706533931,
+        "pearson_r": 0.24400232322957688,
+        "pearson_p": 0.11483686599633977,
+        "target_mean": 23.976744186046513,
+        "target_std": 4.788320970728194,
+        "prediction_mean": 25.184725414523836,
+        "prediction_std": 1.079389087016362
+      }
+    },
+    "macro": {
+      "mae": 4.349693065818117,
+      "rmse": 5.229239828554152,
+      "r2": -0.04173443648945789,
+      "pearson_r": 0.04546543790003259,
+      "nrmse": 0.870718453662589
+    },
+    "aggregation": "macro = unweighted mean over traits of each per-trait metric (traits where it is defined)",
+    "label_order": [
+      "Extraversion",
+      "Agreeableness",
+      "Conscientiousness",
+      "Neuroticism",
+      "Openness"
+    ]
+  },
+  "target_stats": {
+    "Extraversion": {
+      "n": 405,
+      "mean": 18.987654320987655,
+      "std": 6.7748329911834775,
+      "min": 0.0,
+      "max": 40.0
+    },
+    "Agreeableness": {
+      "n": 405,
+      "mean": 26.45432098765432,
+      "std": 4.8930150604571425,
+      "min": 11.0,
+      "max": 40.0
+    },
+    "Conscientiousness": {
+      "n": 405,
+      "mean": 24.224691358024693,
+      "std": 6.161311959753006,
+      "min": 7.0,
+      "max": 40.0
+    },
+    "Neuroticism": {
+      "n": 405,
+      "mean": 20.938271604938272,
+      "std": 6.546001876688741,
+      "min": 3.0,
+      "max": 37.0
+    },
+    "Openness": {
+      "n": 209,
+      "mean": 25.636363636363637,
+      "std": 5.610071487771087,
+      "min": 8.0,
+      "max": 40.0
+    }
+  },
+  "n_train": 405,
+  "n_val": 87,
+  "n_train_per_trait": {
+    "Extraversion": 405,
+    "Agreeableness": 405,
+    "Conscientiousness": 405,
+    "Neuroticism": 405,
+    "Openness": 209
+  },
+  "dataset_fingerprint": "efe899f06db72c1d",
+  "split_seed": 42,
+  "seed": 42,
+  "sklearn_version": "1.9.1",
+  "created_utc": "2026-10-22T20:01:49+00:00"
+}

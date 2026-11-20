@@ -47,10 +47,13 @@ Neuroticism = 1 − STA.
    <https://chalearnlap.cvc.uab.cat/dataset/29/description/> and accept its terms. The data is not
    redistributable from this repository.
 2. Convert each labelled split, e.g. the development data:
-   ```bash
-   python -m src.data.hwxpi --data-file path/to/train.data --solution-file path/to/train.solution \
-       --image-root path/to/hwxpi --out data/hwxpi
+   ```powershell
+   .\.venv313tf\Scripts\python.exe -m src.data.hwxpi `
+       --data-file C:\Users\Asus\Desktop\pd\hwxpi_raw\train.data `
+       --solution-file C:\Users\Asus\Desktop\pd\hwxpi_raw\train.solution `
+       --image-root C:\Users\Asus\Desktop\pd\hwxpi_raw --out data\hwxpi
    ```
+   (Paths are examples: use wherever you saved the files. `data\` is git-ignored.)
    Only splits with `.solution` files have labels. The challenge's final test set was unlabelled.
 3. Split and train (see the README): `python -m src.data.dataset --data-root data/hwxpi`, and so on.
 
